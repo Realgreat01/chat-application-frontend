@@ -29,3 +29,5 @@ coverage
 *.sw?
 bin.yaml
 bin
+.env
+.env.example
