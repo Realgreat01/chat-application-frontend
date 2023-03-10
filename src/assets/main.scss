@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist&display=swap');
+html {
+	font-size: 62.5%;
+}
+body {
+	font-family: 'Urbanist', sans-serif;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+.test {
+	color: #039640;
+}
+
+.scroll {
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}

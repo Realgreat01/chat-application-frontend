@@ -1,0 +1,131 @@
+<template>
+	<div
+		class="fixed top-0 left-0 z-50 flex h-screen w-screen flex-col items-center justify-center bg-gray-800 p-10">
+		<div
+			class="mx-auto flex w-full flex-col items-center justify-center rounded bg-gray-900 p-[2rem] md:w-1/3">
+			<div class="relative w-full">
+				<span
+					style="top: 0; font-size: 2rem"
+					class="material-icons absolute right-0 block cursor-pointer text-brand"
+					@click="router.replace('/')"
+					>cancel</span
+				>
+				<h1 class="mb-5 mt-10 text-center text-4xl font-bold text-brand">
+					Log<span class="text-white">In</span>
+				</h1>
+				<form
+					class="mx-auto mt-10 w-full p-2 text-2xl"
+					@submit.prevent="signIn">
+					<div
+						v-for="(credential, index) in userCredentials"
+						:key="index"
+						class="my-2">
+						<label
+							:for="credential.value"
+							class="mt-4 block font-bold capitalize text-brand">
+							{{ credential.title }}
+						</label>
+						<div class="relative">
+							<input
+								:type="credential.type"
+								:id="credential.value"
+								:placeholder="'enter your ' + credential.title"
+								:style="formError !== '' ? 'border: 1px solid red' : ''"
+								:class="
+									userDetails[credential.value] === ''
+										? ''
+										: 'border border-brand'
+								"
+								v-model="userDetails[credential.value]"
+								class="relative block w-full rounded border bg-transparent p-2 text-xl placeholder:lowercase" />
+							<div
+								v-if="credential.value === 'password'"
+								class="absolute top-2 right-3 flex pr-6">
+								<span
+									class="material-icons absolute top-1/2 cursor-pointer"
+									v-if="credential.type === 'password'"
+									@click="credential.type = 'text'"
+									>visibility
+								</span>
+								<span
+									v-else
+									class="material-icons absolute top-1/2 cursor-pointer"
+									@click="credential.type = 'password'"
+									>visibility_off</span
+								>
+							</div>
+						</div>
+					</div>
+
+					<p class="font-mono text-lg text-red-600">
+						{{ formError }}
+					</p>
+
+					<div class="my-4 flex w-full justify-between">
+						<div class="h-16 w-full rounded bg-brand ring-transparent">
+							<ButtonComponent
+								:loading="loading"
+								customClass=""
+								type="submit" />
+						</div>
+					</div>
+					<div class="mx-auto mt-8 flex justify-center">
+						<router-link :to="{name: 'register'}">
+							<p class="cursor-pointer text-brand text-opacity-50">
+								Create Account
+							</p></router-link
+						>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script setup>
+import {ref} from 'vue';
+import Message from 'vue-m-message';
+import axios from '@/axios';
+import {useRouter} from 'vue-router';
+import ButtonComponent from '@/components/reusables/ButtonComponent.vue';
+
+const router = useRouter();
+const loading = ref(false);
+const userDetails = ref({});
+
+const formError = ref('');
+
+const userCredentials = ref([
+	{
+		title: 'Username',
+		value: 'username',
+		type: 'text',
+	},
+	{
+		title: 'Password',
+		value: 'password',
+		type: 'password',
+	},
+]);
+
+const signIn = async () => {
+	try {
+		loading.value = true;
+		{
+			const {data} = await axios.post('/login', userDetails.value);
+			const {token, username} = data;
+			formError.value = '';
+			Message.success('Login Successsful', {duration: 1000, position: 'top-right'});
+			sessionStorage.setItem('auth-token', token);
+			setTimeout(() => {
+				router.replace({name: 'all-chats'});
+			}, 500);
+		}
+	} catch (error) {
+		const {data} = error.response;
+		formError.value = data.error;
+	} finally {
+		loading.value = false;
+	}
+};
+</script>
