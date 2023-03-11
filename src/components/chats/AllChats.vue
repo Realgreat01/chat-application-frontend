@@ -80,23 +80,7 @@ onBeforeMount(async () => {
 	state.getCurrentUser();
 	state.getAllUsers();
 });
-onMounted(() => {
-	console.log(Boolean(state.chatHistory.length));
-	const arr = [];
-	if (arr.length) {
-		console.log('The array is truthy');
-	} else {
-		console.log('The array is falsy');
-	}
 
-	if (Array.isArray(arr) && state.chatHistory.length === 0) {
-		console.log('The array is empty');
-	} else {
-		console.log('The array is not empty');
-	}
-
-	console.log(state.chatHistory.length);
-});
 </script>
 
 <style lang="scss" scoped></style>

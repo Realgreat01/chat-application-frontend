@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="scroll sticky bottom-20 flex h-full w-full flex-col text-sm"
-		v-if="messageIsSorted">
+		v-show="messageIsSorted">
 		<div
 			v-for="(message, index) in messages"
 			:key="index"
@@ -42,13 +42,13 @@ defineProps({
 onMounted(() => {
 	setTimeout(() => {
 		messageIsSorted.value = true;
-	}, 500);
+	}, 1000);
 });
 </script>
 
 <style scoped>
 .sender {
-	@apply self-end rounded-tl-3xl rounded-br-3xl bg-gray-300 text-black;
+	@apply self-end rounded-tl-3xl rounded-br-3xl bg-gray-900 text-gray-50;
 }
 
 .receiver {

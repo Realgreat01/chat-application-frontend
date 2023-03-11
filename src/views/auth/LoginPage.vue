@@ -2,7 +2,7 @@
 	<div
 		class="fixed top-0 left-0 z-50 flex h-screen w-screen flex-col items-center justify-center bg-gray-800 p-10">
 		<div
-			class="mx-auto flex w-full flex-col items-center justify-center rounded bg-gray-900 p-[2rem] md:w-1/3">
+			class="mx-auto flex w-full flex-col items-center justify-center rounded bg-brand-dark p-[2rem] md:w-1/3">
 			<div class="relative w-full">
 				<span
 					style="top: 0; font-size: 2rem"
@@ -33,12 +33,12 @@
 								:placeholder="'enter your ' + credential.title"
 								:style="formError ? 'border: 1px solid red' : ''"
 								:class="
-									userDetails[credential.value] === ''
-										? 'border'
-										: 'border border-brand'
+									userDetails[credential.value]
+										? 'border-brand'
+										: ' border-gray-800'
 								"
 								v-model="userDetails[credential.value]"
-								class="relative block w-full rounded bg-transparent p-2 text-xl placeholder:lowercase focus:border-brand focus:outline-none focus:ring-transparent" />
+								class="relative block w-full rounded border bg-transparent p-2 text-xl placeholder:lowercase focus:border-brand focus:outline-none focus:ring-transparent" />
 							<div
 								v-if="credential.value === 'password'"
 								class="absolute top-2 right-3 mr-10 flex">
@@ -62,17 +62,19 @@
 						{{ formError }}
 					</p>
 
-					<div class="my-4 flex w-full justify-between">
-						<div class="h-16 w-full rounded bg-brand ring-transparent">
-							<ButtonComponent
-								:loading="loading"
-								customClass=""
-								type="submit" />
-						</div>
+					<div
+						class="my-4 flex h-[3.5rem] w-full items-center justify-center rounded-lg bg-[#10965e] text-2xl font-bold hover:shadow-2xl hover:shadow-brand">
+						<ButtonComponent
+							text="Login"
+							type="submit"
+							:loading="loading"
+							customClass="focus:scale-105"
+							loadingText="Signing In .." />
 					</div>
-					<div class="mx-auto mt-8 flex justify-center">
+					<div class="mx-auto mt-8 flex items-center justify-center gap-x-4">
+						<p class="">Not a user</p>
 						<router-link :to="{name: 'register'}">
-							<p class="cursor-pointer text-brand text-opacity-50">
+							<p class="cursor-pointer text-brand text-opacity-70">
 								Create Account
 							</p></router-link
 						>

@@ -62,13 +62,6 @@ socket.on('connect', async () => {
 	socket.emit('connected-user', sender.value);
 });
 
-socket.on('error', error => console.log(error));
-socket.on('get-message-from-server', data => {
-	window.scrollTo({left: 0, top: document.body.scrollHeight, behavior: 'smooth'});
-	messages.value = data;
-});
-socket.on('hello', value => console.log(value));
-
 const sendMessage = async () => {
 	socket.emit(
 		'send-message-to-server',
@@ -82,6 +75,11 @@ const sendMessage = async () => {
 	messageInput.value = '';
 	window.scrollTo({left: 0, top: document.body.scrollHeight, behavior: 'smooth'});
 };
+
+socket.on('get-message-from-server', data => {
+	window.scrollTo({left: 0, top: document.body.scrollHeight, behavior: 'smooth'});
+	messages.value = data;
+});
 
 const getUserChatWithRecepient = async receiver_id => {
 	const {data} = await axios.get('/chats/' + receiver_id);
@@ -102,6 +100,7 @@ onMounted(async () => {
 		await getCurrentUser();
 	} catch (error) {}
 });
+
 onMounted(() => window.scrollTo(-1, document.body.scrollHeight));
 onUpdated(() => window.scrollTo(-1, document.body.scrollHeight));
 </script>

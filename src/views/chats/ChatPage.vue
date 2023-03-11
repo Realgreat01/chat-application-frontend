@@ -2,7 +2,7 @@
 	<div
 		class="scroll mx-auto flex min-h-screen w-full flex-col rounded-t-lg bg-gray-800 transition delay-150 ease-in-out md:w-1/3">
 		<div
-			class="fixed top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">
+			class="sticky top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">
 			<div class="flex h-full flex-col items-start justify-center">
 				<RouterLink
 					class="material-icons rotate-180 cursor-pointer text-gray-700"
@@ -32,17 +32,19 @@
 				</h2>
 			</div>
 			<div class="flex flex-col items-end">
-				<img
-					:src="receiver.profile_picture"
-					alt=""
-					class="block h-20 w-20 rounded-full bg-gray-900"
-					v-if="receiver.profile_picture" />
-				<h2
-					class="material-icons cursor-pointer"
-					style="font-size: 50px"
-					v-else>
-					account_circle
-				</h2>
+				<RouterLink :to="{name: 'private-chat', params: {username: receiver.username}}">
+					<img
+						:src="receiver.profile_picture"
+						alt=""
+						class="block h-20 w-20 rounded-full bg-gray-900"
+						v-if="receiver.profile_picture" />
+					<h2
+						class="material-icons cursor-pointer"
+						style="font-size: 50px"
+						v-else>
+						account_circle
+					</h2>
+				</RouterLink>
 				<h2 class="w-full py-4 text-right text-3xl text-gray-700">
 					@{{ receiver.username }}
 				</h2>

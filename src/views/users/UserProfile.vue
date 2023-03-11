@@ -1,6 +1,8 @@
 <template>
-	<div class="scroll relative mx-auto flex h-screen w-full flex-col bg-brand-dark md:w-1/3">
-		<div class="mb-10 flex h-fit w-full items-center justify-between rounded-lg bg-brand p-4">
+	<div
+		class="scroll mx-auto flex min-h-screen w-full flex-col rounded-t-lg bg-gray-800 transition delay-150 ease-in-out md:w-1/3">
+		<div
+			class="fixed top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">
 			<div class="flex h-full flex-col items-start justify-center">
 				<RouterLink
 					class="material-icons rotate-180 cursor-pointer text-gray-700"
