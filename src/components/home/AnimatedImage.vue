@@ -1,9 +1,9 @@
 <template>
-	<div class="w-full h-[41.6rem]">
+	<div class="h-fit w-full md:h-[41.6rem]">
 		<img
 			:src="AnimatedImage"
 			alt=""
-			class="w-full block h-full" />
+			class="bg-clip block h-full w-full" />
 	</div>
 </template>
 

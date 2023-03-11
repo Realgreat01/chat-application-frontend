@@ -2,20 +2,31 @@
 	<div class="scroll relative mx-auto flex h-screen w-full flex-col bg-brand-dark md:w-1/3">
 		<div class="mb-10 flex h-fit w-full items-center justify-between rounded-lg bg-brand p-4">
 			<h2 class="my-10 text-6xl font-black">My Profile</h2>
-			<RouterLink
-				class="material-icons cursor-pointer"
-				style="font-size: 50px"
-				:to="{name: 'all-chats'}">
-				home
-			</RouterLink>
+			<div class="flex flex-col items-end gap-y-10">
+				<RouterLink
+					class="material-icons cursor-pointer"
+					style="font-size: 30px"
+					:to="{name: 'all-chats'}">
+					home
+				</RouterLink>
+				<RouterLink
+					class="material-icons cursor-pointer text-gray-700"
+					style="font-size: 20px"
+					:to="{name: 'home'}"
+					@click="logout">
+					logout
+				</RouterLink>
+			</div>
 		</div>
 
 		<div class="flex flex-col items-center justify-center">
 			<div class="relative">
-				<img
-					class="my-10 block h-60 w-60 rounded-full border-[0.5rem] border-white"
-					:src="user.profile_picture"
-					alt="" />
+				<div class="my-10 block h-60 w-60 rounded-full border-[0.5rem] border-white">
+					<img
+						class=""
+						:src="user.profile_picture"
+						alt="" />
+				</div>
 				<span
 					class="material-icons absolute bottom-0 right-1 text-brand"
 					style="font-size: 50px">
@@ -53,6 +64,10 @@ const getUserProfile = async () => {
 	} catch (error) {}
 };
 
+const logout = () => {
+	sessionStorage.removeItem('auth-token');
+	localStorage.removeItem('auth-token');
+};
 onMounted(() => getUserProfile());
 </script>
 

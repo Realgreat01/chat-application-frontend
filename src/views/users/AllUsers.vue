@@ -1,7 +1,15 @@
 <template>
 	<div class="scroll relative mx-auto flex h-screen w-full flex-col bg-brand-dark md:w-1/3">
 		<div class="mb-2 flex h-fit w-full items-center justify-between rounded-lg bg-brand p-4">
-			<h2 class="my-10 text-6xl font-black">Users</h2>
+			<div class="flex h-full flex-col items-start justify-center">
+				<RouterLink
+					:to="{name: 'all-chats'}"
+					class="material-icons block rotate-180 cursor-pointer text-gray-700"
+					style="font-size: 40px">
+					arrow_right_alt
+				</RouterLink>
+				<h2 class="mb-10 text-6xl font-black">Users</h2>
+			</div>
 			<RouterLink
 				class="cursor-pointer"
 				:to="{name: 'user'}">
@@ -12,16 +20,19 @@
 					v-if="user.profile_picture" />
 				<p
 					class="material-icons"
-					style="font-size: 50px">
+					style="font-size: 50px"
+					v-else>
 					account_circle
 				</p>
 			</RouterLink>
 		</div>
 
-		<div class="scroll h-full overflow-y-scroll">
+		<div
+			class="scroll h-full overflow-y-scroll"
+			v-if="state.allUsers">
 			<RouterLink
-				:to="{name: 'single-user', params: {username: user.username}}"
-				v-for="user in AllUsers"
+				:to="{name: 'single-user', params: {username: user?.username}}"
+				v-for="user in state.allUsers"
 				class="sticky top-0 mx-4 mt-4 flex cursor-pointer items-start rounded-lg border-2 border-transparent border-y-gray-900 bg-slate-700 p-4">
 				<img
 					:src="
@@ -47,27 +58,24 @@
 		<router-link
 			:to="{name: 'all-chats'}"
 			style="font-size: 30px"
-			class="material-icons sticky bottom-6 left-5 block w-fit self-end rounded-full border p-4">
+			class="material-icons absolute bottom-10 right-8 block w-fit self-end rounded-full border p-4">
 			message
 		</router-link>
 	</div>
 </template>
 
 <script setup>
-import {ref, onMounted} from 'vue';
+import {ref, onMounted, onBeforeMount} from 'vue';
 import axios from '@/axios';
+import {ConversationStore} from '@/stores/conversation-details.js';
+import {RouterLink} from 'vue-router';
+const state = ConversationStore();
 
-const AllUsers = ref([]);
 const user = ref({});
-const getAllUsers = async () => {
-	const {data} = await axios.get('/users');
-	AllUsers.value = data;
-	console.log(data);
-};
 
-onMounted(async () => {
+onBeforeMount(async () => {
 	const {data} = await axios.get('/user');
 	user.value = data;
-	getAllUsers();
+	state.getAllUsers();
 });
 </script>

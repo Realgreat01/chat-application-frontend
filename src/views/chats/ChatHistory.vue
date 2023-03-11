@@ -4,33 +4,28 @@
 		<router-link
 			:to="{name: 'all-users'}"
 			style="font-size: 30px"
-			class="material-icons absolute bottom-6 right-5 block rounded-full border p-4">
+			class="material-icons absolute bottom-8 right-10 block rounded-full border p-4">
 			person_add_alt
 		</router-link>
 	</div>
 </template>
 
 <script setup>
-import {onMounted, ref} from 'vue';
-import {io} from 'socket.io-client';
-import axios from '@/axios';
 import AllChats from '@/components/chats/AllChats.vue';
+import {onMounted, onBeforeMount} from 'vue';
+import {ConversationStore} from '@/stores/conversation-details.js';
+const state = ConversationStore();
 
-const socket = io(import.meta.env.VITE_SOCKET_URL);
+onMounted(async () => {
+	state.getChatHistory();
+	state.getCurrentUser();
+	state.getAllUsers();
+});
 
-const sender = ref('');
-
-const getCurrentUser = async () => {
-	const {data} = await axios.get('/user');
-	const {_id: UserID} = data;
-	sender.value = UserID;
-};
-
-onMounted(() => {
-	socket.on('connect', async () => {
-		await getCurrentUser();
-		socket.emit('connected-user', sender.value);
-	});
+onBeforeMount(async () => {
+	state.getChatHistory();
+	state.getCurrentUser();
+	state.getAllUsers();
 });
 </script>
 

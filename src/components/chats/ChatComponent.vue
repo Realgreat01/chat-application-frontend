@@ -1,8 +1,6 @@
 <template>
 	<div
-		class="scroll mb-[6.2rem] mt-[12rem] flex h-fit w-full flex-col justify-between overflow-y-scroll rounded"
-		ref="chatBox"
-		id="chatBox">
+		class="scroll mx-0 mb-[6.2rem] mt-[12rem] flex h-fit w-full flex-col justify-between overflow-y-scroll rounded">
 		<div
 			class=""
 			ref="chatsContainer">
@@ -50,7 +48,7 @@ const currentUser = ref({});
 const receiver = conversationState.receiver;
 
 // Socket IO configuration
-const socket = io(import.meta.env.VITE_SOCKET_URL);
+const socket = io(import.meta.env.VITE_SOCKET_URL, {withCredentials: true});
 
 const getCurrentUser = async () => {
 	const {data} = await axios.get('/user');

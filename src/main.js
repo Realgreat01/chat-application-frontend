@@ -17,9 +17,9 @@ const VMessageOptions = {
 
 const app = createApp(App);
 const pinia = createPinia();
-app.use(createPinia());
+pinia.use(piniaPluginPersistedstate);
+app.use(pinia);
 app.use(router);
 app.use(Message, VMessageOptions);
-pinia.use(piniaPluginPersistedstate);
 
 app.mount('#app');

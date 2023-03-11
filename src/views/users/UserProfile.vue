@@ -1,7 +1,15 @@
 <template>
 	<div class="scroll relative mx-auto flex h-screen w-full flex-col bg-brand-dark md:w-1/3">
 		<div class="mb-10 flex h-fit w-full items-center justify-between rounded-lg bg-brand p-4">
-			<h2 class="my-10 text-6xl font-black">User Profile</h2>
+			<div class="flex h-full flex-col items-start justify-center">
+				<RouterLink
+					class="material-icons rotate-180 cursor-pointer text-gray-700"
+					style="font-size: 40px"
+					:to="{name: 'all-chats'}">
+					arrow_right_alt
+				</RouterLink>
+				<h2 class="mb-10 text-6xl font-black">Chat</h2>
+			</div>
 			<RouterLink
 				class="material-icons cursor-pointer"
 				style="font-size: 50px"

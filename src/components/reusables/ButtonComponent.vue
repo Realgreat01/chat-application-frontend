@@ -8,7 +8,7 @@
 		<div
 			v-if="loading === false"
 			@click="$emit('click')"
-			class="block rounded px-4 py-1">
+			class="block rounded px-4 py-1 font-bold">
 			{{ text }}
 		</div>
 		<div

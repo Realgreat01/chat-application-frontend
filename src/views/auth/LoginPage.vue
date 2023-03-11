@@ -28,19 +28,20 @@
 						<div class="relative">
 							<input
 								:type="credential.type"
+								@focus="formError = undefined"
 								:id="credential.value"
 								:placeholder="'enter your ' + credential.title"
-								:style="formError !== '' ? 'border: 1px solid red' : ''"
+								:style="formError ? 'border: 1px solid red' : ''"
 								:class="
 									userDetails[credential.value] === ''
-										? ''
+										? 'border'
 										: 'border border-brand'
 								"
 								v-model="userDetails[credential.value]"
-								class="relative block w-full rounded border bg-transparent p-2 text-xl placeholder:lowercase" />
+								class="relative block w-full rounded bg-transparent p-2 text-xl placeholder:lowercase focus:border-brand focus:outline-none focus:ring-transparent" />
 							<div
 								v-if="credential.value === 'password'"
-								class="absolute top-2 right-3 flex pr-6">
+								class="absolute top-2 right-3 mr-10 flex">
 								<span
 									class="material-icons absolute top-1/2 cursor-pointer"
 									v-if="credential.type === 'password'"
@@ -93,7 +94,7 @@ const router = useRouter();
 const loading = ref(false);
 const userDetails = ref({});
 
-const formError = ref('');
+const formError = ref(undefined);
 
 const userCredentials = ref([
 	{
@@ -122,8 +123,7 @@ const signIn = async () => {
 			}, 500);
 		}
 	} catch (error) {
-		const {data} = error.response;
-		formError.value = data.error;
+		formError.value = 'username or password incorrect';
 	} finally {
 		loading.value = false;
 	}

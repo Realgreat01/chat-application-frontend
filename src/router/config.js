@@ -29,10 +29,10 @@ const isLoggedInGuard = (to, from) => {
 };
 
 const privateChatGuard = (to, from) => {
-	// if (from.name !== 'all-chats' || 'single-user')
-	// 	return {
-	// 		name: 'all-chats',
-	// 	};
+	if (from.name !== 'all-chats' && from.name !== 'single-user')
+		return {
+			name: 'all-chats',
+		};
 	return true;
 };
 

@@ -4,7 +4,7 @@
 			:src="Icon"
 			alt=""
 			class="block h-[5rem] md:h-[6rem]" />
-		<h2 class="text-5xl font-semibold text-white">Buzz Chat</h2>
+		<h2 class="text-2xl font-semibold text-white md:text-5xl">Buzz Chat</h2>
 	</div>
 </template>
 

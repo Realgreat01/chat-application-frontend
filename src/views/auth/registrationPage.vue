@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="fixed top-0 left-0 z-50 flex h-screen w-screen items-center justify-center bg-gray-900 p-5 md:p-10">
+		class="relative top-0 left-0 z-50 flex min-h-screen w-screen items-center justify-center overflow-y-scroll bg-gray-900 p-5 md:p-10">
 		<div class="mx-auto flex h-fit w-full rounded p-[0rem] md:w-1/3">
 			<div
 				class="relative h-fit w-full flex-col items-center justify-center bg-brand-dark shadow-xl">
@@ -26,15 +26,11 @@
 							>{{ field.title.replaceAll('_', ' ') }}</label
 						>
 						<input
-							class="relative block w-full rounded border bg-transparent p-2 text-xl placeholder:lowercase"
+							class="relative block w-full rounded border bg-transparent p-2 text-xl placeholder:lowercase focus:border focus:border-brand focus:outline-none focus:ring-transparent"
 							:type="field.type"
-							:style="
-								serverError[field.title]
-									? 'border: 1px solid red'
-									: 'border: 1px solid green'
-							"
+							:style="serverError[field.title] ? 'border: 1px solid red' : ''"
 							:class="
-								UserCredentials[field.title] === '' ? '' : 'border border-brand'
+								UserCredentials[field.title] ? 'border-brand' : 'border-gray-800'
 							"
 							@focus="serverError[field.title] = undefined"
 							:placeholder="'Enter your ' + field.title.replaceAll('_', ' ')"
@@ -69,7 +65,7 @@
 						:class="
 							serverError.gender && !UserCredentials.gender
 								? 'bg-red-600'
-								: 'bg-gray-500'
+								: 'bg-gray-900'
 						"
 						class="relative my-4 flex h-12 w-full cursor-pointer items-center justify-between rounded">
 						<h2 class="mx-2">Choose Your Gender</h2>
@@ -101,7 +97,7 @@
 									class="hidden" />
 								<label
 									:for="gender"
-									class="my-2 flex w-full justify-between rounded bg-[#161817] p-2"
+									class="my-2 flex w-full justify-between rounded bg-gray-800 p-2"
 									:class="
 										UserCredentials.gender === gender
 											? 'bg-slate-100 text-brand-dark'
@@ -123,14 +119,15 @@
 					</div>
 					<!--  -->
 					<div
-						class="my-4 flex h-[3.5rem] w-full items-center justify-center rounded bg-brand text-3xl font-bold">
+						class="my-4 flex h-[3.5rem] w-full items-center justify-center rounded-lg bg-[#10965e] text-2xl font-bold hover:shadow-2xl hover:shadow-brand">
 						<ButtonComponent
 							text="Create Account"
 							type="submit"
 							:loading="loading"
+							customClass="focus:scale-105"
 							loadingText="Creating Account" />
 					</div>
-					<div class="my-4 flex items-center justify-center gap-x-5 text-[1rem]">
+					<div class="my-4 flex items-center justify-center gap-x-5 text-[1.4rem]">
 						<p class="mx-1 block cursor-pointer text-white">Already have an Account?</p>
 
 						<router-link :to="{name: 'login'}">
@@ -153,7 +150,7 @@ import ButtonComponent from '@/components/reusables/ButtonComponent.vue';
 const router = useRouter();
 const loading = ref(false);
 const serverError = ref({});
-const UserCredentials = ref({gender: ''});
+const UserCredentials = ref({});
 
 const showGender = ref(false);
 const genders = ref(['male', 'female', 'others']);
