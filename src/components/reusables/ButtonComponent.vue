@@ -3,6 +3,7 @@
 	<button
 		class="m-0 flex h-full w-full items-center justify-center rounded-[inherit] border-inherit bg-inherit ring-inherit"
 		:type="type"
+		:style="style"
 		:class="customClass"
 		:disabled="loading">
 		<div
@@ -46,6 +47,9 @@ defineProps({
 	customClass: {
 		type: String,
 		default: 'font-normal',
+	},
+	style: {
+		type: Object,
 	},
 });
 </script>

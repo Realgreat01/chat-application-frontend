@@ -1,6 +1,8 @@
 <template>
-	<div class="scroll relative mx-auto flex h-screen w-full flex-col bg-brand-dark md:w-1/3">
-		<div class="mb-10 flex h-fit w-full items-center justify-between rounded-lg bg-brand p-4">
+	<div
+		class="scroll mx-auto flex min-h-screen w-full flex-col rounded-t-lg bg-brand-dark transition delay-150 ease-in-out md:w-1/3">
+		<div
+			class="sticky top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4">
 			<h2 class="my-10 text-6xl font-black">My Profile</h2>
 			<div class="flex flex-col items-end gap-y-10">
 				<RouterLink

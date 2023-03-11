@@ -165,7 +165,6 @@ const forms = ref([
 ]);
 
 const RegisterUser = async () => {
-	console.log(UserCredentials.value);
 
 	if (UserCredentials.value.password === UserCredentials.value.confirm_password) {
 		try {
@@ -174,14 +173,12 @@ const RegisterUser = async () => {
 			sessionStorage.removeItem('auth-token');
 			const {data} = await axios.post('/register', UserCredentials.value);
 			sessionStorage.setItem('auth-token', data.token);
-			console.log(data);
 			router.push({name: 'all-chats'});
 			serverError.value = {};
 			Message.success('Login Successful');
 		} catch (error) {
 			if (error.name.includes('Axios')) {
 				serverError.value = error.response.data;
-				console.log(serverError.value);
 			}
 		} finally {
 			loading.value = false;

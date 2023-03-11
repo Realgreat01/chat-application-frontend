@@ -1,11 +1,11 @@
 <template>
 	<div
-		class="scroll sticky bottom-20 flex h-full w-full flex-col text-sm"
+		class="scroll flex w-full flex-col text-sm"
 		v-show="messageIsSorted">
 		<div
 			v-for="(message, index) in messages"
 			:key="index"
-			class="relative mx-2 my-2 flex w-3/5 flex-col items-start rounded border border-gray-600 p-4"
+			class="relative mx-2 my-2 flex w-3/5 flex-col items-start rounded border border-gray-800 p-4"
 			:class="message.sender._id === sender._id ? 'sender' : 'receiver'">
 			<h2 class="text-2xl">{{ message.message }}</h2>
 			<h3
@@ -24,7 +24,9 @@
 <script setup>
 import {format} from 'timeago.js';
 import {ref, onMounted} from 'vue';
+
 const messageIsSorted = ref(false);
+const chatBox = ref();
 defineProps({
 	messages: {
 		type: Object,
@@ -39,6 +41,7 @@ defineProps({
 		required: true,
 	},
 });
+
 onMounted(() => {
 	setTimeout(() => {
 		messageIsSorted.value = true;

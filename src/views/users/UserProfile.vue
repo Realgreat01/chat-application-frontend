@@ -1,8 +1,8 @@
 <template>
 	<div
-		class="scroll mx-auto flex min-h-screen w-full flex-col rounded-t-lg bg-gray-800 transition delay-150 ease-in-out md:w-1/3">
+		class="scroll mx-auto flex min-h-screen w-full flex-col rounded-t-lg bg-brand-dark transition delay-150 ease-in-out md:w-1/3">
 		<div
-			class="fixed top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">
+			class="sticky top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0">
 			<div class="flex h-full flex-col items-start justify-center">
 				<RouterLink
 					class="material-icons rotate-180 cursor-pointer text-gray-700"
@@ -60,7 +60,6 @@ import {ConversationStore} from '@/stores/conversation-details.js';
 
 const conversationState = ConversationStore();
 const receiver = conversationState.receiver;
-onMounted(() => console.log({receiver}));
 
 const route = useRoute();
 const user = ref({});
@@ -68,7 +67,6 @@ const getUserProfile = async () => {
 	try {
 		const {data} = await axios.get('/user/' + route.params.username);
 		user.value = data;
-		console.log({data});
 	} catch (error) {}
 };
 

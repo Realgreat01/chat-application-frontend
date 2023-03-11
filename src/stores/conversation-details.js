@@ -21,7 +21,6 @@ export const ConversationStore = defineStore('store', {
 		async getChatHistory() {
 			try {
 				const {data} = await axios.get('/chats');
-				console.log(data);
 				this.chatHistory = data;
 				return this.chatHistory;
 			} catch (error) {}

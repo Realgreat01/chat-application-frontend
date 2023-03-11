@@ -1,8 +1,8 @@
 <template>
 	<div
-		class="scroll mx-auto flex min-h-screen w-full flex-col rounded-t-lg bg-gray-900 transition delay-150 ease-in-out md:w-1/3">
+		class="scroll mx-auto flex h-screen w-full flex-col rounded-t-lg bg-brand-dark transition delay-150 ease-in-out md:w-1/3">
 		<div
-			class="sticky top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">
+			class="fixed top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">
 			<div class="flex h-full flex-col items-start justify-center">
 				<RouterLink
 					:to="{name: 'all-chats'}"
@@ -30,12 +30,12 @@
 		</div>
 
 		<div
-			class="scroll h-full overflow-y-scroll"
+			class="scroll h-full overflow-y-scroll pt-[11rem] pb-[1.4rem]"
 			v-if="state.allUsers">
 			<RouterLink
 				:to="{name: 'single-user', params: {username: user?.username}}"
 				v-for="user in state.allUsers"
-				class="sticky top-0 mx-4 mt-4 flex cursor-pointer items-start rounded-lg border-2 border-transparent border-y-gray-900 bg-slate-700 p-4">
+				class="sticky top-0 mx-4 mt-4 flex cursor-pointer items-start rounded-lg border-2 border-transparent border-y-gray-900 bg-slate-800 p-4">
 				<img
 					:src="
 						user.profile_picture || 'https://xsgames.co/randomusers/avatar.php?g=male'
@@ -60,8 +60,11 @@
 		<router-link
 			:to="{name: 'all-chats'}"
 			style="font-size: 30px"
-			class="material-icons fixed bottom-10 right-8 block w-fit self-end rounded-full border p-4">
-			message
+			cck="fixed top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3"
+			class="material-icons fixed bottom-10 mx-auto flex h-fit w-full items-center md:w-1/3">
+			<span class="material-icons absolute right-10 self-end rounded-full border p-4"
+				>message</span
+			>
 		</router-link>
 	</div>
 </template>

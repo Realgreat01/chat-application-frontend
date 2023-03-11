@@ -72,6 +72,7 @@ const router = createRouter({
 					path: ':username',
 					name: 'single-user',
 					props: true,
+					meta: {requiresAuth: false},
 					component: UserProfile,
 				},
 			],
