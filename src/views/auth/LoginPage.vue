@@ -14,7 +14,7 @@
 					Log<span class="text-white">In</span>
 				</h1>
 				<form
-					class="mx-auto mt-10 w-full p-2 text-2xl"
+					class="mx-auto mt-10 w-full p-2"
 					@submit.prevent="signIn">
 					<div
 						v-for="(credential, index) in userCredentials"
@@ -22,7 +22,7 @@
 						class="my-2">
 						<label
 							:for="credential.value"
-							class="mt-4 block font-bold capitalize text-brand">
+							class="mt-4 block text-3xl font-bold capitalize text-brand">
 							{{ credential.title }}
 						</label>
 						<div class="relative">
@@ -38,7 +38,7 @@
 										: ' border-gray-800'
 								"
 								v-model="userDetails[credential.value]"
-								class="relative block w-full rounded border bg-transparent p-2 text-xl placeholder:lowercase focus:border-brand focus:outline-none focus:ring-transparent" />
+								class="relative block w-full rounded border bg-transparent p-2 text-3xl placeholder:lowercase focus:border-brand focus:outline-none focus:ring-transparent" />
 							<div
 								v-if="credential.value === 'password'"
 								class="absolute top-2 right-3 mr-10 flex">
@@ -71,7 +71,7 @@
 							customClass="focus:scale-105"
 							loadingText="Signing In .." />
 					</div>
-					<div class="mx-auto mt-8 flex items-center justify-center gap-x-4">
+					<div class="mx-auto mt-8 flex items-center justify-center gap-x-3 text-2xl">
 						<p class="">Not a user</p>
 						<router-link :to="{name: 'register'}">
 							<p class="cursor-pointer text-brand text-opacity-70">

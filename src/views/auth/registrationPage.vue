@@ -22,11 +22,11 @@
 						class="relative">
 						<label
 							:for="field.title"
-							class="mt-4 block text-xl font-bold capitalize text-brand"
+							class="mt-6 block text-2xl font-bold capitalize text-brand"
 							>{{ field.title.replaceAll('_', ' ') }}</label
 						>
 						<input
-							class="relative block w-full rounded border bg-transparent p-2 text-xl placeholder:lowercase focus:border focus:border-brand focus:outline-none focus:ring-transparent"
+							class="relative block w-full rounded border bg-transparent p-2 text-2xl placeholder:lowercase focus:border focus:border-brand focus:outline-none focus:ring-transparent"
 							:type="field.type"
 							:style="serverError[field.title] ? 'border: 1px solid red' : ''"
 							:class="
@@ -59,7 +59,9 @@
 
 					<!-- Gender -->
 					<!-- Gender -->
-					<label class="mt-4 block text-xl font-bold capitalize text-brand">Gender</label>
+					<label class="mt-6 block text-3xl font-bold capitalize text-brand"
+						>Gender</label
+					>
 					<div
 						@click="showGender = !showGender"
 						:class="
@@ -67,8 +69,8 @@
 								? 'bg-red-600'
 								: 'bg-gray-900'
 						"
-						class="relative my-4 flex h-12 w-full cursor-pointer items-center justify-between rounded">
-						<h2 class="mx-2">Choose Your Gender</h2>
+						class="relative mb-2 flex h-12 w-full cursor-pointer items-center justify-between rounded">
+						<h2 class="mx-2 text-2xl">Choose Your Gender</h2>
 						<i
 							class="material-icons duration-500"
 							style="font-size: 34px"
@@ -97,20 +99,20 @@
 									class="hidden" />
 								<label
 									:for="gender"
-									class="my-2 flex w-full justify-between rounded bg-gray-800 p-2"
+									class="my-4 flex w-full justify-between rounded bg-gray-800 p-2"
 									:class="
 										UserCredentials.gender === gender
 											? 'bg-slate-100 text-brand-dark'
 											: ''
 									">
-									<span class="justify-self-start text-xl capitalize">{{
+									<span class="justify-self-start text-2xl capitalize">{{
 										gender
 									}}</span>
 									<span v-if="UserCredentials.gender === gender">
 										<input
 											type="checkbox"
 											name="skills"
-											class="mr-1 block h-6 w-6 rounded-full text-brand"
+											class="mr-1 block h-6 w-6 rounded-full text-2xl text-brand"
 											id=""
 											checked /></span
 								></label>
@@ -119,7 +121,7 @@
 					</div>
 					<!--  -->
 					<div
-						class="my-4 flex h-[3.5rem] w-full items-center justify-center rounded-lg bg-[#10965e] text-2xl font-bold hover:shadow-2xl hover:shadow-brand">
+						class="my-6 flex h-[3.5rem] w-full items-center justify-center rounded-lg bg-[#10965e] text-2xl font-bold hover:shadow-2xl hover:shadow-brand">
 						<ButtonComponent
 							text="Create Account"
 							type="submit"
@@ -127,7 +129,7 @@
 							customClass="focus:scale-105"
 							loadingText="Creating Account" />
 					</div>
-					<div class="my-4 flex items-center justify-center gap-x-5 text-[1.4rem]">
+					<div class="my-4 flex items-center justify-center gap-x-5 text-[1.5rem]">
 						<p class="mx-1 block cursor-pointer text-white">Already have an Account?</p>
 
 						<router-link :to="{name: 'login'}">
@@ -165,7 +167,6 @@ const forms = ref([
 ]);
 
 const RegisterUser = async () => {
-
 	if (UserCredentials.value.password === UserCredentials.value.confirm_password) {
 		try {
 			serverError.value = {};
