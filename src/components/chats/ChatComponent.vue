@@ -1,32 +1,31 @@
 <template>
-	<div
-		class="scroll w-full"
-		ref="chatMessageBox">
-		<MessageComponent
-			:messages="messages"
-			:sender="currentUser"
-			:receiver="conversationState.receiver" />
+  <div class="scroll w-full" ref="chatMessageBox">
+    <MessageComponent
+      :messages="messages"
+      :sender="currentUser"
+      :receiver="conversationState.receiver"
+    />
 
-		<form
-			class="fixed bottom-0 mx-auto flex h-[6rem] w-full items-center justify-between gap-x-5 bg-slate-700 p-4 md:w-1/3"
-			@submit.prevent="sendMessage"
-			id="">
-			<textarea
-				class="scroll block h-20 w-full appearance-none rounded-full border bg-transparent p-5 text-2xl ring-transparent focus:border-brand focus:outline-none focus:ring-transparent"
-				v-model="messageInput"></textarea>
-			<!-- Prevent implicit submission of the form -->
-			<ButtonComponent custom-class="hidden" />
+    <form
+      class="fixed bottom-0 mx-auto flex h-[6rem] w-full items-center justify-between gap-x-5 bg-slate-700 p-4 md:w-1/3"
+      @submit.prevent="sendMessage"
+      id=""
+    >
+      <textarea
+        class="scroll block h-20 w-full appearance-none rounded-full border bg-transparent p-5 text-2xl ring-transparent focus:border-brand focus:outline-none focus:ring-transparent"
+        v-model="messageInput"
+      ></textarea>
+      <!-- Prevent implicit submission of the form -->
+      <ButtonComponent custom-class="hidden" />
 
-			<button
-				type="submit"
-				class="flex h-20 w-20 items-center justify-center rounded-full border-brand">
-				<img
-					:src="replyIcon"
-					alt=""
-					class="h-16 w-16" />
-			</button>
-		</form>
-	</div>
+      <button
+        type="submit"
+        class="flex h-20 w-20 items-center justify-center rounded-full border-brand"
+      >
+        <img :src="replyIcon" alt="" class="h-16 w-16" />
+      </button>
+    </form>
+  </div>
 </template>
 
 <script setup>

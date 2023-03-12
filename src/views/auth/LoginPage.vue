@@ -118,7 +118,10 @@ const signIn = async () => {
 			const {data} = await axios.post('/login', userDetails.value);
 			const {token, username} = data;
 			formError.value = '';
-			Message.success('Login Successsful', {duration: 1000, position: 'top-right'});
+			Message.success('Login Successsful', {
+				duration: 1000,
+				position: 'top-right',
+			});
 			sessionStorage.setItem('auth-token', token);
 			setTimeout(() => {
 				router.replace({name: 'all-chats'});

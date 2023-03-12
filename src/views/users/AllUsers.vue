@@ -34,22 +34,36 @@
 			v-if="state.allUsers">
 			<RouterLink
 				:to="{name: 'single-user', params: {username: user?.username}}"
-				v-for="user in state.allUsers"
-				class="sticky top-0 mx-4 mt-4 flex cursor-pointer items-start rounded-lg border-2 border-transparent border-y-gray-900 bg-slate-800 p-4">
-				<img
-					:src="
-						user.profile_picture || 'https://xsgames.co/randomusers/avatar.php?g=male'
-					"
-					class="block h-[4rem] w-[4rem] rounded-full bg-white"
-					alt="" />
+				v-for="user in state.allUsers
+					.sort((a, b) => b.is_online - a.is_online)
+					.sort((a, b) => b.last_seen - a.last_seen)"
+				class="sticky top-0 mx-4 mt-4 flex cursor-pointer items-start rounded-lg border-2 border-transparent border-y-gray-900 bg-gray-900 p-4">
+				<div class="relative flex w-fit">
+					<img
+						:src="user.profile_picture"
+						class="block h-[4rem] w-[4rem] rounded-full bg-white"
+						alt="" />
+					<div class="relative top-0 right-5">
+						<span
+							style="font-size: 20px"
+							v-if="user.is_online"
+							class="material-icons text-green-400"
+							>fiber_manual_record <span></span>
+						</span>
+						<span
+							style="font-size: 20px"
+							v-else
+							class="material-icons text-gray-500"
+							>fiber_manual_record</span
+						>
+					</div>
+				</div>
 				<div class="m-2 mx-4">
-					<h2 class="text-2xl font-bold">
-						{{ user.firstname }} {{ user.lastname }} {{ user.fullname }}
-					</h2>
+					<h2 class="text-2xl font-bold">{{ user.firstname }} {{ user.lastname }}</h2>
 					<h2 class="text-xl text-gray-400">@{{ user.username }}</h2>
 				</div>
 				<div>
-					<span class="material-icons">
+					<span class="material-icons text-brand">
 						<span v-if="user.gender === 'male'">male</span>
 						<span v-else-if="user.gender === 'female'">female</span>
 						<span v-else>person</span>

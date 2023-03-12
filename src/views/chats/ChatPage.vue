@@ -110,13 +110,12 @@ const getConversations = async receiver_id => {
 	return data;
 };
 
-const scrollChatDownward = () => {
+const scrollChatDownward = behavior => {
 	chatMessageWrapper.value.scrollTo({
 		top: chatMessageBox.value.scrollHeight,
-		behavior: 'smooth',
+		behavior,
 	});
 };
-
 // Socket IO configuration
 const socket = io(import.meta.env.VITE_SOCKET_URL, {withCredentials: true});
 
@@ -126,21 +125,28 @@ socket.on('connect', async () => {
 	} catch (error) {}
 });
 
+socket.on('get-online-users', users => {
+	state.getChatHistory();
+	state.getAllUsers();
+	state.allUsers = users;
+});
+socket.on('get-message-from-server', data => {
+	messages.value = data;
+});
+
 const sendMessage = async () => {
 	try {
 		socket.emit('send-message-to-server', currentUser._id, receiver._id, messageInput.value);
 		messageInput.value = '';
+		scrollChatDownward('smooth');
 	} catch (error) {}
 };
-socket.on('get-message-from-server', data => {
-	messages.value = data;
-});
 
 onMounted(async () => {
 	try {
 		if (receiver) {
 			messages.value = await getConversations(receiver._id);
-			scrollChatDownward();
+			scrollChatDownward('auto');
 		}
 		setTimeout(() => {
 			chatMessageWrapper.value.scrollTop = chatMessageBox.value.scrollHeight;
@@ -150,5 +156,32 @@ onMounted(async () => {
 });
 
 onBeforeUpdate(() => (chatMessageWrapper.value.scrollTop = chatMessageBox.value.scrollHeight));
-onUpdated(() => scrollChatDownward());
+onUpdated(() => scrollChatDownward('smooth'));
 </script>
+
+<!-- const scrollChatDownward = () => {
+	console.log(chatMessageWrapper.value.scrollHeight);
+};
+// Socket IO configuration
+const socket = io(import.meta.env.VITE_SOCKET_URL, {withCredentials: true});
+
+socket.on('connect', async () => {
+	try {
+		socket.emit('connected-user', currentUser._id);
+		
+	} catch (error) {}
+});
+socket.on('new-user-added', users => {
+	state.getChatHistory()
+	state.getAllUsers()
+	state.allUsers = users;
+});
+
+const sendMessage = async () => {
+	try {
+		socket.emit('send-message-to-server', currentUser._id, receiver._id, messageInput.value);
+		messageInput.value = '';
+	} catch (error) {}
+};
+socket.on('get-message-from-server', data => messages.value = data);
+socket.on("new-online-user", (username)=> state.userConnected(username)) -->

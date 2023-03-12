@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="scroll mx-auto flex min-h-screen w-full flex-col rounded-t-lg bg-brand-dark transition delay-150 ease-in-out md:w-1/3">
+		class="scroll relative mx-auto flex min-h-screen w-full flex-col rounded-t-lg bg-brand-dark transition delay-150 ease-in-out md:w-1/3">
 		<div
 			class="sticky top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4">
 			<h2 class="my-10 text-6xl font-black">My Profile</h2>
@@ -30,7 +30,7 @@
 						alt="" />
 				</div>
 				<span
-					class="material-icons absolute bottom-0 right-1 text-brand"
+					class="material-icons absolute bottom-4 right-4 text-brand"
 					style="font-size: 50px">
 					fiber_manual_record
 				</span>
@@ -38,14 +38,51 @@
 
 			<h2 class="mb-3 mt-5 text-5xl font-bold">{{ user.firstname }} {{ user.lastname }}</h2>
 			<h2 class="mb-2 text-2xl font-normal text-gray-400">@{{ user.username }}</h2>
+
+			<!-- <div class="rounded-full w-1/2" @click="copyLinkToClipBoard">{{ `https://buzz-chat-app.vercel.app/users/${user.username}` }} {{ linkIsCopied? 'copied' : "copy" }}</div> -->
+			<!-- Share container  -->
+			<div
+				class="container flex h-[20rem] w-3/4 flex-col items-center justify-center rounded-xl bg-gray-800 p-4 transition-opacity duration-[1500ms]"
+				v-if="showShareContent">
+				<div
+					class="material-icons absolute top-2 right-2 cursor-pointer rounded-full text-gray-400 hover:bg-gray-500"
+					@click="showShareContent = false">
+					close
+				</div>
+				<h2 class="mt-3 mr-10 text-xl font-medium">{{ inviteCopyTop }}</h2>
+				<h2 class="my-4 text-2xl font-bold">{{ inviteCopyDown }}</h2>
+				<div class="mx-auto flex w-full items-center justify-around">
+					<ShareNetwork
+						v-for="(content, index) in shareComponents"
+						:key="index"
+						:network="content.network"
+						:url="`https://buzz-chat-app.vercel.app/users/${user.username}`"
+						:description="inviteDescription"
+						title="Connect with me on Buzz Chat, enjoy fast and realtime messaging !"
+						hashtags="buzzchat,buzzchat,messaging,realtime,fast,vue,dev,vuejs">
+						<img
+							:src="content.icon"
+							alt=""
+							class="h-12 w-12 rounded-xl bg-gray-900 p-2" />
+					</ShareNetwork>
+				</div>
+			</div>
+
 			<div>
 				<span
-					class="material-icons my-10 block text-brand"
+					class="material-icons my-4 block text-brand"
 					style="font-size: 6rem">
 					<span v-if="user.gender === 'male'">male</span>
 					<span v-else-if="user.gender === 'female'">female</span>
 					<span v-else>person</span>
 				</span>
+			</div>
+			<div
+				class="material-icons-outlined flex h-16 w-16 cursor-pointer items-center justify-center rounded-full p-2"
+				style="font-size: 26px"
+				@click="showShareContent = !showShareContent"
+				:class="showShareContent ? 'bg-brand' : 'bg-gray-900'">
+				share
 			</div>
 
 			<h2 class="mt-10 text-2xl text-gray-500">Joined : {{ format(user.createdAt) }}</h2>
@@ -57,8 +94,38 @@
 import {ref, onMounted} from 'vue';
 import axios from '@/axios';
 import {format} from 'timeago.js';
+import WhatsAppIcon from '@/assets/icons/whatsapp.svg';
+import FacebookIcon from '@/assets/icons/facebook.svg';
+import TwitterIcon from '@/assets/icons/twitter.svg';
+import LinkedinIcon from '@/assets/icons/linkedin.svg';
 
+const inviteCopyTop = ref('Invite your friends to join the party! The more people, the more buzz.');
+const inviteCopyDown = ref("Let's build an awesome community together on BuzzChat!");
+const inviteDescription = ref(
+	"Looking for a new way to socialize in real-time? BuzzChat is the answer! Invite your friends to join you on the platform and experience the excitement of connecting with others in a whole new way. Don't miss out on the fun – start building your BuzzChat community today!"
+);
+const showShareContent = ref(false);
 const user = ref({});
+
+const shareComponents = ref([
+	{
+		network: 'whatsapp',
+		icon: WhatsAppIcon,
+	},
+	{
+		network: 'facebook',
+		icon: FacebookIcon,
+	},
+	{
+		network: 'twitter',
+		icon: TwitterIcon,
+	},
+	{
+		network: 'linkedIn',
+		icon: LinkedinIcon,
+	},
+]);
+
 const getUserProfile = async () => {
 	try {
 		const {data} = await axios.get('/user');
@@ -73,4 +140,11 @@ const logout = () => {
 onMounted(() => getUserProfile());
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.container {
+	position: absolute;
+	top: 60%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+</style>
