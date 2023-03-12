@@ -8,7 +8,9 @@ import {
 	HomePage,
 	LoginPage,
 	OwnerProfile,
+	PrivacyPolicy,
 	RegistrationPage,
+	TermsAndConditions,
 	UserProfile,
 } from './views-imports';
 
@@ -77,7 +79,16 @@ const router = createRouter({
 				},
 			],
 		},
-
+		{
+			path: '/privacy-policy',
+			name: 'privacy-policy',
+			component: PrivacyPolicy,
+		},
+		{
+			path: '/terms-and-conditions',
+			name: 'terms-and-conditions',
+			component: TermsAndConditions,
+		},
 		{
 			path: '/:pathMatch(.*)*',
 			name: 'NotFound',

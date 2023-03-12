@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <h1
-      class="my-5 text-center text-5xl font-bold md:w-5/6 md:text-left lg:text-8xl"
+      class="my-5 text-center text-4xl font-bold md:w-5/6 md:text-left lg:text-8xl"
     >
       Experience Seamless Communication
     </h1>
