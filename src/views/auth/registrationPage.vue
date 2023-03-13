@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="relative top-0 left-0 z-50 flex min-h-screen w-screen items-center justify-center overflow-y-scroll bg-gray-900 p-5 md:p-10">
-		<div class="mx-auto flex h-fit w-full rounded p-[0rem] md:w-1/3">
+		<div class="mx-auto flex h-fit w-full rounded-xl p-[0rem] md:w-1/3">
 			<div
 				class="relative h-fit w-full flex-col items-center justify-center bg-brand-dark shadow-xl">
 				<span
@@ -26,7 +26,7 @@
 							>{{ field.title.replaceAll('_', ' ') }}</label
 						>
 						<input
-							class="relative block w-full rounded border bg-transparent p-2 text-2xl placeholder:lowercase focus:border focus:border-brand focus:outline-none focus:ring-transparent"
+							class="relative block w-full rounded border pl-4  h-[4rem] bg-transparent p-2 text-2xl placeholder:lowercase focus:border focus:border-brand focus:outline-none focus:ring-transparent"
 							:type="field.type"
 							:style="serverError[field.title] ? 'border: 1px solid red' : ''"
 							:class="
@@ -40,8 +40,9 @@
 							{{ serverError[field.title] }}
 						</div>
 						<div
+						
 							v-if="field.title.includes('password')"
-							class="absolute top-2 right-3 mr-10 flex cursor-pointer"
+							class="absolute top-[4rem] cursor-pointer right-3 mr-10 flex"
 							>
 							<span
 								v-if="field.type === 'password'"
@@ -59,7 +60,6 @@
 					</div>
 
 					<!-- Gender -->
-					<!-- Gender -->
 					<label class="mt-6 block text-3xl font-bold capitalize text-brand"
 						>Gender</label
 					>
@@ -70,8 +70,8 @@
 								? 'bg-red-600'
 								: 'bg-gray-900'
 						"
-						class="relative mb-2 flex h-12 w-full cursor-pointer items-center justify-between rounded">
-						<h2 class="mx-2 text-2xl">Choose Your Gender</h2>
+						class="relative mb-2 p-4 flex h-12 w-full cursor-pointer items-center justify-between rounded">
+						<h2 class="mx-4 text-2xl p-2">Choose Your Gender</h2>
 						<i
 							class="material-icons duration-500"
 							style="font-size: 34px"
@@ -100,7 +100,7 @@
 									class="hidden" />
 								<label
 									:for="gender"
-									class="my-4 flex w-full justify-between rounded bg-gray-800 p-2"
+									class="my-4 flex w-full justify-between rounded bg-gray-900 p-2"
 									:class="
 										UserCredentials.gender === gender
 											? 'bg-slate-100 text-brand-dark'
@@ -122,7 +122,7 @@
 					</div>
 					<!--  -->
 					<div
-						class="my-6 flex h-[3.5rem] w-full items-center justify-center rounded-lg bg-[#10965e] text-2xl font-bold hover:shadow-2xl hover:shadow-brand">
+						class="my-6 flex h-[5rem] w-full items-center justify-center rounded-lg bg-[#10965e] text-2xl font-bold hover:shadow-2xl hover:shadow-brand">
 						<ButtonComponent
 							text="Create Account"
 							type="submit"
@@ -146,7 +146,6 @@
 <script setup>
 import {ref} from 'vue';
 import axios from '@/axios';
-import {socket} from "@/socket.io"
 import {useRouter} from 'vue-router';
 import Message from 'vue-m-message';
 import ButtonComponent from '@/components/reusables/ButtonComponent.vue';
@@ -170,15 +169,14 @@ const forms = ref([
 
 const RegisterUser = async () => {
 	if (UserCredentials.value.password === UserCredentials.value.confirm_password) {
+		localStorage.removeItem('auth-token');
 		try {
 			serverError.value = {};
 			loading.value = true;
-			localStorage.removeItem('auth-token');
 			const {data} = await axios.post('/register', UserCredentials.value);
 			localStorage.setItem('auth-token', data.token);
 			router.push({name: 'all-chats'});
 			serverError.value = {};
-			socket.connect()
 			Message.success('Login Successful');
 		} catch (error) {
 			if (error.name.includes('Axios')) {

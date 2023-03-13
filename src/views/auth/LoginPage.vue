@@ -2,7 +2,7 @@
 	<div
 		class="fixed top-0 left-0 z-50 flex h-screen w-screen flex-col items-center justify-center bg-gray-800 p-10">
 		<div
-			class="mx-auto flex w-full flex-col items-center justify-center rounded bg-brand-dark p-[2rem] md:w-1/3">
+			class="mx-auto flex w-full flex-col items-center justify-center rounded-xl bg-brand-dark p-[2rem] md:w-1/3">
 			<div class="relative w-full">
 				<span
 					style="top: 0; font-size: 2rem"
@@ -19,7 +19,7 @@
 					<div
 						v-for="(credential, index) in userCredentials"
 						:key="index"
-						class="my-2">
+						class="my-4">
 						<label
 							:for="credential.value"
 							class="mt-4 block text-3xl font-bold capitalize text-brand">
@@ -38,10 +38,10 @@
 										: ' border-gray-800'
 								"
 								v-model="userDetails[credential.value]"
-								class="relative block w-full rounded border bg-transparent p-2 text-3xl placeholder:lowercase focus:border-brand focus:outline-none focus:ring-transparent" />
+								class="relative block h-[4rem] w-full rounded border bg-transparent pl-4 p-2 text-3xl placeholder:lowercase focus:border-brand focus:outline-none focus:ring-transparent" />
 							<div
 								v-if="credential.value === 'password'"
-								class="absolute top-2 right-3 mr-10 flex">
+								class="absolute top-3 cursor-pointer right-3 mr-10 flex">
 								<span
 									class="material-icons absolute top-1/2 "
 									v-if="credential.type === 'password'"
@@ -63,13 +63,13 @@
 					</p>
 
 					<div
-						class="my-4 flex h-[3.5rem] w-full items-center justify-center rounded-lg bg-[#10965e] text-2xl font-bold hover:shadow-2xl hover:shadow-brand">
+						class="my-4 flex h-[5rem] w-full items-center justify-center rounded-lg bg-[#10965e] text-2xl font-bold hover:shadow-2xl hover:shadow-brand">
 						<ButtonComponent
 							text="Login"
 							type="submit"
 							:loading="loading"
 							customClass="focus:scale-105"
-							loadingText="Signing In .." />
+							loadingText="Signing In ..." />
 					</div>
 					<div class="mx-auto mt-8 flex items-center justify-center gap-x-3 text-2xl">
 						<p class="">Not a user</p>
@@ -89,7 +89,6 @@
 import {ref} from 'vue';
 import Message from 'vue-m-message';
 import axios from '@/axios';
-import {socket} from "@/socket.io"
 import {useRouter} from 'vue-router';
 import ButtonComponent from '@/components/reusables/ButtonComponent.vue';
 
@@ -113,6 +112,7 @@ const userCredentials = ref([
 ]);
 
 const signIn = async () => {
+	localStorage.removeItem('auth-token', token);
 	try {
 		loading.value = true;
 		{
@@ -127,7 +127,6 @@ const signIn = async () => {
 			setTimeout(() => {
 				router.replace({name: 'all-chats'});
 			}, 1500);
-			socket.connect()
 		}
 	} catch (error) {
 		formError.value = 'username or password incorrect';

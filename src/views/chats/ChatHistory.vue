@@ -54,9 +54,9 @@
 					<h2 class="text-2xl font-bold">{{ user.firstname }} {{ user.lastname }}</h2>
 					<h2 class="text-xl text-gray-400">@{{ user.username }}</h2>
 					<h2 class="text-xl text-gray-500">
-						<span>
+						<span class="truncate ...">
 							{{ user.last_sender === state.user._id ? 'You : ' : 'Friend : ' }}</span
-						>{{ user.last_message }}
+						>{{ user.last_message.slice(0, 25) }} <span v-if="user.last_message.length > 25"> ...</span>
 					</h2>
 				</div>
 				<div>
@@ -101,12 +101,18 @@
 import {onMounted, onBeforeMount} from 'vue';
 import {ConversationStore} from '@/stores/conversation-details.js';
 import LogoIcon from '/logo.svg';
+import {socket} from "@/socket.io"
 const state = ConversationStore();
 
 onMounted(async () => {
+	const user_is_online = JSON.parse(sessionStorage.getItem("user_is_online"))
+    if(user_is_online){}
+	else socket.connect()
+	
 	state.getChatHistory();
 	state.getCurrentUser();
 	state.getAllUsers();
+
 });
 
 onBeforeMount(async () => {

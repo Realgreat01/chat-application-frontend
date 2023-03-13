@@ -132,6 +132,8 @@ const getUserProfile = async () => {
 
 const logout = () => {
 	sessionStorage.removeItem('auth-token');
+	sessionStorage.setItem('user_is_online', false);
+	sessionStorage.removeItem('user_is_online');
 	localStorage.removeItem('auth-token');
 	socket.disconnect()
 };

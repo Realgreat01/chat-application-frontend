@@ -4,10 +4,11 @@ import axios from '../axios';
 export const ConversationStore = defineStore('store', {
 	state: () => {
 		return {
-			receiver: undefined,
-			allUsers: undefined,
-			chatHistory: undefined,
-			user: undefined,
+			receiver:{},
+			allUsers:[],
+			chatHistory: [],
+			user:{},
+			socketId : []
 		};
 	},
 	actions: {
