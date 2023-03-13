@@ -56,7 +56,7 @@
 						v-for="(content, index) in shareComponents"
 						:key="index"
 						:network="content.network"
-						:url="`https://buzz-chat-app.vercel.app/users/${user.username}`"
+						:url="`https://buzz-chat-app.vercel.app/`"
 						title="Connect with me on Buzz Chat, enjoy fast and realtime messaging !"
 						hashtags="buzzchat,buzzchat,messaging,realtime,fast,vue,dev,vuejs">
 						<img

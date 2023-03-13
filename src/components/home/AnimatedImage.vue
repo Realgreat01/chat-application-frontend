@@ -1,5 +1,5 @@
 <template>
-  <div class="h-fit w-full md:h-[36.6rem]">
+  <div class="h-fit w-full md:h-[41.6rem]">
     <img :src="AnimatedImage" alt="" class="bg-clip block h-full w-full" />
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
-	<div class="flex h-[10rem] flex-col items-center justify-evenly">
+	<div class="flex h-[10rem] flex-col mb-[2rem] items-center justify-evenly">
 		<a href="https://github.com/Realgreat01" class="block" target="_blank">
-			<img :src="githubIcon" alt="" class="block 	h-[1.4rem] md:h-[2rem]" />
+			<img :src="githubIcon" alt="" class="block 	h-[2rem] md:h-[3rem]" />
 		</a>
 		<div class="mt-2 flex w-full items-center justify-center gap-x-4 justify-self-end">
 			<routerLink

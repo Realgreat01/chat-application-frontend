@@ -1,6 +1,6 @@
 <template>
   <div
-    class="sticky top-0 z-20 mb-5 flex w-full items-center justify-between bg-gray-900 p-4"
+    class="fixed top-0 z-20 right-0 p-10 flex w-full  items-center justify-between bg-gray-900"
   >
     <LogoIcon />
     <RouterLink
