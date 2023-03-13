@@ -102,7 +102,7 @@ import LinkedinIcon from '@/assets/icons/linkedin-icon.svg';
 const inviteCopyTop = ref('Invite your friends to join the party! The more people, the more buzz.');
 const inviteCopyDown = ref("Let's build an awesome community together on BuzzChat!");
 const inviteDescription = ref(
-	"Looking for a new way to socialize in real-time? BuzzChat is the answer! Invite your friends to join you on the platform and experience the excitement of connecting with others in a whole new way. Don't miss out on the fun – start building your BuzzChat community today!"
+	"Looking for a new way to socialize in real-time? BuzzChat is the answer! \n Experience the excitement of connecting with others in a whole new way. \n Don't miss out on the fun – start building your BuzzChat community today!"
 );
 const showShareContent = ref(false);
 const user = ref({});

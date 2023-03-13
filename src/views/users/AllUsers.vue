@@ -36,7 +36,7 @@
 				:to="{name: 'single-user', params: {username: user?.username}}"
 				v-for="user in state.allUsers
 					.sort((a, b) => b.is_online - a.is_online)
-					.sort((a, b) => b.last_seen - a.last_seen)"
+					.sort((a, b) => a.last_seen - b.last_seen)"
 				class="sticky top-0 mx-4 mt-4 flex cursor-pointer items-start rounded-lg border-2 border-transparent border-y-gray-900 bg-gray-900 p-4">
 				<div class="relative flex w-fit">
 					<img
