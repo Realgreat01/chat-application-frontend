@@ -28,7 +28,8 @@
 					:src="user.profile_picture"
 					alt="" />
 				<span
-					class="material-icons absolute bottom-0 right-1 text-brand"
+					class="material-icons absolute bottom-5 right-4"
+					:class="user.is_online ? 'text-brand': 'text-gray-500'"
 					style="font-size: 50px">
 					fiber_manual_record
 				</span>

@@ -93,11 +93,11 @@
 <script setup>
 import {ref, onMounted} from 'vue';
 import axios from '@/axios';
-import {format} from 'timeago.js';
+import { format } from 'timeago.js';
 import WhatsAppIcon from '@/assets/icons/whatsapp.svg';
 import FacebookIcon from '@/assets/icons/facebook.svg';
 import TwitterIcon from '@/assets/icons/twitter.svg';
-import LinkedinIcon from '@/assets/icons/linkedin.svg';
+import LinkedinIcon from '@/assets/icons/linkedin-icon.svg';
 
 const inviteCopyTop = ref('Invite your friends to join the party! The more people, the more buzz.');
 const inviteCopyDown = ref("Let's build an awesome community together on BuzzChat!");
