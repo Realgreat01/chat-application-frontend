@@ -93,6 +93,7 @@
 import {ref, onMounted} from 'vue';
 import axios from '@/axios';
 import { format } from 'timeago.js';
+import {socket} from "@/socket.io"
 import WhatsAppIcon from '@/assets/icons/whatsapp.svg';
 import FacebookIcon from '@/assets/icons/facebook.svg';
 import TwitterIcon from '@/assets/icons/twitter.svg';
@@ -132,6 +133,7 @@ const getUserProfile = async () => {
 const logout = () => {
 	sessionStorage.removeItem('auth-token');
 	localStorage.removeItem('auth-token');
+	socket.disconnect()
 };
 onMounted(() => getUserProfile());
 </script>

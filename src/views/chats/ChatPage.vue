@@ -85,9 +85,9 @@
 
 <script setup>
 import axios from '@/axios';
-import {ref, onMounted, watch, onUpdated, onBeforeUpdate} from 'vue';
+import {ref, onMounted, onUpdated, onBeforeUpdate} from 'vue';
 import {format} from 'timeago.js';
-import {io} from 'socket.io-client';
+import {socket} from "@/socket.io"
 import {ConversationStore} from '@/stores/conversation-details.js';
 import replyIcon from '@/components/icons/svgs/reply-icon.svg';
 import MessageComponent from '@/components/chats/MessageComponent.vue';
@@ -116,24 +116,8 @@ const scrollChatDownward = behavior => {
 		behavior,
 	});
 };
+
 // Socket IO configuration
-const socket = io(import.meta.env.VITE_SOCKET_URL, {withCredentials: true});
-
-socket.on('connect', async () => {
-	try {
-		socket.emit('connected-user', currentUser._id);
-	} catch (error) {}
-});
-
-socket.on('get-online-users', users => {
-	state.getChatHistory();
-	state.getAllUsers();
-	state.allUsers = users;
-});
-socket.on('get-message-from-server', data => {
-	messages.value = data;
-});
-
 const sendMessage = async () => {
 	try {
 		socket.emit('send-message-to-server', currentUser._id, receiver._id, messageInput.value);
@@ -142,6 +126,10 @@ const sendMessage = async () => {
 	} catch (error) {}
 };
 
+socket.on('get-message-from-server', data => {
+	messages.value = data;
+});
+
 onMounted(async () => {
 	try {
 		if (receiver) {
@@ -149,7 +137,7 @@ onMounted(async () => {
 			scrollChatDownward('auto');
 		}
 		setTimeout(() => {
-			chatMessageWrapper.value.scrollTop = chatMessageBox.value.scrollHeight -100;
+			chatMessageWrapper.value.scrollTop = chatMessageBox.value.scrollHeight - 100;
 		}, 1000);
 		currentUser.value = await state.getCurrentUser();
 	} catch (error) {}
@@ -157,11 +145,6 @@ onMounted(async () => {
 
 onBeforeUpdate(() => {
 	chatMessageWrapper.value.scrollTop = chatMessageBox.value.scrollHeight -100 ;
-	socket.on('get-online-users', users => {
-	state.getChatHistory();
-	state.getAllUsers();
-	state.allUsers = users;
-});
 });
 onUpdated(() => scrollChatDownward('smooth'));
 </script>

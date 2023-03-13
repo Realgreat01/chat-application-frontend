@@ -41,16 +41,17 @@
 						</div>
 						<div
 							v-if="field.title.includes('password')"
-							class="absolute top-[3rem] right-3 flex cursor-pointer pr-10">
+							class="absolute top-2 right-3 mr-10 flex cursor-pointer"
+							>
 							<span
 								v-if="field.type === 'password'"
 								@click="field.type = 'text'"
-								class="material-icons"
+								class="material-icons absolute top-1/2"
 								>visibility
 							</span>
 							<span
 								v-else
-								class="material-icons"
+								class="material-icons absolute top-1/2"
 								@click="field.type = 'password'"
 								>visibility_off</span
 							>
@@ -145,6 +146,7 @@
 <script setup>
 import {ref} from 'vue';
 import axios from '@/axios';
+import {socket} from "@/socket.io"
 import {useRouter} from 'vue-router';
 import Message from 'vue-m-message';
 import ButtonComponent from '@/components/reusables/ButtonComponent.vue';
@@ -171,11 +173,12 @@ const RegisterUser = async () => {
 		try {
 			serverError.value = {};
 			loading.value = true;
-			sessionStorage.removeItem('auth-token');
+			localStorage.removeItem('auth-token');
 			const {data} = await axios.post('/register', UserCredentials.value);
-			sessionStorage.setItem('auth-token', data.token);
+			localStorage.setItem('auth-token', data.token);
 			router.push({name: 'all-chats'});
 			serverError.value = {};
+			socket.connect()
 			Message.success('Login Successful');
 		} catch (error) {
 			if (error.name.includes('Axios')) {

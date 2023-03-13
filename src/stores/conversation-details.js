@@ -33,5 +33,7 @@ export const ConversationStore = defineStore('store', {
 			} catch (error) {}
 		},
 	},
-	persist: true,
+	persist: {
+    storage: sessionStorage,
+  },
 });

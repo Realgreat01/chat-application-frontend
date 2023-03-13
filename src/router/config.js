@@ -1,5 +1,5 @@
 const getAccessToken = () => {
-	const token = sessionStorage.getItem('auth-token');
+	const token = localStorage.getItem('auth-token');
 	if (token) return true;
 	return false;
 };

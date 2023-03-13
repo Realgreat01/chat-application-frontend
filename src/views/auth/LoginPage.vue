@@ -43,14 +43,14 @@
 								v-if="credential.value === 'password'"
 								class="absolute top-2 right-3 mr-10 flex">
 								<span
-									class="material-icons absolute top-1/2 cursor-pointer"
+									class="material-icons absolute top-1/2 "
 									v-if="credential.type === 'password'"
 									@click="credential.type = 'text'"
 									>visibility
 								</span>
 								<span
 									v-else
-									class="material-icons absolute top-1/2 cursor-pointer"
+									class="material-icons absolute top-1/2 "
 									@click="credential.type = 'password'"
 									>visibility_off</span
 								>
@@ -89,6 +89,7 @@
 import {ref} from 'vue';
 import Message from 'vue-m-message';
 import axios from '@/axios';
+import {socket} from "@/socket.io"
 import {useRouter} from 'vue-router';
 import ButtonComponent from '@/components/reusables/ButtonComponent.vue';
 
@@ -122,10 +123,11 @@ const signIn = async () => {
 				duration: 1000,
 				position: 'top-right',
 			});
-			sessionStorage.setItem('auth-token', token);
+			localStorage.setItem('auth-token', token);
 			setTimeout(() => {
 				router.replace({name: 'all-chats'});
-			}, 500);
+			}, 1500);
+			socket.connect()
 		}
 	} catch (error) {
 		formError.value = 'username or password incorrect';
