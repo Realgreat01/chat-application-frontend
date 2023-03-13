@@ -155,7 +155,14 @@ onMounted(async () => {
 	} catch (error) {}
 });
 
-onBeforeUpdate(() => (chatMessageWrapper.value.scrollTop = chatMessageBox.value.scrollHeight));
+onBeforeUpdate(() => {
+	chatMessageWrapper.value.scrollTop = chatMessageBox.value.scrollHeight;
+	socket.on('get-online-users', users => {
+	state.getChatHistory();
+	state.getAllUsers();
+	state.allUsers = users;
+});
+});
 onUpdated(() => scrollChatDownward('smooth'));
 </script>
 
