@@ -35,8 +35,7 @@
 			<RouterLink
 				:to="{name: 'single-user', params: {username: user?.username}}"
 				v-for="user in state.allUsers
-					.sort((a, b) => b.is_online - a.is_online)
-					.sort((a, b) => a.last_seen - b.last_seen)"
+					.sort((a, b) => b.is_online - a.is_online)"
 					:key="user._id"
 				class="sticky top-0 mx-4 mt-4 flex cursor-pointer items-start rounded-lg border-2 border-transparent border-y-gray-900 bg-gray-900 p-4">
 				<div class="relative flex w-fit">
@@ -62,6 +61,10 @@
 				<div class="m-2 mx-4">
 					<h2 class="text-2xl font-bold">{{ user.firstname }} {{ user.lastname }}</h2>
 					<h2 class="text-xl text-gray-400">@{{ user.username }}</h2>
+					<h2 class="text-lg text-gray-400">
+						<span v-if="user.is_online" class="text-brand font-mono">online</span> 
+						<span v-else class="text-gray-500 font-mono text-base"> Last seen : {{format(user.last_seen)}}</span>
+					</h2>
 				</div>
 				<div>
 					<span class="material-icons text-brand">
@@ -70,6 +73,8 @@
 						<span v-else>person</span>
 					</span>
 				</div>
+
+
 			</RouterLink>
 		</div>
 		<router-link
@@ -87,6 +92,7 @@
 <script setup>
 import {ref, onMounted, onBeforeMount} from 'vue';
 import axios from '@/axios';
+import { format } from 'timeago.js';
 import {ConversationStore} from '@/stores/conversation-details.js';
 import {RouterLink} from 'vue-router';
 const state = ConversationStore();
