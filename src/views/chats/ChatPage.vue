@@ -149,14 +149,14 @@ onMounted(async () => {
 			scrollChatDownward('auto');
 		}
 		setTimeout(() => {
-			chatMessageWrapper.value.scrollTop = chatMessageBox.value.scrollHeight;
+			chatMessageWrapper.value.scrollTop = chatMessageBox.value.scrollHeight -100;
 		}, 1000);
 		currentUser.value = await state.getCurrentUser();
 	} catch (error) {}
 });
 
 onBeforeUpdate(() => {
-	chatMessageWrapper.value.scrollTop = chatMessageBox.value.scrollHeight;
+	chatMessageWrapper.value.scrollTop = chatMessageBox.value.scrollHeight -100 ;
 	socket.on('get-online-users', users => {
 	state.getChatHistory();
 	state.getAllUsers();
