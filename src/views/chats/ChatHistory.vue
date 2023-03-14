@@ -104,21 +104,26 @@ import LogoIcon from '/logo.svg';
 import {socket} from "@/socket.io"
 const state = ConversationStore();
 
-onMounted(async () => {
-	const user_is_online = JSON.parse(sessionStorage.getItem("user_is_online"))
-    if(user_is_online){}
-	else socket.connect()
-	
-	state.getChatHistory();
-	state.getCurrentUser();
-	state.getAllUsers();
+(async function() {
+  console.log({ socketState: socket.connected ? 'Connected' : 'Not Connected' });
+  if (socket.connected) {
+	  console.log(state.user);
+    await state.getChatHistory();
+	await state.getCurrentUser();
 
-});
+  } else {
+    socket.connect();
+	const current_user = await state.getCurrentUser()
+	socket.emit('connected-user', current_user._id)
+	await state.getChatHistory();
+	await state.getCurrentUser();
+  }
+})();
 
 onBeforeMount(async () => {
-	state.getChatHistory();
-	state.getCurrentUser();
-	state.getAllUsers();
+	await state.getChatHistory();
+	await state.getCurrentUser();
+	await state.getAllUsers();
 });
 </script>
 

@@ -169,7 +169,6 @@ const forms = ref([
 
 const RegisterUser = async () => {
 	if (UserCredentials.value.password === UserCredentials.value.confirm_password) {
-		localStorage.removeItem('auth-token');
 		try {
 			serverError.value = {};
 			loading.value = true;

@@ -112,12 +112,10 @@ const userCredentials = ref([
 ]);
 
 const signIn = async () => {
-	localStorage.removeItem('auth-token', token);
 	try {
 		loading.value = true;
-		{
 			const {data} = await axios.post('/login', userDetails.value);
-			const {token, username} = data;
+			const {token} = data;
 			formError.value = '';
 			Message.success('Login Successsful', {
 				duration: 1000,
@@ -127,7 +125,6 @@ const signIn = async () => {
 			setTimeout(() => {
 				router.replace({name: 'all-chats'});
 			}, 1500);
-		}
 	} catch (error) {
 		formError.value = 'username or password incorrect';
 	} finally {

@@ -5,6 +5,8 @@ import Message from "vue-m-message";
 import App from "./App.vue";
 import router from "./router/router";
 import VueSocialSharing from "vue-social-sharing";
+import {socket} from "./socket.io"
+
 
 import "material-icons/iconfont/material-icons.css";
 import "vue-m-message/dist/style.css";
@@ -22,6 +24,7 @@ pinia.use(piniaPluginPersistedstate);
 app.use(pinia);
 app.use(VueSocialSharing);
 app.use(router);
+
 app.use(Message, VMessageOptions);
 
 app.mount("#app");

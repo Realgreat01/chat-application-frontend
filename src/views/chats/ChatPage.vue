@@ -120,6 +120,7 @@ const scrollChatDownward = behavior => {
 // Socket IO configuration
 const sendMessage = async () => {
 	try {
+		console.log({user: currentUser._id, receiver:receiver._id, message:messageInput.value, socket: socket.id, connected: socket.connected});
 		socket.emit('send-message-to-server', currentUser._id, receiver._id, messageInput.value);
 		messageInput.value = '';
 		scrollChatDownward('smooth');
