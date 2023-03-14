@@ -1,6 +1,6 @@
-import {createPinia} from 'pinia';
-import {io} from 'socket.io-client';
-import {ConversationStore} from '../stores/conversation-details';
+import { createPinia } from 'pinia';
+import { io } from 'socket.io-client';
+import { ConversationStore } from '../stores/conversation-details';
 const pinia = createPinia();
 
 export const socket = io(import.meta.env.VITE_SOCKET_URL, {
@@ -18,4 +18,6 @@ socket.on('get-online-users', async users => {
 	state.allUsers = users;
 	await state.getChatHistory();
 });
+
+
 

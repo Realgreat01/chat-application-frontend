@@ -119,8 +119,7 @@ const state = ConversationStore();
 	await state.getCurrentUser();
   }
 })();
-
-onBeforeMount(async () => {
+onMounted(async () => {
 	await state.getChatHistory();
 	await state.getCurrentUser();
 	await state.getAllUsers();
