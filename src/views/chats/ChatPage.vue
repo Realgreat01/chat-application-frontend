@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="scroll mx-auto flex h-screen w-full flex-col overflow-y-scroll rounded-t-lg bg-brand-dark pb-[6.2rem] pt-[12rem] transition delay-150 ease-in-out md:w-1/3"
+		class="scroll mx-auto flex h-screen w-full flex-col overflow-y-scroll rounded-t-lg bg-brand-dark pb-[6.5rem] pt-[12.5rem] transition delay-150 ease-in-out md:w-1/3"
 		ref="chatMessageWrapper">
 		<div
 			class="fixed top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">
@@ -53,7 +53,7 @@
 		</div>
 
 		<div
-			class="scroll w-full px-2"
+			class="scroll w-full h-full px-2"
 			ref="chatMessageBox">
 			<MessageComponent
 				:messages="messages"
@@ -66,7 +66,7 @@
 			@submit.prevent="sendMessage"
 			id="">
 			<textarea
-				class="scroll block h-20 w-full appearance-none rounded-full border bg-transparent p-5 text-2xl ring-transparent focus:border-brand focus:outline-none focus:ring-transparent"
+				class="scroll block h-20 w-full appearance-none rounded-full border bg-transparent p-5 text-[16px] ring-transparent focus:border-brand focus:outline-none focus:ring-transparent"
 				v-model="messageInput"></textarea>
 			<!-- Prevent implicit submission of the form -->
 			<ButtonComponent custom-class="hidden" />
@@ -120,7 +120,6 @@ const scrollChatDownward = behavior => {
 // Socket IO configuration
 const sendMessage = async () => {
 	try {
-		console.log({user: currentUser._id, receiver:receiver._id, message:messageInput.value, socket: socket.id, connected: socket.connected});
 		socket.emit('send-message-to-server', currentUser._id, receiver._id, messageInput.value);
 		messageInput.value = '';
 		scrollChatDownward('smooth');
@@ -149,30 +148,3 @@ onBeforeUpdate(() => {
 });
 onUpdated(() => scrollChatDownward('smooth'));
 </script>
-
-<!-- const scrollChatDownward = () => {
-	console.log(chatMessageWrapper.value.scrollHeight);
-};
-// Socket IO configuration
-const socket = io(import.meta.env.VITE_SOCKET_URL, {withCredentials: true});
-
-socket.on('connect', async () => {
-	try {
-		socket.emit('connected-user', currentUser._id);
-		
-	} catch (error) {}
-});
-socket.on('new-user-added', users => {
-	state.getChatHistory()
-	state.getAllUsers()
-	state.allUsers = users;
-});
-
-const sendMessage = async () => {
-	try {
-		socket.emit('send-message-to-server', currentUser._id, receiver._id, messageInput.value);
-		messageInput.value = '';
-	} catch (error) {}
-};
-socket.on('get-message-from-server', data => messages.value = data);
-socket.on("new-online-user", (username)=> state.userConnected(username)) -->

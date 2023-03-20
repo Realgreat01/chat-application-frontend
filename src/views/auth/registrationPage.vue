@@ -34,7 +34,7 @@
 							"
 							@focus="serverError[field.title] = undefined"
 							:placeholder="'Enter your ' + field.title.replaceAll('_', ' ')"
-							v-model="UserCredentials[field.title]" />
+							v-model.trim="UserCredentials[field.title]" />
 
 						<div class="font-mono text-xl text-red-500">
 							{{ serverError[field.title] }}

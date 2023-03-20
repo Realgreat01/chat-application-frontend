@@ -13,7 +13,7 @@
 				</RouterLink>
 				<RouterLink
 					class="material-icons cursor-pointer text-gray-700"
-					style="font-size: 20px"
+					style="font-size: 24px"
 					:to="{name: 'home'}"
 					@click="logout">
 					logout
@@ -30,8 +30,9 @@
 						alt="" />
 				</div>
 				<span
-					class="material-icons absolute bottom-4 right-4 text-brand"
-					style="font-size: 50px">
+					class="material-icons absolute bottom-4 right-4"
+					style="font-size: 50px"
+					:class="user.is_online ? 'text-brand' : 'text-gray-500'">
 					fiber_manual_record
 				</span>
 			</div>
@@ -127,6 +128,7 @@ const getUserProfile = async () => {
 	try {
 		const {data} = await axios.get('/user');
 		user.value = data;
+		return data
 	} catch (error) {}
 };
 
@@ -137,7 +139,7 @@ const logout = () => {
 	localStorage.removeItem('auth-token');
 	socket.disconnect()
 };
-onMounted(() => getUserProfile());
+onMounted( async () => await getUserProfile());
 </script>
 
 <style lang="scss" scoped>

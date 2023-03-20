@@ -5,7 +5,7 @@
 			class="fixed top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">
 			<h2 class="my-10 text-6xl font-black">Chats History</h2>
 			<RouterLink
-				class="cursor-pointer"
+				class="cursor-pointer flex flex-col items-center "
 				:to="{name: 'user'}">
 				<img
 					:src="state.user?.profile_picture"
@@ -18,6 +18,7 @@
 					v-else>
 					account_circle
 				</p>
+				<p class="text-gray-900 text-xl py-2 font-semi-bold">My Profile</p>
 			</RouterLink>
 		</div>
 
@@ -98,27 +99,24 @@
 </template>
 
 <script setup>
-import {onMounted, onBeforeMount} from 'vue';
+import {onMounted} from 'vue';
 import {ConversationStore} from '@/stores/conversation-details.js';
 import LogoIcon from '/logo.svg';
 import {socket} from "@/socket.io"
 const state = ConversationStore();
 
 (async function() {
-  console.log({ socketState: socket.connected ? 'Connected' : 'Not Connected' });
-  if (socket.connected) {
-	  console.log(state.user);
-    await state.getChatHistory();
-	await state.getCurrentUser();
-
-  } else {
-    socket.connect();
-	const current_user = await state.getCurrentUser()
-	socket.emit('connected-user', current_user._id)
-	await state.getChatHistory();
-	await state.getCurrentUser();
-  }
+	if (socket.connected) {
+		await state.getCurrentUser();
+		
+	} else {
+		socket.connect();
+		const current_user = await state.getCurrentUser()
+		socket.emit('connected-user', current_user._id)
+		await state.getCurrentUser();
+	}
 })();
+
 onMounted(async () => {
 	await state.getChatHistory();
 	await state.getCurrentUser();

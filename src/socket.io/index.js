@@ -10,14 +10,9 @@ export const socket = io(import.meta.env.VITE_SOCKET_URL, {
 	reconnectionDelayMax: 10000,
 });
 
-const user_is_online = JSON.parse(sessionStorage.getItem('user_is_online'));
-
 const state = ConversationStore(pinia);
 
-socket.on('get-online-users', async users => {
-	state.allUsers = users;
-	await state.getChatHistory();
-});
-
+socket.on('get-online-users', users => (state.allUsers = users));
+socket.on('get-chat-history', chatHistory => (state.chatHistory = chatHistory));
 
 

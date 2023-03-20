@@ -37,7 +37,7 @@
 										? 'border-brand'
 										: ' border-gray-800'
 								"
-								v-model="userDetails[credential.value]"
+								v-model.trim="userDetails[credential.value]"
 								class="relative block h-[4rem] w-full rounded border bg-transparent pl-4 p-2 text-3xl placeholder:lowercase focus:border-brand focus:outline-none focus:ring-transparent" />
 							<div
 								v-if="credential.value === 'password'"

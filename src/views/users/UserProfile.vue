@@ -16,7 +16,7 @@
 				class="material-icons cursor-pointer"
 				style="font-size: 50px"
 				:to="{name: 'private-chat'}"
-				@click="conversationState.receiver = user">
+				@click="state.receiver = user">
 				message
 			</RouterLink>
 		</div>
@@ -59,8 +59,8 @@ import axios from '@/axios';
 import {format} from 'timeago.js';
 import {ConversationStore} from '@/stores/conversation-details.js';
 
-const conversationState = ConversationStore();
-const receiver = conversationState.receiver;
+const state = ConversationStore();
+const receiver = state.receiver;
 
 const route = useRoute();
 const user = ref({});
@@ -71,7 +71,10 @@ const getUserProfile = async () => {
 	} catch (error) {}
 };
 
-onMounted(() => getUserProfile());
+onMounted(() => {
+	getUserProfile()
+})
+
 </script>
 
 <style lang="scss" scoped></style>

@@ -1,14 +1,13 @@
-import {defineStore} from 'pinia';
+import { defineStore } from 'pinia';
 import axios from '../axios';
 
 export const ConversationStore = defineStore('store', {
 	state: () => {
 		return {
-			receiver:{},
-			allUsers:[],
+			receiver: {},
+			allUsers: [],
 			chatHistory: [],
-			user:{},
-			socketId : []
+			user: {}
 		};
 	},
 	actions: {
@@ -35,6 +34,6 @@ export const ConversationStore = defineStore('store', {
 		},
 	},
 	persist: {
-    storage: sessionStorage,
-  },
+		storage: localStorage,
+	},
 });
