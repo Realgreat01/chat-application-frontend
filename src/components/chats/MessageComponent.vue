@@ -45,7 +45,7 @@ defineProps({
 onMounted(() => {
 	setTimeout(() => {
 		messageIsSorted.value = true;
-	}, 1000);
+	}, 500);
 });
 </script>
 

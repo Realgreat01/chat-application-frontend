@@ -112,25 +112,17 @@ const state = ConversationStore();
 (async function () {
 	if (socket.connected) {
 		const user = await state.getCurrentUser();
-		await state.getChatHistory();
-		await state.getAllUsers();
-		const getStates = setInterval(
-			() => socket.emit('get-current-state', user._id),
-			50
-		);
-		setTimeout(() => clearInterval(getStates), 1000);
+		state.getChatHistory();
+		state.getAllUsers();
+		socket.emit('get-current-state', user._id);
 	} else {
 		socket.connect();
 		const user = await state.getCurrentUser();
 		socket.emit('connected-user', user._id);
-		await state.getCurrentUser();
-		await state.getChatHistory();
-		await state.getAllUsers();
-		const getStates = setInterval(
-			() => socket.emit('get-current-state', user._id),
-			50
-		);
-		setTimeout(() => clearInterval(getStates), 1000);
+		state.getCurrentUser();
+		state.getChatHistory();
+		state.getAllUsers();
+		socket.emit('get-current-state', user._id);
 	}
 })();
 </script>
