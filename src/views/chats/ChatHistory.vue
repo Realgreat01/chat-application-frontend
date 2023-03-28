@@ -5,8 +5,8 @@
 			class="fixed top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">
 			<h2 class="my-10 text-6xl font-black">Chats History</h2>
 			<RouterLink
-				class="cursor-pointer flex flex-col items-center "
-				:to="{name: 'user'}">
+				class="flex cursor-pointer flex-col items-center"
+				:to="{ name: 'user' }">
 				<img
 					:src="state.user?.profile_picture"
 					class="block h-[4rem] w-[4rem] rounded-full bg-white"
@@ -18,7 +18,7 @@
 					v-else>
 					account_circle
 				</p>
-				<p class="text-gray-900 text-xl py-2 font-semi-bold">My Profile</p>
+				<p class="font-semi-bold py-2 text-xl text-gray-900">My Profile</p>
 			</RouterLink>
 		</div>
 
@@ -26,7 +26,7 @@
 			v-if="state.chatHistory.length !== 0"
 			class="h-full overflow-y-scroll pt-[11rem]">
 			<RouterLink
-				:to="{name: 'private-chat'}"
+				:to="{ name: 'private-chat' }"
 				@click="state.receiver = user"
 				v-for="user in state.chatHistory"
 				:key="user._id"
@@ -52,12 +52,17 @@
 					</div>
 				</div>
 				<div class="m-2 mx-4">
-					<h2 class="text-2xl font-bold">{{ user.firstname }} {{ user.lastname }}</h2>
+					<h2 class="text-2xl font-bold">
+						{{ user.firstname }} {{ user.lastname }}
+					</h2>
 					<h2 class="text-xl text-gray-400">@{{ user.username }}</h2>
 					<h2 class="text-xl text-gray-500">
-						<span class="truncate ...">
-							{{ user.last_sender === state.user._id ? 'You : ' : 'Friend : ' }}</span
-						>{{ user.last_message.slice(0, 25) }} <span v-if="user.last_message.length > 25"> ...</span>
+						<span class="... truncate">
+							{{
+								user.last_sender === state.user._id ? 'You : ' : 'Friend : '
+							}}</span
+						>{{ user.last_message.slice(0, 25) }}
+						<span v-if="user.last_message.length > 25"> ...</span>
 					</h2>
 				</div>
 				<div>
@@ -87,11 +92,11 @@
 			</h2>
 		</div>
 		<router-link
-			:to="{name: 'all-users'}"
+			:to="{ name: 'all-users' }"
 			style="font-size: 30px"
-			cck="fixed top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3"
-			class="material-icons fixed bottom-10 mx-auto flex h-fit w-full items-center md:w-1/3">
-			<span class="material-icons absolute right-10 self-end rounded-full border p-4"
+			class="fixed bottom-10 mx-auto flex h-fit w-full items-center md:w-1/3">
+			<span
+				class="material-icons absolute right-10 self-end rounded-full border p-5"
 				>person_add_alt</span
 			>
 		</router-link>
@@ -99,29 +104,35 @@
 </template>
 
 <script setup>
-import {onMounted} from 'vue';
-import {ConversationStore} from '@/stores/conversation-details.js';
+import { ConversationStore } from '@/stores/conversation-details.js';
 import LogoIcon from '/logo.svg';
-import {socket} from "@/socket.io"
+import { socket } from '@/socket.io';
 const state = ConversationStore();
 
-(async function() {
+(async function () {
 	if (socket.connected) {
-		await state.getCurrentUser();
-		
+		const user = await state.getCurrentUser();
+		await state.getChatHistory();
+		await state.getAllUsers();
+		const getStates = setInterval(
+			() => socket.emit('get-current-state', user._id),
+			50
+		);
+		setTimeout(() => clearInterval(getStates), 1000);
 	} else {
 		socket.connect();
-		const current_user = await state.getCurrentUser()
-		socket.emit('connected-user', current_user._id)
+		const user = await state.getCurrentUser();
+		socket.emit('connected-user', user._id);
 		await state.getCurrentUser();
+		await state.getChatHistory();
+		await state.getAllUsers();
+		const getStates = setInterval(
+			() => socket.emit('get-current-state', user._id),
+			50
+		);
+		setTimeout(() => clearInterval(getStates), 1000);
 	}
 })();
-
-onMounted(async () => {
-	await state.getChatHistory();
-	await state.getCurrentUser();
-	await state.getAllUsers();
-});
 </script>
 
 <style lang="scss" scoped></style>

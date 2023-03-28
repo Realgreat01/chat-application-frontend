@@ -1,14 +1,13 @@
 <template>
 	<div
-		class="scroll mx-auto flex h-screen w-full flex-col overflow-y-scroll rounded-t-lg bg-brand-dark pb-[6.5rem] pt-[12.5rem] transition delay-150 ease-in-out md:w-1/3"
-		ref="chatMessageWrapper">
+		class="scroll mx-auto flex h-screen w-full flex-col overflow-y-scroll rounded-t-lg bg-brand-dark transition delay-150 ease-in-out md:w-1/3">
 		<div
-			class="fixed top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">
+			class="flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0">
 			<div class="flex h-full flex-col items-start justify-center">
 				<RouterLink
 					class="material-icons rotate-180 cursor-pointer text-gray-700"
 					style="font-size: 40px"
-					:to="{name: 'all-chats'}">
+					:to="{ name: 'all-chats' }">
 					arrow_right_alt
 				</RouterLink>
 				<h2 class="mb-4 text-6xl font-black">Chat</h2>
@@ -33,7 +32,11 @@
 				</h2>
 			</div>
 			<div class="flex flex-col items-end">
-				<RouterLink :to="{name: 'single-user', params: {username: receiver.username}}">
+				<RouterLink
+					:to="{
+						name: 'single-user',
+						params: { username: receiver.username },
+					}">
 					<img
 						:src="receiver.profile_picture"
 						alt=""
@@ -53,7 +56,7 @@
 		</div>
 
 		<div
-			class="scroll w-full h-full px-2"
+			class="scroll h-full w-full overflow-y-scroll overscroll-y-contain px-2"
 			ref="chatMessageBox">
 			<MessageComponent
 				:messages="messages"
@@ -62,12 +65,13 @@
 		</div>
 		<form
 			ref="form"
-			class="fixed bottom-0 mx-auto flex h-[6rem] w-full items-center justify-between gap-x-5 bg-gray-800 p-4 md:w-1/3"
+			class="mx-auto flex h-[6rem] w-full items-center justify-between gap-x-5 bg-gray-800 p-4"
 			@submit.prevent="sendMessage"
 			id="">
 			<textarea
 				class="scroll block h-20 w-full appearance-none rounded-full border bg-transparent p-5 text-[16px] ring-transparent focus:border-brand focus:outline-none focus:ring-transparent"
-				v-model="messageInput"></textarea>
+				v-model.trim="messageInput">
+			</textarea>
 			<!-- Prevent implicit submission of the form -->
 			<ButtonComponent custom-class="hidden" />
 
@@ -85,10 +89,10 @@
 
 <script setup>
 import axios from '@/axios';
-import {ref, onMounted, onUpdated, onBeforeUpdate} from 'vue';
-import {format} from 'timeago.js';
-import {socket} from "@/socket.io"
-import {ConversationStore} from '@/stores/conversation-details.js';
+import { ref, onMounted, onUpdated, onBeforeUpdate, nextTick } from 'vue';
+import { format } from 'timeago.js';
+import { socket } from '@/socket.io';
+import { ConversationStore } from '@/stores/conversation-details.js';
 import replyIcon from '@/components/icons/svgs/reply-icon.svg';
 import MessageComponent from '@/components/chats/MessageComponent.vue';
 import ButtonComponent from '@/components/reusables/ButtonComponent.vue';
@@ -101,50 +105,66 @@ const currentUser = state.user;
 const messageInput = ref('');
 const messages = ref([]);
 
-// template refs
-const chatMessageWrapper = ref();
 const chatMessageBox = ref();
 
 const getConversations = async receiver_id => {
-	const {data} = await axios.get('/chats/' + receiver_id);
+	const { data } = await axios.get('/chats/' + receiver_id);
 	return data;
 };
 
-const scrollChatDownward = behavior => {
-	chatMessageWrapper.value.scrollTo({
-		top: chatMessageBox.value.scrollHeight,
-		behavior,
+async function scrollChatDownward() {
+	await nextTick(() => {
+		const container = chatMessageBox.value;
+		const contentHeight = container.scrollHeight;
+		const containerHeight = container.clientHeight;
+		container.scrollTop = contentHeight - containerHeight;
 	});
-};
+}
+
+async function scrollChatSmooth() {
+	await nextTick(() => {
+		const container = chatMessageBox.value;
+		const contentHeight = container.scrollHeight;
+		const containerHeight = container.clientHeight;
+		container.scrollTo({
+			top: contentHeight - containerHeight,
+			behavior: 'smooth',
+		});
+	});
+}
 
 // Socket IO configuration
 const sendMessage = async () => {
 	try {
-		socket.emit('send-message-to-server', currentUser._id, receiver._id, messageInput.value);
+		socket.emit(
+			'send-message-to-server',
+			currentUser._id,
+			receiver._id,
+			messageInput.value
+		);
 		messageInput.value = '';
-		scrollChatDownward('smooth');
+		scrollChatDownward();
+		socket.emit('get-current-state', currentUser._id);
 	} catch (error) {}
 };
 
 socket.on('get-message-from-server', data => {
 	messages.value = data;
+	scrollChatSmooth();
 });
+
+onBeforeUpdate(() => {});
+
+onUpdated(() => scrollChatDownward());
 
 onMounted(async () => {
 	try {
 		if (receiver) {
 			messages.value = await getConversations(receiver._id);
-			scrollChatDownward('auto');
 		}
-		setTimeout(() => {
-			chatMessageWrapper.value.scrollTop = chatMessageBox.value.scrollHeight - 100;
-		}, 1000);
 		currentUser.value = await state.getCurrentUser();
+		const scrollDown = setInterval(() => scrollChatDownward(), 50);
+		setTimeout(() => clearInterval(scrollDown), 1000);
 	} catch (error) {}
 });
-
-onBeforeUpdate(() => {
-	chatMessageWrapper.value.scrollTop = chatMessageBox.value.scrollHeight -100 ;
-});
-onUpdated(() => scrollChatDownward('smooth'));
 </script>

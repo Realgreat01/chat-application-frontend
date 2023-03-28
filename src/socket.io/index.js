@@ -14,5 +14,3 @@ const state = ConversationStore(pinia);
 
 socket.on('get-online-users', users => (state.allUsers = users));
 socket.on('get-chat-history', chatHistory => (state.chatHistory = chatHistory));
-
-

@@ -1,9 +1,15 @@
-import {createRouter, createWebHistory} from 'vue-router';
-import {isLoggedInGuard, privateChatGuard, protectedRoutes, routeAuthGuard} from './config';
+import { createRouter, createWebHistory } from 'vue-router';
+import {
+	isLoggedInGuard,
+	privateChatGuard,
+	protectedRoutes,
+	routeAuthGuard,
+} from './config';
 import {
 	AllUsers,
 	ChatHistory,
 	ChatPage,
+	FeatureTest,
 	GeneralLayout,
 	HomePage,
 	LoginPage,
@@ -29,6 +35,11 @@ const router = createRouter({
 			component: LoginPage,
 			beforeEnter: isLoggedInGuard,
 		},
+		{
+			path: '/test',
+			name: 'test',
+			component: FeatureTest,
+		},
 
 		{
 			path: '/register',
@@ -39,7 +50,7 @@ const router = createRouter({
 		{
 			path: '/chat',
 			component: GeneralLayout,
-			meta: {requiresAuth: true},
+			meta: { requiresAuth: true },
 			beforeEnter: protectedRoutes,
 			children: [
 				{
@@ -58,7 +69,7 @@ const router = createRouter({
 		{
 			path: '/users',
 			component: GeneralLayout,
-			meta: {requiresAuth: true},
+			meta: { requiresAuth: true },
 			children: [
 				{
 					path: '',
@@ -74,7 +85,7 @@ const router = createRouter({
 					path: ':username',
 					name: 'single-user',
 					props: true,
-					meta: {requiresAuth: false},
+					meta: { requiresAuth: false },
 					component: UserProfile,
 				},
 			],
