@@ -139,7 +139,7 @@ import { ConversationStore } from '@/stores/conversation-details.js';
 import { RouterLink } from 'vue-router';
 const state = ConversationStore();
 
-const searchedUser = ref('be');
+const searchedUser = ref('');
 const showSearch = ref(false);
 const noUserFound = ref(false);
 
