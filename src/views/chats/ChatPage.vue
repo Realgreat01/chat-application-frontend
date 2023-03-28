@@ -56,7 +56,7 @@
 		</div>
 
 		<div
-			class="scroll h-full w-full overflow-y-scroll overscroll-y-contain px-2"
+			class="scroll h-[90%] w-full overflow-y-scroll overscroll-y-contain px-2"
 			ref="chatMessageBox">
 			<MessageComponent
 				:messages="messages"
