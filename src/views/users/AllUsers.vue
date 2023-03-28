@@ -32,7 +32,8 @@
 		<div
 			class="scroll relative h-full overflow-y-scroll pt-[11rem] pb-[2rem]"
 			v-if="state.allUsers">
-			<div class="flex w-full items-center justify-end gap-x-10 p-3">
+			<div
+				class="sticky top-1 z-50 flex w-full items-center justify-end gap-x-10 bg-brand-dark p-3">
 				<input
 					type="text"
 					v-if="showSearch"
