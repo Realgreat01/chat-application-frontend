@@ -106,7 +106,7 @@ const currentUser = state.user;
 const messageInput = ref('');
 const messages = ref([]);
 
-// const chatMessageBox = ref();
+const chatMessageBox = ref();
 
 const getConversations = async receiver_id => {
 	const { data } = await axios.get('/chats/' + receiver_id);
@@ -114,19 +114,23 @@ const getConversations = async receiver_id => {
 };
 
 async function scrollChatDownward() {
-	const chatMessageBox = document.getElementById('chat-message-box');
-	const contentHeight = chatMessageBox?.scrollHeight;
-	const containerHeight = chatMessageBox?.clientHeight;
-	chatMessageBox.value.scrollTop = contentHeight - containerHeight;
+	await nextTick(() => {
+		const chatMessageBox = document.getElementById('chat-message-box');
+		const contentHeight = chatMessageBox.scrollHeight;
+		const containerHeight = chatMessageBox.clientHeight;
+		chatMessageBox.value.scrollTop = contentHeight - containerHeight;
+	});
 }
 
 async function scrollChatSmooth() {
-	const chatMessageBox = document.getElementById('chat-message-box');
-	const contentHeight = chatMessageBox?.scrollHeight;
-	const containerHeight = chatMessageBox?.clientHeight;
-	chatMessageBox.value.scrollTo({
-		top: contentHeight - containerHeight,
-		behavior: 'smooth',
+	await nextTick(() => {
+		const chatMessageBox = document.getElementById('chat-message-box');
+		const contentHeight = chatMessageBox.scrollHeight;
+		const containerHeight = chatMessageBox.clientHeight;
+		chatMessageBox.value.scrollTo({
+			top: contentHeight - containerHeight,
+			behavior: 'smooth',
+		});
 	});
 }
 
@@ -140,7 +144,7 @@ const sendMessage = async () => {
 			messageInput.value
 		);
 		messageInput.value = '';
-		scrollChatSmooth();
+		scrollChatDownward();
 		socket.emit('get-current-state', currentUser._id);
 	} catch (error) {}
 };
