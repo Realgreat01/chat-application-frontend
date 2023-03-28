@@ -118,7 +118,7 @@ async function scrollChatDownward() {
 		const chatMessageBox = document.getElementById('chat-message-box');
 		const contentHeight = chatMessageBox.scrollHeight;
 		const containerHeight = chatMessageBox.clientHeight;
-		chatMessageBox.value.scrollTop = contentHeight - containerHeight;
+		chatMessageBox.scrollTop = contentHeight - containerHeight;
 	});
 }
 
@@ -127,7 +127,7 @@ async function scrollChatSmooth() {
 		const chatMessageBox = document.getElementById('chat-message-box');
 		const contentHeight = chatMessageBox.scrollHeight;
 		const containerHeight = chatMessageBox.clientHeight;
-		chatMessageBox.value.scrollTo({
+		chatMessageBox.scrollTo({
 			top: contentHeight - containerHeight,
 			behavior: 'smooth',
 		});
