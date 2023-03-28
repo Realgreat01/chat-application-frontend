@@ -9,7 +9,6 @@ import {
 	AllUsers,
 	ChatHistory,
 	ChatPage,
-	FeatureTest,
 	GeneralLayout,
 	HomePage,
 	LoginPage,
@@ -35,11 +34,11 @@ const router = createRouter({
 			component: LoginPage,
 			beforeEnter: isLoggedInGuard,
 		},
-		{
-			path: '/test',
-			name: 'test',
-			component: FeatureTest,
-		},
+		// {
+		// 	path: '/test',
+		// 	name: 'test',
+		// 	component: FeatureTest,
+		// },
 
 		{
 			path: '/register',
