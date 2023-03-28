@@ -65,7 +65,7 @@
 		</div>
 		<form
 			ref="form"
-			class="mx-auto flex h-[6rem] w-full items-center justify-between gap-x-5 bg-gray-800 p-4"
+			class="fixed bottom-0 mx-auto md:w-1/3  flex h-[6rem] w-full items-center justify-between gap-x-5 bg-gray-800 p-4"
 			@submit.prevent="sendMessage"
 			id="">
 			<textarea
