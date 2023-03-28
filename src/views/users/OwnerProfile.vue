@@ -4,26 +4,29 @@
 		<div
 			class="sticky top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4">
 			<h2 class="my-10 text-6xl font-black">My Profile</h2>
-			<div class="flex flex-col items-end gap-y-10">
+			<div class="flex flex-col items-end gap-y-6">
 				<RouterLink
-					class="material-icons cursor-pointer"
+					class="flex cursor-pointer flex-col hover:text-brand-dark"
 					style="font-size: 30px"
-					:to="{name: 'all-chats'}">
-					home
+					:to="{ name: 'all-chats' }">
+					<div class="material-icons">home</div>
+					<p class="text-sm">Home</p>
 				</RouterLink>
 				<RouterLink
-					class="material-icons cursor-pointer text-gray-700"
+					class="flex cursor-pointer flex-col text-gray-700 hover:text-white"
 					style="font-size: 24px"
-					:to="{name: 'home'}"
+					:to="{ name: 'home' }"
 					@click="logout">
-					logout
+					<div class="material-icons">logout</div>
+					<p class="text-sm">logout</p>
 				</RouterLink>
 			</div>
 		</div>
 
 		<div class="flex flex-col items-center justify-center">
 			<div class="relative">
-				<div class="my-10 block h-60 w-60 rounded-full border-[0.5rem] border-white">
+				<div
+					class="my-10 block h-60 w-60 rounded-full border-[0.5rem] border-white">
 					<img
 						class=""
 						:src="user.profile_picture"
@@ -37,8 +40,12 @@
 				</span>
 			</div>
 
-			<h2 class="mb-3 mt-5 text-5xl font-bold">{{ user.firstname }} {{ user.lastname }}</h2>
-			<h2 class="mb-2 text-2xl font-normal text-gray-400">@{{ user.username }}</h2>
+			<h2 class="mb-3 mt-5 text-5xl font-bold">
+				{{ user.firstname }} {{ user.lastname }}
+			</h2>
+			<h2 class="mb-2 text-2xl font-normal text-gray-400">
+				@{{ user.username }}
+			</h2>
 
 			<!-- <div class="rounded-full w-1/2" @click="copyLinkToClipBoard">{{ `https://buzz-chat-app.vercel.app/users/${user.username}` }} {{ linkIsCopied? 'copied' : "copy" }}</div> -->
 			<!-- Share container  -->
@@ -85,23 +92,29 @@
 				share
 			</div>
 
-			<h2 class="mt-10 text-2xl text-gray-500">Joined : {{ format(user.createdAt) }}</h2>
+			<h2 class="mt-10 text-2xl text-gray-500">
+				Joined : {{ format(user.createdAt) }}
+			</h2>
 		</div>
 	</div>
 </template>
 
 <script setup>
-import {ref, onMounted} from 'vue';
+import { ref, onMounted } from 'vue';
 import axios from '@/axios';
 import { format } from 'timeago.js';
-import {socket} from "@/socket.io"
+import { socket } from '@/socket.io';
 import WhatsAppIcon from '@/assets/icons/whatsapp.svg';
 import FacebookIcon from '@/assets/icons/facebook.svg';
 import TwitterIcon from '@/assets/icons/twitter.svg';
 import LinkedinIcon from '@/assets/icons/linkedin-icon.svg';
 
-const inviteCopyTop = ref('Invite your friends to join the party! The more people, the more buzz.');
-const inviteCopyDown = ref("Let's build an awesome community together on BuzzChat!");
+const inviteCopyTop = ref(
+	'Invite your friends to join the party! The more people, the more buzz.'
+);
+const inviteCopyDown = ref(
+	"Let's build an awesome community together on BuzzChat!"
+);
 const showShareContent = ref(false);
 const user = ref({});
 
@@ -126,9 +139,9 @@ const shareComponents = ref([
 
 const getUserProfile = async () => {
 	try {
-		const {data} = await axios.get('/user');
+		const { data } = await axios.get('/user');
 		user.value = data;
-		return data
+		return data;
 	} catch (error) {}
 };
 
@@ -137,9 +150,9 @@ const logout = () => {
 	sessionStorage.setItem('user_is_online', false);
 	sessionStorage.removeItem('user_is_online');
 	localStorage.removeItem('auth-token');
-	socket.disconnect()
+	socket.disconnect();
 };
-onMounted( async () => await getUserProfile());
+onMounted(async () => await getUserProfile());
 </script>
 
 <style lang="scss" scoped>

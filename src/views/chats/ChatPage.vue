@@ -1,8 +1,9 @@
 <template>
 	<div
-		class="scroll mx-auto flex h-screen w-full flex-col overflow-y-scroll rounded-t-lg bg-brand-dark transition delay-150 ease-in-out md:w-1/3">
+		class="scroll mx-auto flex h-screen w-full flex-col overflow-y-scroll rounded-t-lg bg-brand-dark pb-[6.5rem] pt-[12rem] transition delay-150 ease-in-out md:w-1/3"
+		ref="chatMessageWrapper">
 		<div
-			class="flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0">
+			class="fixed top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">
 			<div class="flex h-full flex-col items-start justify-center">
 				<RouterLink
 					class="material-icons rotate-180 cursor-pointer text-gray-700"
@@ -56,7 +57,7 @@
 		</div>
 
 		<div
-			class="scroll h-[90%] w-full overflow-y-scroll overscroll-y-contain px-2"
+			class="scroll h-full w-full flex-1 overflow-y-scroll px-2 pb-3"
 			ref="chatMessageBox">
 			<MessageComponent
 				:messages="messages"
@@ -64,11 +65,11 @@
 				:receiver="receiver" />
 		</div>
 		<form
-			ref="form"
-			class="fixed bottom-0 mx-auto md:w-1/3  flex h-[6rem] w-full items-center justify-between gap-x-5 bg-gray-800 p-4"
+			class="fixed bottom-0 mx-auto flex h-[7rem] w-full items-center justify-between gap-x-5 bg-gray-800 p-4 md:w-1/3"
 			@submit.prevent="sendMessage"
 			id="">
 			<textarea
+				placeholder="type message here ...."
 				class="scroll block h-20 w-full appearance-none rounded-full border bg-transparent p-5 text-[16px] ring-transparent focus:border-brand focus:outline-none focus:ring-transparent"
 				v-model.trim="messageInput">
 			</textarea>
@@ -81,7 +82,7 @@
 				<img
 					:src="replyIcon"
 					alt=""
-					class="h-16 w-16" />
+					class="h-16 w-16 hover:p-2" />
 			</button>
 		</form>
 	</div>
@@ -114,19 +115,17 @@ const getConversations = async receiver_id => {
 
 async function scrollChatDownward() {
 	await nextTick(() => {
-		const container = chatMessageBox.value;
-		const contentHeight = container.scrollHeight;
-		const containerHeight = container.clientHeight;
-		container.scrollTop = contentHeight - containerHeight;
+		const contentHeight = chatMessageBox.value.scrollHeight;
+		const containerHeight = chatMessageBox.value.clientHeight;
+		chatMessageBox.value.scrollTop = contentHeight - containerHeight;
 	});
 }
 
 async function scrollChatSmooth() {
 	await nextTick(() => {
-		const container = chatMessageBox.value;
-		const contentHeight = container.scrollHeight;
-		const containerHeight = container.clientHeight;
-		container.scrollTo({
+		const contentHeight = chatMessageBox.value.scrollHeight;
+		const containerHeight = chatMessageBox.value.clientHeight;
+		chatMessageBox.value.scrollTo({
 			top: contentHeight - containerHeight,
 			behavior: 'smooth',
 		});

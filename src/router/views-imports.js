@@ -7,6 +7,7 @@ import PrivacyPolicy from '../views/company/PrivacyPolicy.vue';
 import TermsAndConditions from '../views/company/Terms-And-Conditions.vue';
 import HomePage from '../views/home/homePage.vue';
 import AllUsers from '../views/users/AllUsers.vue';
+import FeatureTest from '../views/users/FeatureTest.vue';
 import OwnerProfile from '../views/users/OwnerProfile.vue';
 import UserProfile from '../views/users/UserProfile.vue';
 
@@ -21,5 +22,6 @@ export {
 	ChatHistory,
 	RegistrationPage,
 	PrivacyPolicy,
+	FeatureTest,
 	TermsAndConditions,
 };
