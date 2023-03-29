@@ -158,7 +158,7 @@ import ButtonComponent from '@/components/reusables/ButtonComponent.vue';
 const router = useRouter();
 const loading = ref(false);
 const serverError = ref({});
-const UserCredentials = ref({});
+const UserCredentials = ref({ password: '', confirm_password: '' });
 
 const showGender = ref(false);
 const genders = ref(['male', 'female', 'others']);
@@ -174,8 +174,8 @@ const forms = ref([
 
 const RegisterUser = async () => {
 	if (
-		UserCredentials.value.password !== '' &&
-		UserCredentials.value.confirm_password !== ''
+		UserCredentials.value.password?.length > 0 &&
+		UserCredentials.value.confirm_password?.length > 0
 	) {
 		if (
 			UserCredentials.value.password === UserCredentials.value.confirm_password
@@ -196,24 +196,22 @@ const RegisterUser = async () => {
 				loading.value = false;
 			}
 		} else {
+			serverError.value = {}
 			serverError.value = {
 				password: 'password does not match',
 				confirm_password: 'password does not match',
 			};
 		}
+
+		// Check for no field
 	} else {
-		if (
-			!UserCredentials.value.password ||
-			UserCredentials.value.password === ''
-		)
-			serverError.value = Object.assign({}, serverError.value, {
+		serverError.value = {}
+		if (UserCredentials.value.password === '')
+			serverError.value = Object.assign(serverError.value, {
 				password: 'password is required',
 			});
-		if (
-			!UserCredentials.value.confirm_password ||
-			UserCredentials.value.confirm_password === ''
-		)
-			serverError.value = Object.assign({}, serverError.value, {
+		if (UserCredentials.value.confirm_password === '')
+			serverError.value = Object.assign(serverError.value, {
 				confirm_password: 'confirm password is required',
 			});
 	}
