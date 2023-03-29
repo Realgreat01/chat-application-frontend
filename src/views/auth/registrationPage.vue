@@ -173,7 +173,6 @@ const forms = ref([
 ]);
 
 const RegisterUser = async () => {
-	console.log(UserCredentials.value);
 	if (
 		UserCredentials.value.password !== '' &&
 		UserCredentials.value.confirm_password !== ''
