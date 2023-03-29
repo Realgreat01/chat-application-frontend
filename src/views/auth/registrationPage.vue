@@ -26,11 +26,13 @@
 							>{{ field.title.replaceAll('_', ' ') }}</label
 						>
 						<input
-							class="relative block w-full rounded border pl-4  h-[4rem] bg-transparent p-2 text-2xl placeholder:lowercase focus:border focus:border-brand focus:outline-none focus:ring-transparent"
+							class="relative block h-[4rem] w-full rounded border bg-transparent p-2 pl-4 text-2xl placeholder:lowercase focus:border focus:border-brand focus:outline-none focus:ring-transparent"
 							:type="field.type"
 							:style="serverError[field.title] ? 'border: 1px solid red' : ''"
 							:class="
-								UserCredentials[field.title] ? 'border-brand' : 'border-gray-800'
+								UserCredentials[field.title]
+									? 'border-brand'
+									: 'border-gray-800'
 							"
 							@focus="serverError[field.title] = undefined"
 							:placeholder="'Enter your ' + field.title.replaceAll('_', ' ')"
@@ -40,10 +42,8 @@
 							{{ serverError[field.title] }}
 						</div>
 						<div
-						
 							v-if="field.title.includes('password')"
-							class="absolute top-[4rem] cursor-pointer right-3 mr-10 flex"
-							>
+							class="absolute top-[4rem] right-3 mr-10 flex cursor-pointer">
 							<span
 								v-if="field.type === 'password'"
 								@click="field.type = 'text'"
@@ -70,8 +70,8 @@
 								? 'bg-red-600'
 								: 'bg-gray-900'
 						"
-						class="relative mb-2 p-4 flex h-12 w-full cursor-pointer items-center justify-between rounded">
-						<h2 class="mx-4 text-2xl p-2">Choose Your Gender</h2>
+						class="relative mb-2 flex h-12 w-full cursor-pointer items-center justify-between rounded p-4">
+						<h2 class="mx-4 p-2 text-2xl">Choose Your Gender</h2>
 						<i
 							class="material-icons duration-500"
 							style="font-size: 34px"
@@ -130,11 +130,16 @@
 							customClass="focus:scale-105"
 							loadingText="Creating Account" />
 					</div>
-					<div class="my-4 flex items-center justify-center gap-x-5 text-[1.5rem]">
-						<p class="mx-1 block cursor-pointer text-white">Already have an Account?</p>
+					<div
+						class="my-4 flex items-center justify-center gap-x-5 text-[1.5rem]">
+						<p class="mx-1 block cursor-pointer text-white">
+							Already have an Account?
+						</p>
 
-						<router-link :to="{name: 'login'}">
-							<p class="mx-1 block cursor-pointer text-brand">Login</p></router-link
+						<router-link :to="{ name: 'login' }">
+							<p class="mx-1 block cursor-pointer text-brand">
+								Login
+							</p></router-link
 						>
 					</div>
 				</form>
@@ -144,9 +149,9 @@
 </template>
 
 <script setup>
-import {ref} from 'vue';
+import { ref } from 'vue';
 import axios from '@/axios';
-import {useRouter} from 'vue-router';
+import { useRouter } from 'vue-router';
 import Message from 'vue-m-message';
 import ButtonComponent from '@/components/reusables/ButtonComponent.vue';
 
@@ -159,34 +164,46 @@ const showGender = ref(false);
 const genders = ref(['male', 'female', 'others']);
 
 const forms = ref([
-	{title: 'firstname', type: 'text'},
-	{title: 'lastname', type: 'text'},
-	{title: 'email', type: 'text'},
-	{title: 'username', type: 'text'},
-	{title: 'password', type: 'password'},
-	{title: 'confirm_password', type: 'password'},
+	{ title: 'firstname', type: 'text' },
+	{ title: 'lastname', type: 'text' },
+	{ title: 'email', type: 'text' },
+	{ title: 'username', type: 'text' },
+	{ title: 'password', type: 'password' },
+	{ title: 'confirm_password', type: 'password' },
 ]);
 
 const RegisterUser = async () => {
-	if (UserCredentials.value.password === UserCredentials.value.confirm_password) {
-		try {
-			serverError.value = {};
-			loading.value = true;
-			const {data} = await axios.post('/register', UserCredentials.value);
-			localStorage.setItem('auth-token', data.token);
-			router.push({name: 'all-chats'});
-			serverError.value = {};
-			Message.success('Login Successful');
-		} catch (error) {
-			if (error.name.includes('Axios')) {
-				serverError.value = error.response.data;
+	if (
+		UserCredentials.value.password !== '' &&
+		UserCredentials.value.confirm_password !== ''
+	) {
+		if (
+			UserCredentials.value.password === UserCredentials.value.confirm_password
+		) {
+			try {
+				serverError.value = {};
+				loading.value = true;
+				const { data } = await axios.post('/register', UserCredentials.value);
+				localStorage.setItem('auth-token', data.token);
+				router.push({ name: 'all-chats' });
+				serverError.value = {};
+				Message.success('Login Successful');
+			} catch (error) {
+				if (error.name.includes('Axios')) {
+					serverError.value = error.response.data;
+				}
+			} finally {
+				loading.value = false;
 			}
-		} finally {
-			loading.value = false;
+		} else {
+			serverError.value.confirm_password = 'password does not match';
+			serverError.value.password = 'password does not match';
 		}
 	} else {
-		serverError.value.confirm_password = 'password does not match';
-		serverError.value.password = 'password does not match';
+		if (UserCredentials.value.password == '')
+			serverError.value.password = 'password is required';
+		if (UserCredentials.value.confirm_password == '')
+			serverError.value.confirm_password = 'confirm password is required';
 	}
 };
 </script>

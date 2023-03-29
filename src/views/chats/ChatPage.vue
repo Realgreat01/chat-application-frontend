@@ -144,7 +144,7 @@ const sendMessage = async () => {
 			messageInput.value
 		);
 		messageInput.value = '';
-		scrollChatDownward();
+		scrollChatSmooth();
 		socket.emit('get-current-state', currentUser._id);
 	} catch (error) {}
 };
