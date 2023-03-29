@@ -173,6 +173,7 @@ const forms = ref([
 ]);
 
 const RegisterUser = async () => {
+	console.log(UserCredentials.value);
 	if (
 		UserCredentials.value.password !== '' &&
 		UserCredentials.value.confirm_password !== ''
@@ -196,14 +197,26 @@ const RegisterUser = async () => {
 				loading.value = false;
 			}
 		} else {
-			serverError.value.confirm_password = 'password does not match';
-			serverError.value.password = 'password does not match';
+			serverError.value = {
+				password: 'password does not match',
+				confirm_password: 'password does not match',
+			};
 		}
 	} else {
-		if (UserCredentials.value.password == '')
-			serverError.value.password = 'password is required';
-		if (UserCredentials.value.confirm_password == '')
-			serverError.value.confirm_password = 'confirm password is required';
+		if (
+			!UserCredentials.value.password ||
+			UserCredentials.value.password === ''
+		)
+			serverError.value = Object.assign({}, serverError.value, {
+				password: 'password is required',
+			});
+		if (
+			!UserCredentials.value.confirm_password ||
+			UserCredentials.value.confirm_password === ''
+		)
+			serverError.value = Object.assign({}, serverError.value, {
+				confirm_password: 'confirm password is required',
+			});
 	}
 };
 </script>
