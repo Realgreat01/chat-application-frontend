@@ -3,7 +3,7 @@
 		class="scroll mx-auto flex h-screen w-full flex-col rounded-t-lg bg-brand-dark transition delay-150 ease-in-out md:w-1/3">
 		<div
 			class="fixed top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">
-			<h2 class="my-10 text-6xl font-black">Chats History</h2>
+			<h2 class="my-10 text-6xl font-black">{{ activeComponent.title }}</h2>
 			<RouterLink
 				class="flex cursor-pointer flex-col items-center"
 				:to="{ name: 'user' }">
@@ -21,108 +21,82 @@
 				<p class="font-semi-bold py-2 text-xl text-gray-900">My Profile</p>
 			</RouterLink>
 		</div>
-
-		<div
-			v-if="state.chatHistory.length !== 0"
-			class="h-full overflow-y-scroll pt-[11rem]">
-			<RouterLink
-				:to="{ name: 'private-chat' }"
-				@click="state.receiver = user"
-				v-for="user in state.chatHistory"
-				:key="user._id"
-				class="sticky top-0 mx-4 mt-4 flex cursor-pointer items-start rounded-lg border-2 border-transparent border-y-gray-900 bg-gray-900 p-4">
-				<div class="relative flex w-fit">
-					<img
-						:src="user.profile_picture"
-						class="block h-[4rem] w-[4rem] rounded-full bg-white"
-						alt="" />
-					<div class="relative top-0 right-5">
-						<span
-							style="font-size: 20px"
-							v-if="user.is_online"
-							class="material-icons text-green-400"
-							>fiber_manual_record <span></span>
-						</span>
-						<span
-							style="font-size: 20px"
-							v-else
-							class="material-icons text-gray-600"
-							>fiber_manual_record</span
-						>
-					</div>
+		<div class="h-full overflow-y-scroll pt-[11rem]">
+			<div class="flex w-full items-center justify-around bg-gray-900 py-3">
+				<div
+					class=""
+					v-for="(component, index) in DashboardComponent"
+					@click="activeComponent = component"
+					:key="index">
+					<component
+						:is="component.icon"
+						class="w-14"
+						:class="
+							activeComponent === component ? 'text-white' : 'text-gray-700'
+						" />
 				</div>
-				<div class="m-2 mx-4">
-					<h2 class="text-2xl font-bold">
-						{{ user.firstname }} {{ user.lastname }}
-					</h2>
-					<h2 class="text-xl text-gray-400">@{{ user.username }}</h2>
-					<h2 class="text-xl text-gray-500">
-						<span class="... truncate">
-							{{
-								user.last_sender === state.user._id ? 'You : ' : 'Friend : '
-							}}</span
-						>{{ user.last_message.slice(0, 25) }}
-						<span v-if="user.last_message.length > 25"> ...</span>
-					</h2>
-				</div>
-				<div>
-					<span class="material-icons text-brand">
-						<span v-if="user.gender === 'male'">male</span>
-						<span v-else-if="user.gender === 'female'">female</span>
-						<span v-else>person</span>
-					</span>
-				</div>
-			</RouterLink>
+			</div>
+			<component :is="activeComponent.component" />
 		</div>
-
-		<div
-			v-else
-			class="mx-auto mt-20 flex h-fit w-full flex-col items-center justify-center pt-[11rem]">
-			<img
-				:src="LogoIcon"
-				class="mx-auto block h-[16rem] w-[16rem]"
-				alt="" />
-
-			<h2 class="w-2/3 text-6xl text-gray-600">
-				No chats yet! <br />
-				<br />
-				<span class="text-4xl"
-					>Start the buzz by creating a new chat with the button below</span
-				>
-			</h2>
-		</div>
-		<router-link
-			:to="{ name: 'all-users' }"
-			style="font-size: 30px"
-			class="fixed bottom-10 mx-auto flex h-fit w-full items-center md:w-1/3">
-			<span
-				class="material-icons absolute right-10 self-end rounded-full border p-5"
-				>person_add_alt</span
-			>
-		</router-link>
 	</div>
 </template>
 
 <script setup>
+import ChatHistoryComponent from '@/components/chats/ChatHistoryComponent.vue';
+import CommunityComponent from '@/components/chats/CommunityComponent.vue';
+import NewsfeedComponent from '@/components/posts/NewsfeedComponent.vue';
 import { ConversationStore } from '@/stores/conversation-details.js';
-import LogoIcon from '/logo.svg';
+import { useSwipe } from '@vueuse/core';
+import {
+	NewspaperIcon,
+	UserGroupIcon,
+	ChatBubbleLeftRightIcon,
+} from '@heroicons/vue/24/solid';
+import { shallowRef, ref } from 'vue';
 import { socket } from '@/socket.io';
+
 const state = ConversationStore();
+const DashboardComponent = shallowRef([
+	{
+		component: NewsfeedComponent,
+		title: 'News Feed',
+		icon: NewspaperIcon,
+	},
+	{
+		component: ChatHistoryComponent,
+		title: 'Chats History',
+		icon: ChatBubbleLeftRightIcon,
+	},
+	{
+		component: CommunityComponent,
+		title: 'Community',
+		icon: UserGroupIcon,
+	},
+]);
+const activeComponent = shallowRef(DashboardComponent.value[0]);
 
 (async function () {
 	if (socket.connected) {
 		const user = await state.getCurrentUser();
-		state.getChatHistory();
-		state.getAllUsers();
-		socket.emit('get-current-state', user._id);
+		await state.getChatHistory();
+		await state.getAllUsers();
+		const getStates = setInterval(
+			() => socket.emit('get-current-state', user._id),
+			50
+		);
+		setTimeout(() => clearInterval(getStates), 1000);
 	} else {
 		socket.connect();
 		const user = await state.getCurrentUser();
 		socket.emit('connected-user', user._id);
-		state.getCurrentUser();
-		state.getChatHistory();
-		state.getAllUsers();
-		socket.emit('get-current-state', user._id);
+		await state.getCurrentUser();
+		await state.getChatHistory();
+		await state.getAllUsers();
+		const getStates = setInterval(
+			() => socket.emit('get-current-state', user._id),
+			50
+		);
+		setTimeout(() => clearInterval(getStates), 1000);
 	}
 })();
 </script>

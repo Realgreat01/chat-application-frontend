@@ -15,11 +15,12 @@
 					<span
 						v-if="state.allUsers"
 						class="text-5xl font-medium"
-						>(<span class="mx-2 text-4xl text-brand-dark">{{
-							state.allUsers.length + 1
-						}}</span
-						>)</span
-					>
+						>(
+						<span class="mx-2 text-4xl text-brand-dark">
+							{{ state.allUsers.length + 1 }}
+						</span>
+						)
+					</span>
 				</h2>
 			</div>
 			<RouterLink

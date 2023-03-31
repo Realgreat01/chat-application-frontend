@@ -34,3 +34,5 @@ bin
 .env
 .env.example
 env
+trash.vue
+
