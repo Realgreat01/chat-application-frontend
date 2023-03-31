@@ -10,7 +10,17 @@
 					style="font-size: 40px">
 					arrow_right_alt
 				</RouterLink>
-				<h2 class="mb-10 text-6xl font-black">Users</h2>
+				<h2 class="mb-10 flex items-center gap-x-4 text-6xl font-black">
+					Users
+					<span
+						v-if="state.allUsers"
+						class="text-5xl font-medium"
+						>(<span class="mx-2 text-4xl text-brand-dark">{{
+							state.allUsers.length + 1
+						}}</span
+						>)</span
+					>
+				</h2>
 			</div>
 			<RouterLink
 				class="cursor-pointer"
