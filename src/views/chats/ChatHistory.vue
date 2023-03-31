@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="scroll mx-auto flex h-screen w-full flex-col rounded-t-lg bg-brand-dark transition delay-150 ease-in-out md:w-1/3">
+		class="scroll mx-auto flex h-screen w-full flex-col rounded-t-lg border border-gray-700 border-y-transparent bg-brand-dark transition delay-150 ease-in-out md:w-1/3">
 		<div
 			class="fixed top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">
 			<h2 class="my-10 text-6xl font-black">{{ activeComponent.title }}</h2>
@@ -22,7 +22,7 @@
 			</RouterLink>
 		</div>
 		<div class="h-full overflow-y-scroll pt-[11rem]">
-			<div class="flex w-full items-center justify-around bg-gray-900 py-3">
+			<div class="flex sticky top-[0rem] w-full items-center justify-around bg-gray-900 py-3">
 				<div
 					class=""
 					v-for="(component, index) in DashboardComponent"
