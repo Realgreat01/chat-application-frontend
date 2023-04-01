@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="scroll mx-auto flex h-screen w-full flex-col overflow-y-scroll rounded-t-lg bg-brand-dark pb-[6.5rem] pt-[12rem] transition delay-150 ease-in-out md:w-1/3"
+		class="scroll mx-auto flex h-screen w-full flex-col overflow-y-scroll rounded-t-lg bg-brand-dark pb-[6.5rem] pt-[12rem] transition delay-150 ease-in-out"
 		ref="chatMessageWrapper">
 		<div
 			class="fixed top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">

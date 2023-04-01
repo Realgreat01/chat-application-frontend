@@ -71,10 +71,10 @@
 		</div>
 		<router-link
 			:to="{ name: 'all-users' }"
-			style="font-size: 30px"
-			class="fixed bottom-10 mx-auto flex h-fit w-full items-center md:w-1/3">
+			style="font-size: 20px"
+			class="fixed bottom-20 mx-auto flex h-fit w-full items-center md:w-1/3">
 			<span
-				class="material-icons absolute right-10 self-end rounded-full border p-5"
+				class="material-icons absolute right-10 self-end rounded-full border p-4"
 				>person_add_alt</span
 			>
 		</router-link>

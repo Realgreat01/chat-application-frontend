@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="scroll mx-auto flex h-screen w-full flex-col rounded-t-lg bg-brand-dark transition delay-150 ease-in-out md:w-1/3">
+		class="scroll mx-auto flex h-screen w-full flex-col rounded-t-lg bg-brand-dark transition delay-150 ease-in-out">
 		<div
 			class="fixed top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">
 			<div class="flex h-full flex-col items-start justify-center">
@@ -131,11 +131,10 @@
 		</div>
 		<router-link
 			:to="{ name: 'all-chats' }"
-			style="font-size: 30px"
-			cck="fixed top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3"
-			class="material-icons fixed bottom-10 mx-auto flex h-fit w-full items-center md:w-1/3">
+			style="font-size: 20px"
+			class="material-icons fixed bottom-20 mx-auto flex h-fit w-full items-center md:w-1/3">
 			<span
-				class="material-icons absolute right-10 self-end rounded-full border p-6"
+				class="material-icons absolute right-10 self-end rounded-full border p-4"
 				>message</span
 			>
 		</router-link>
