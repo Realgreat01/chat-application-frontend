@@ -22,7 +22,8 @@
 			</RouterLink>
 		</div>
 		<div class="h-full overflow-y-scroll pt-[11rem]">
-			<div class="flex sticky top-[0rem] w-full items-center justify-around bg-gray-900 py-3">
+			<div
+				class="sticky top-[0rem] z-40 flex w-full items-center justify-around bg-gray-900 py-3">
 				<div
 					class=""
 					v-for="(component, index) in DashboardComponent"
@@ -32,7 +33,9 @@
 						:is="component.icon"
 						class="w-14"
 						:class="
-							activeComponent === component ? 'text-white' : 'text-gray-700'
+							activeComponent === component
+								? 'fill-white text-white'
+								: 'fill-gray-700 text-gray-700'
 						" />
 				</div>
 			</div>
@@ -52,6 +55,8 @@ import {
 	UserGroupIcon,
 	ChatBubbleLeftRightIcon,
 } from '@heroicons/vue/24/solid';
+
+import { RiArticleLine, RiHome2Fill } from 'vue-remix-icons';
 import { shallowRef, ref } from 'vue';
 import { socket } from '@/socket.io';
 
@@ -60,7 +65,7 @@ const DashboardComponent = shallowRef([
 	{
 		component: NewsfeedComponent,
 		title: 'News Feed',
-		icon: NewspaperIcon,
+		icon: RiArticleLine,
 	},
 	{
 		component: ChatHistoryComponent,
