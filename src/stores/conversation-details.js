@@ -7,27 +7,29 @@ export const ConversationStore = defineStore('store', {
 			receiver: {},
 			allUsers: [],
 			chatHistory: [],
-			user: {}
+			showFooter: true,
+			homeTab: 0,
+			user: {},
 		};
 	},
 	actions: {
 		async getAllUsers() {
 			try {
-				const {data} = await axios.get('/users');
+				const { data } = await axios.get('/users');
 				this.allUsers = data;
 				return this.allUsers;
 			} catch (error) {}
 		},
 		async getChatHistory() {
 			try {
-				const {data} = await axios.get('/chats');
+				const { data } = await axios.get('/chats');
 				this.chatHistory = data;
 				return this.chatHistory;
 			} catch (error) {}
 		},
 		async getCurrentUser() {
 			try {
-				const {data} = await axios.get('/user');
+				const { data } = await axios.get('/user');
 				this.user = data;
 				return this.user;
 			} catch (error) {}
@@ -35,5 +37,6 @@ export const ConversationStore = defineStore('store', {
 	},
 	persist: {
 		storage: localStorage,
+		path: [!'showFooter'],
 	},
 });

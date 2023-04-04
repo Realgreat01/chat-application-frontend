@@ -14,13 +14,13 @@ const routeAuthGuard = (to, from) => {
 
 const protectedRoutes = (to, from, next) => {
 	if (getAccessToken()) next();
-	else next({name: 'login'});
+	else next({ name: 'login' });
 };
 
 const isLoggedInGuard = (to, from) => {
 	if (from.name === undefined && getAccessToken()) {
 		return {
-			name: 'all-chats',
+			name: 'app',
 		};
 	}
 	if (from.name !== undefined && getAccessToken()) return false;
@@ -29,11 +29,17 @@ const isLoggedInGuard = (to, from) => {
 };
 
 const privateChatGuard = (to, from) => {
-	if (from.name !== 'all-chats' && from.name !== 'single-user')
+	if (from.name !== 'app' && from.name !== 'single-user')
 		return {
-			name: 'all-chats',
+			name: 'app',
 		};
 	return true;
 };
 
-export {getAccessToken, routeAuthGuard, isLoggedInGuard, protectedRoutes, privateChatGuard};
+export {
+	getAccessToken,
+	routeAuthGuard,
+	isLoggedInGuard,
+	protectedRoutes,
+	privateChatGuard,
+};

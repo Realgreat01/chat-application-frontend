@@ -38,19 +38,19 @@
 										: ' border-gray-800'
 								"
 								v-model.trim="userDetails[credential.value]"
-								class="relative block h-[4rem] w-full rounded border bg-transparent pl-4 p-2 text-3xl placeholder:lowercase focus:border-brand focus:outline-none focus:ring-transparent" />
+								class="relative block h-[4rem] w-full rounded border bg-transparent p-2 pl-4 text-3xl placeholder:lowercase focus:border-brand focus:outline-none focus:ring-transparent" />
 							<div
 								v-if="credential.value === 'password'"
-								class="absolute top-3 cursor-pointer right-3 mr-10 flex">
+								class="absolute top-3 right-3 mr-10 flex cursor-pointer">
 								<span
-									class="material-icons absolute top-1/2 "
+									class="material-icons absolute top-1/2"
 									v-if="credential.type === 'password'"
 									@click="credential.type = 'text'"
 									>visibility
 								</span>
 								<span
 									v-else
-									class="material-icons absolute top-1/2 "
+									class="material-icons absolute top-1/2"
 									@click="credential.type = 'password'"
 									>visibility_off</span
 								>
@@ -71,9 +71,10 @@
 							customClass="focus:scale-105"
 							loadingText="Signing In ..." />
 					</div>
-					<div class="mx-auto mt-8 flex items-center justify-center gap-x-3 text-2xl">
+					<div
+						class="mx-auto mt-8 flex items-center justify-center gap-x-3 text-2xl">
 						<p class="">Not a user</p>
-						<router-link :to="{name: 'register'}">
+						<router-link :to="{ name: 'register' }">
 							<p class="cursor-pointer text-brand text-opacity-70">
 								Create Account
 							</p></router-link
@@ -86,10 +87,10 @@
 </template>
 
 <script setup>
-import {ref} from 'vue';
+import { ref } from 'vue';
 import Message from 'vue-m-message';
 import axios from '@/axios';
-import {useRouter} from 'vue-router';
+import { useRouter } from 'vue-router';
 import ButtonComponent from '@/components/reusables/ButtonComponent.vue';
 
 const router = useRouter();
@@ -114,17 +115,17 @@ const userCredentials = ref([
 const signIn = async () => {
 	try {
 		loading.value = true;
-			const {data} = await axios.post('/login', userDetails.value);
-			const {token} = data;
-			formError.value = '';
-			Message.success('Login Successsful', {
-				duration: 1000,
-				position: 'top-right',
-			});
-			localStorage.setItem('auth-token', token);
-			setTimeout(() => {
-				router.replace({name: 'all-chats'});
-			}, 1500);
+		const { data } = await axios.post('/login', userDetails.value);
+		const { token } = data;
+		formError.value = '';
+		Message.success('Login Successsful', {
+			duration: 1000,
+			position: 'top-right',
+		});
+		localStorage.setItem('auth-token', token);
+		setTimeout(() => {
+			router.replace({ name: 'app' });
+		}, 1500);
 	} catch (error) {
 		formError.value = 'username or password incorrect';
 	} finally {

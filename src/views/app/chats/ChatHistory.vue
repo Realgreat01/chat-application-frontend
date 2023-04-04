@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="scroll mx-auto flex h-screen w-full flex-col rounded-t-lg border border-gray-700 border-y-transparent bg-brand-dark transition delay-150 ease-in-out">
+		class="scroll mx-auto flex h-screen w-full flex-col rounded-t-lg border-y-transparent bg-brand-dark transition delay-150 ease-in-out">
 		<div
 			class="fixed top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">
 			<h2 class="my-10 text-6xl font-black">{{ activeComponent.title }}</h2>
@@ -27,11 +27,11 @@
 				<div
 					class=""
 					v-for="(component, index) in DashboardComponent"
-					@click="activeComponent = component"
+					@click="(activeComponent = component), (state.homeTab = index)"
 					:key="index">
 					<component
 						:is="component.icon"
-						class="w-14"
+						class="w-14 cursor-pointer"
 						:class="
 							activeComponent === component
 								? 'fill-white text-white'
@@ -65,7 +65,7 @@ const DashboardComponent = shallowRef([
 	{
 		component: NewsfeedComponent,
 		title: 'News Feed',
-		icon: RiArticleLine,
+		icon: NewspaperIcon,
 	},
 	{
 		component: ChatHistoryComponent,
@@ -78,7 +78,7 @@ const DashboardComponent = shallowRef([
 		icon: UserGroupIcon,
 	},
 ]);
-const activeComponent = shallowRef(DashboardComponent.value[0]);
+const activeComponent = shallowRef(DashboardComponent.value[state.homeTab]);
 
 (async function () {
 	if (socket.connected) {

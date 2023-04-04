@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="scroll relative mx-auto flex min-h-screen w-full flex-col rounded-t-lg bg-brand-dark transition delay-150 ease-in-out md:w-1/3">
+		class="scroll relative mx-auto flex min-h-screen w-full flex-col rounded-t-lg bg-brand-dark transition delay-150 ease-in-out">
 		<div
 			class="sticky top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4">
 			<h2 class="my-10 text-6xl font-black">My Profile</h2>
@@ -8,7 +8,7 @@
 				<RouterLink
 					class="flex cursor-pointer flex-col hover:text-brand-dark"
 					style="font-size: 30px"
-					:to="{ name: 'all-chats' }">
+					:to="{ name: 'app' }">
 					<div class="material-icons">home</div>
 					<p class="text-sm">Home</p>
 				</RouterLink>
@@ -100,14 +100,17 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import axios from '@/axios';
 import { format } from 'timeago.js';
 import { socket } from '@/socket.io';
+import { ConversationStore } from '@/stores/conversation-details';
 import WhatsAppIcon from '@/assets/icons/whatsapp.svg';
 import FacebookIcon from '@/assets/icons/facebook.svg';
 import TwitterIcon from '@/assets/icons/twitter.svg';
 import LinkedinIcon from '@/assets/icons/linkedin-icon.svg';
+
+const state = ConversationStore();
 
 const inviteCopyTop = ref(
 	'Invite your friends to join the party! The more people, the more buzz.'
@@ -152,7 +155,12 @@ const logout = () => {
 	localStorage.removeItem('auth-token');
 	socket.disconnect();
 };
-onMounted(async () => await getUserProfile());
+onMounted(async () => {
+	await getUserProfile();
+});
+
+onMounted(() => (state.showFooter = false));
+onUnmounted(() => (state.showFooter = true));
 </script>
 
 <style lang="scss" scoped>

@@ -185,7 +185,7 @@ const RegisterUser = async () => {
 				loading.value = true;
 				const { data } = await axios.post('/register', UserCredentials.value);
 				localStorage.setItem('auth-token', data.token);
-				router.push({ name: 'all-chats' });
+				router.push({ name: 'app' });
 				serverError.value = {};
 				Message.success('Login Successful');
 			} catch (error) {
@@ -196,7 +196,7 @@ const RegisterUser = async () => {
 				loading.value = false;
 			}
 		} else {
-			serverError.value = {}
+			serverError.value = {};
 			serverError.value = {
 				password: 'password does not match',
 				confirm_password: 'password does not match',
@@ -205,7 +205,7 @@ const RegisterUser = async () => {
 
 		// Check for no field
 	} else {
-		serverError.value = {}
+		serverError.value = {};
 		if (UserCredentials.value.password === '')
 			serverError.value = Object.assign(serverError.value, {
 				password: 'password is required',

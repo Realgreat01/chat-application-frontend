@@ -5,7 +5,7 @@
 			class="fixed top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">
 			<div class="flex h-full flex-col items-start justify-center">
 				<RouterLink
-					:to="{ name: 'all-chats' }"
+					:to="{ name: 'app' }"
 					class="material-icons block rotate-180 cursor-pointer text-gray-700"
 					style="font-size: 40px">
 					arrow_right_alt
@@ -130,7 +130,7 @@
 			</div>
 		</div>
 		<router-link
-			:to="{ name: 'all-chats' }"
+			:to="{ name: 'app' }"
 			style="font-size: 20px"
 			class="material-icons fixed bottom-20 mx-auto flex h-fit w-full items-center md:w-1/3">
 			<span

@@ -1,14 +1,14 @@
 <template>
 	<div
-		class="scroll mx-auto flex h-screen w-full flex-col overflow-y-scroll rounded-t-lg bg-brand-dark pb-[6.5rem] pt-[12rem] transition delay-150 ease-in-out"
+		class="scroll mx-auto flex h-full w-full flex-col overflow-y-scroll rounded-t-lg bg-brand-dark transition delay-150 ease-in-out"
 		ref="chatMessageWrapper">
 		<div
-			class="fixed top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">
+			class="top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">
 			<div class="flex h-full flex-col items-start justify-center">
 				<RouterLink
 					class="material-icons rotate-180 cursor-pointer text-gray-700"
 					style="font-size: 40px"
-					:to="{ name: 'all-chats' }">
+					:to="{ name: 'app' }">
 					arrow_right_alt
 				</RouterLink>
 				<h2 class="mb-4 text-6xl font-black">Chat</h2>
@@ -41,7 +41,7 @@
 					<img
 						:src="receiver.profile_picture"
 						alt=""
-						class="block h-20 w-20 rounded-full bg-gray-900"
+						class="block h-16 w-16 rounded-full bg-gray-900"
 						v-if="receiver.profile_picture" />
 					<h2
 						class="material-icons cursor-pointer"
@@ -65,7 +65,7 @@
 				:receiver="receiver" />
 		</div>
 		<form
-			class="fixed bottom-0 mx-auto flex h-[7rem] w-full items-center justify-between gap-x-5 bg-gray-800 p-4 md:w-1/3"
+			class="bottom-0 mx-auto flex h-[7rem] w-full items-center justify-between gap-x-5 bg-gray-800 p-4 md:w-1/3"
 			@submit.prevent="sendMessage"
 			id="">
 			<textarea
@@ -90,7 +90,14 @@
 
 <script setup>
 import axios from '@/axios';
-import { ref, onMounted, onUpdated, onBeforeUpdate, nextTick } from 'vue';
+import {
+	ref,
+	onMounted,
+	onUpdated,
+	onUnmounted,
+	onBeforeUpdate,
+	nextTick,
+} from 'vue';
 import { format } from 'timeago.js';
 import { socket } from '@/socket.io';
 import { ConversationStore } from '@/stores/conversation-details.js';
@@ -116,8 +123,8 @@ const getConversations = async receiver_id => {
 async function scrollChatDownward() {
 	await nextTick(() => {
 		const chatMessageBox = document.getElementById('chat-message-box');
-		const contentHeight = chatMessageBox.scrollHeight;
-		const containerHeight = chatMessageBox.clientHeight;
+		const contentHeight = chatMessageBox?.scrollHeight;
+		const containerHeight = chatMessageBox?.clientHeight;
 		chatMessageBox.scrollTop = contentHeight - containerHeight;
 	});
 }
@@ -146,7 +153,9 @@ const sendMessage = async () => {
 		messageInput.value = '';
 		scrollChatSmooth();
 		socket.emit('get-current-state', currentUser._id);
-	} catch (error) {}
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 socket.on('get-message-from-server', data => {
@@ -159,6 +168,7 @@ onBeforeUpdate(() => {});
 onUpdated(() => scrollChatDownward());
 
 onMounted(async () => {
+	state.showFooter = false;
 	try {
 		if (receiver) {
 			messages.value = await getConversations(receiver._id);
@@ -167,5 +177,9 @@ onMounted(async () => {
 		const scrollDown = setInterval(() => scrollChatDownward(), 50);
 		setTimeout(() => clearInterval(scrollDown), 1000);
 	} catch (error) {}
+});
+
+onUnmounted(() => {
+	state.showFooter = true;
 });
 </script>
