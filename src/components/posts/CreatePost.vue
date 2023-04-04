@@ -38,7 +38,10 @@
 					<button
 						class="material-icons block"
 						type="submit">
-						<RiSendPlaneFill class="w-16 rotate-[5deg] fill-brand" />
+						<RiSendPlaneFill
+							class="w-16 rotate-[5deg] fill-brand"
+							:class="creatingPost ? 'animate-ping' : ''"
+							:disabled="creatingPost" />
 					</button>
 
 					<button
@@ -60,10 +63,10 @@ import { RiSendPlaneFill } from 'vue-remix-icons';
 import axios from '@/axios';
 import Message from 'vue-m-message';
 
-const emit = defineEmits('post_created');
+const emit = defineEmits(['post_created']);
 const content = ref('');
 const form = ref(null);
-
+const creatingPost = ref(false);
 const category = ref('');
 const categories = ref([
 	'Please select post category',
@@ -76,6 +79,7 @@ const categories = ref([
 ]);
 
 const createPost = async () => {
+	creatingPost.value = true;
 	try {
 		await axios.post('/create-post', {
 			content: content.value,
@@ -83,9 +87,11 @@ const createPost = async () => {
 		});
 		content.value = '';
 		Message.success('Post created successfully');
-		emit(['post_created']);
+		emit('post_created');
 	} catch (error) {
-		console.log(error);
+		Message.error('Unable to create post');
+	} finally {
+		creatingPost.value = false;
 	}
 };
 

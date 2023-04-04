@@ -3,7 +3,7 @@
 		class="scroll mx-auto flex h-full w-full flex-col overflow-y-scroll rounded-t-lg bg-brand-dark transition delay-150 ease-in-out"
 		ref="chatMessageWrapper">
 		<div
-			class="top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">
+			class="top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0">
 			<div class="flex h-full flex-col items-start justify-center">
 				<RouterLink
 					class="material-icons rotate-180 cursor-pointer text-gray-700"
@@ -65,7 +65,7 @@
 				:receiver="receiver" />
 		</div>
 		<form
-			class="bottom-0 mx-auto flex h-[7rem] w-full items-center justify-between gap-x-5 bg-gray-800 p-4 md:w-1/3"
+			class="bottom-0 mx-auto flex h-[7rem] w-full items-center justify-between gap-x-5 bg-gray-800 p-4"
 			@submit.prevent="sendMessage"
 			id="">
 			<textarea

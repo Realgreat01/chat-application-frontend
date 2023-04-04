@@ -3,8 +3,8 @@
 		<div>
 			<div
 				class="relative m-4 h-fit rounded-xl bg-slate-900 p-4 text-2xl"
-				v-for="(post, index) in NewsFeed"
-				:key="index">
+				v-for="post in state.NewsFeed"
+				:key="post._id">
 				<div
 					class="material-icons absolute right-4 top-4 text-slate-500"
 					style="font-size: 20px">
@@ -12,7 +12,7 @@
 				</div>
 				<div class="flex items-start gap-x-4">
 					<img
-						src="https://xsgames.co/randomusers/avatar.php?g=male"
+						:src="post.created_by.profile_picture"
 						alt=""
 						class="h-12 w-12 rounded-full" />
 					<div class="flex flex-col">
@@ -20,9 +20,9 @@
 							<div class="flex flex-col gap-x-3 overflow-x-hidden">
 								<span class="font-bold"
 									>{{ post.created_by.firstname }}
-									{{ post.created_by.firstname }}</span
+									{{ post.created_by.lastname }}</span
 								>
-								<span class="text-base text-gray-400"
+								<span class="text-xl text-gray-400"
 									>@{{ post.created_by.username }}</span
 								>
 							</div>
@@ -39,7 +39,7 @@
 					</div>
 				</div>
 
-				<div class="flex items-center justify-evenly">
+				<div class="flex items-center justify-around">
 					<p
 						class="material-icons cursor-pointer"
 						style="font-size: 16px"
@@ -57,6 +57,16 @@
 						style="font-size: 16px">
 						share
 					</p>
+					<div class="items-end justify-end">
+						<div
+							class="mt-1 text-end text-base font-thin uppercase text-gray-300">
+							{{ formatDate(post.createdAt) }}
+						</div>
+						<div
+							class="mt-1 text-end text-sm font-thin uppercase text-gray-300">
+							{{ formatTime(post.createdAt) }}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -74,7 +84,8 @@
 		<div
 			class="fixed bottom-0 z-50 mx-auto w-full md:w-1/3"
 			v-if="createNewPost">
-			<CreatePost @post_created="(createNewPost = false), getAllPost()" />
+			<CreatePost
+				@post_created="(createNewPost = false), state.getNewsFeed()" />
 		</div>
 	</div>
 </template>
@@ -83,9 +94,11 @@
 import { PencilSquareIcon } from '@heroicons/vue/24/outline';
 import { onMounted, ref } from 'vue';
 import CreatePost from './CreatePost.vue';
-import axios from '@/axios';
+import { ConversationStore } from '@/stores/conversation-details.js';
 
-const createNewPost = ref(true);
+const state = ConversationStore();
+
+const createNewPost = ref(false);
 
 const convertToHTML = post => {
 	const words = post.replace(/\n+/g, '\n').split('\n').join(' ').split(' ');
@@ -104,12 +117,25 @@ const convertToHTML = post => {
 	return html;
 };
 
-const NewsFeed = ref([]);
+const formatDate = date => {
+	const dateToFormat = new Date(date);
+	const options = {
+		year: 'numeric',
+		month: 'short',
+		day: 'numeric',
+	};
+	const { format } = new Intl.DateTimeFormat('en-US', options);
+	return format(dateToFormat);
+};
+const formatTime = time => {
+	const timeToFormat = new Date(time);
+	const timeString = timeToFormat.toLocaleTimeString('en-US', {
+		hour: 'numeric',
+		minute: 'numeric',
+		hour12: true,
+	});
 
-const getAllPost = async () => {
-	const { data } = await axios.get('/get-post');
-	NewsFeed.value = data;
-	console.log(data);
+	return timeString;
 };
 
 const getIcon = icon => {
@@ -122,8 +148,9 @@ const getIcon = icon => {
 			return 'forum';
 	}
 };
-onMounted(() => {
-	getAllPost();
+
+onMounted(async () => {
+	await state.getNewsFeed();
 });
 </script>
 

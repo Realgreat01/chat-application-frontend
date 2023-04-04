@@ -5,6 +5,7 @@ export const ConversationStore = defineStore('store', {
 	state: () => {
 		return {
 			receiver: {},
+			NewsFeed: [],
 			allUsers: [],
 			chatHistory: [],
 			showFooter: true,
@@ -32,6 +33,13 @@ export const ConversationStore = defineStore('store', {
 				const { data } = await axios.get('/user');
 				this.user = data;
 				return this.user;
+			} catch (error) {}
+		},
+		async getNewsFeed() {
+			try {
+				const { data } = await axios.get('/get-post');
+				this.NewsFeed = data;
+				return this.NewsFeed;
 			} catch (error) {}
 		},
 	},

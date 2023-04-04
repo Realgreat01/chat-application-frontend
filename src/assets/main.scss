@@ -4,8 +4,14 @@
 html {
 	font-size: 62.5%;
 }
+
+:root {
+	--status-bar-height: 0px; /* default value */
+}
+
 body {
 	font-family: 'Poppins', sans-serif;
+	height: calc(100vh - var(--status-bar-height));
 	&::-webkit-scrollbar {
 		display: none;
 	}
