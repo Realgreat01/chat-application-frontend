@@ -52,14 +52,14 @@ const router = createRouter({
 			name: 'trends',
 			component: GeneralLayout,
 			meta: { requiresAuth: true },
-			children: AppRoute.UsersRoute,
+			children: [],
 		},
 		{
 			path: '/events',
 			name: 'events',
 			component: GeneralLayout,
 			meta: { requiresAuth: true },
-			children: AppRoute.UsersRoute,
+			children: [],
 		},
 		{
 			path: '/market-place',
@@ -72,7 +72,7 @@ const router = createRouter({
 			name: 'settings',
 			component: GeneralLayout,
 			meta: { requiresAuth: true },
-			children: AppRoute.UsersRoute,
+			children: [],
 		},
 
 		{

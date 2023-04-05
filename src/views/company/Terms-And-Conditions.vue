@@ -10,33 +10,33 @@
 			</div>
 			<h2 class="mb-4 text-3xl font-bold">Introduction</h2>
 			<p class="mb-4">
-				These Terms and Conditions ("Terms") govern the use of Buzz Chat, a social media
-				application developed and owned by Buzz Chat. By using Buzz Chat, you agree to be
-				bound by these Terms. If you do not agree to these Terms, you may not use Buzz Chat.
+				These Terms and Conditions ("Terms") govern the use of Syntrix, a social media
+				application developed and owned by Syntrix. By using Syntrix, you agree to be
+				bound by these Terms. If you do not agree to these Terms, you may not use Syntrix.
 			</p>
 			<h2 class="mb-4 text-3xl font-bold">User Conduct</h2>
 			<p class="mb-4">
-				Users of Buzz Chat are solely responsible for their own conduct and content shared
-				through the application. Users agree not to use Buzz Chat for any illegal or
+				Users of Syntrix are solely responsible for their own conduct and content shared
+				through the application. Users agree not to use Syntrix for any illegal or
 				unauthorized purposes and to comply with all local, state, and federal laws. Users
 				also agree not to harass, intimidate, or threaten other users, or engage in any
 				other behavior that violates the rights of others.
 			</p>
 			<h2 class="mb-4 text-3xl font-bold">Intellectual Property</h2>
 			<p class="mb-4">
-				Buzz Chat and its contents, including but not limited to graphics, images, logos,
-				and text, are the intellectual property of Buzz Chat and are protected by copyright,
+				Syntrix and its contents, including but not limited to graphics, images, logos,
+				and text, are the intellectual property of Syntrix and are protected by copyright,
 				trademark, and other laws. Users may not reproduce, distribute, or modify any
-				portion of Buzz Chat without the express written permission of Buzz Chat.
+				portion of Syntrix without the express written permission of Syntrix.
 			</p>
 			<h2 class="mb-4 text-3xl font-bold">Liability</h2>
 			<p class="mb-4">
-				Buzz Chat is not responsible for any damages, direct or indirect, arising from the
-				use of Buzz Chat. Buzz Chat is provided "as is" without warranty of any kind, either
+				Syntrix is not responsible for any damages, direct or indirect, arising from the
+				use of Syntrix. Syntrix is provided "as is" without warranty of any kind, either
 				express or implied, including but not limited to warranties of merchantability,
-				fitness for a particular purpose, and non-infringement. Buzz Chat is not responsible
+				fitness for a particular purpose, and non-infringement. Syntrix is not responsible
 				for any content posted by users, and is not liable for any errors or omissions in
-				such content. Users use Buzz Chat at their own risk.
+				such content. Users use Syntrix at their own risk.
 			</p>
 			<!-- Add additional paragraphs here as needed -->
 		</div>

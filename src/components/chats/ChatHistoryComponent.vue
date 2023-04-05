@@ -14,7 +14,7 @@
 						:src="user.profile_picture"
 						class="block h-[4rem] w-[4rem] rounded-full bg-white"
 						alt="" />
-					<div class="relative top-0 right-5">
+					<div class="relative right-5 top-0">
 						<span
 							style="font-size: 20px"
 							v-if="user.is_online"
@@ -72,7 +72,7 @@
 		<router-link
 			:to="{ name: 'all-users' }"
 			style="font-size: 20px"
-			class="fixed bottom-20 mx-auto flex h-fit w-full items-center md:w-1/3">
+			class="fixed bottom-24 mx-auto flex h-fit w-full items-center md:w-1/3">
 			<span
 				class="material-icons absolute right-10 self-end rounded-full border p-4"
 				>person_add_alt</span
@@ -83,7 +83,6 @@
 
 <script setup>
 import { ConversationStore } from '@/stores/conversation-details.js';
-import { socket } from '@/socket.io';
 import LogoIcon from '/logo.svg';
 const state = ConversationStore();
 </script>

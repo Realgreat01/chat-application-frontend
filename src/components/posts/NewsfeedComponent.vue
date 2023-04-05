@@ -34,7 +34,7 @@
 							>
 						</h2>
 						<p
-							class="my-3 w-4/5 text-xl"
+							class="my-3 w-[90%] text-xl"
 							v-html="convertToHTML(post.content)"></p>
 					</div>
 				</div>
@@ -42,20 +42,21 @@
 				<div class="flex items-center justify-around">
 					<p
 						class="material-icons cursor-pointer"
-						style="font-size: 16px"
-						@click="post.liked = !post.liked"
-						:class="post.liked ? 'text-red-600' : 'text-white'">
-						favorite
-					</p>
-					<p
-						class="material-icons cursor-pointer"
-						style="font-size: 16px">
+						style="font-size: 18px">
 						reply
 					</p>
 					<p
 						class="material-icons cursor-pointer"
-						style="font-size: 16px">
+						style="font-size: 18px">
 						share
+					</p>
+					<p
+					
+						style="font-size: 18px"
+						@click="post.liked = !post.liked">
+						<span 	class="material-icons cursor-pointer" :class="post.liked ? 'text-red-600' : 'text-white'"
+							>favorite</span
+						> <span class="">{{post.liked}}</span>
 					</p>
 					<div class="items-end justify-end">
 						<div
@@ -101,20 +102,18 @@ const state = ConversationStore();
 const createNewPost = ref(false);
 
 const convertToHTML = post => {
-	const words = post.replace(/\n+/g, '\n').split('\n').join(' ').split(' ');
-	let html = '<p>';
-	for (var i = 0; i < words.length; i++) {
-		if (words[i].startsWith('#')) {
-			html +=
-				'<span class="text-brand font-medium cursor-pointer">' +
-				words[i] +
-				'</span> ';
-		} else {
-			html += words[i] + ' ';
-		}
+	const words = post.split(/\n{1,}/).map(word => word.replace(/\n{2,}/g, '\n'));
+	function formatString(str) {
+		const hashtag = str.match(/#\S+/);
+		const formattedStr = str.replace(
+			hashtag,
+			`<span class="text-brand font-medium cursor-pointer" onclick="alert('${hashtag}')">${hashtag}</span>`
+		);
+		return `<p>${formattedStr}</p>`;
 	}
-	html += '</p>';
-	return html;
+	const htmlString = words.map(formatString).join('');
+
+	return htmlString;
 };
 
 const formatDate = date => {
@@ -155,13 +154,15 @@ onMounted(async () => {
 </script>
 
 <style lang="scss" scoped></style>
-<!-- {
-		author: 'Samson Ikuomenisan',
-		username: 'realgreat',
-		verified: true,
-		liked: true,
-		category: 'housing',
 
-		content: 'hello Everyone here is to new social media  hahahahaha',
-		posted_by: 'Date.now',
-	}, -->
+<!-- for (var i = 0; i < words.length; i++) {
+		if (words[i].startsWith('#')) {
+			html +=
+				'<span class="text-brand font-medium cursor-pointer" >' +
+				words[i] +
+				'</span> ';
+		} else {
+			html += words[i] + ' ';
+		}
+	}
+	html += '</p>'; -->

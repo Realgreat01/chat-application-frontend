@@ -1,0 +1,146 @@
+Date : 2023-04-05 20:23:04
+Directory : c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend
+Total : 80 files,  2884 codes, 66 comments, 301 blanks, all 3251 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| Vue        |         43 |      2,221 |         48 |        214 |      2,483 |
+| JavaScript |         18 |        421 |         15 |         57 |        493 |
+| SCSS       |          3 |         86 |          1 |         10 |         97 |
+| JSON       |          2 |         54 |          0 |          2 |         56 |
+| XML        |         12 |         54 |          2 |          4 |         60 |
+| HTML       |          1 |         30 |          0 |          2 |         32 |
+| Markdown   |          1 |         18 |          0 |         12 |         30 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                                            | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                               |         80 |      2,884 |         66 |        301 |      3,251 |
+| . (Files)                                                                                                                                       |          7 |        105 |          3 |         22 |        130 |
+| public                                                                                                                                          |          2 |          4 |          0 |          1 |          5 |
+| src                                                                                                                                             |         71 |      2,775 |         63 |        278 |      3,116 |
+| src (Files)                                                                                                                                     |          2 |         26 |          0 |          7 |         33 |
+| src\assets                                                                                                                                      |          8 |         91 |          1 |         10 |        102 |
+| src\assets (Files)                                                                                                                              |          3 |         86 |          1 |         10 |         97 |
+| src\assets\icons                                                                                                                                |          4 |          4 |          0 |          0 |          4 |
+| src\assets\images                                                                                                                               |          1 |          1 |          0 |          0 |          1 |
+| src\axios                                                                                                                                       |          1 |         19 |          0 |          4 |         23 |
+| src\components                                                                                                                                  |         30 |        968 |         15 |        115 |      1,098 |
+| src\components\chats                                                                                                                            |          5 |        387 |          1 |         31 |        419 |
+| src\components\events                                                                                                                           |          3 |         18 |          0 |         11 |         29 |
+| src\components\home                                                                                                                             |          5 |        117 |          0 |         17 |        134 |
+| src\components\icons                                                                                                                            |          7 |         82 |          2 |          9 |         93 |
+| src\components\icons (Files)                                                                                                                    |          2 |         37 |          0 |          6 |         43 |
+| src\components\icons\svgs                                                                                                                       |          5 |         45 |          2 |          3 |         50 |
+| src\components\market-place                                                                                                                     |          5 |         25 |          0 |         15 |         40 |
+| src\components\posts                                                                                                                            |          3 |        250 |         11 |         26 |        287 |
+| src\components\reusables                                                                                                                        |          2 |         89 |          1 |          6 |         96 |
+| src\data                                                                                                                                        |          1 |         51 |          0 |          1 |         52 |
+| src\layouts                                                                                                                                     |          2 |         68 |          0 |          6 |         74 |
+| src\plugins                                                                                                                                     |          1 |         37 |          0 |          2 |         39 |
+| src\router                                                                                                                                      |          8 |        221 |         12 |         31 |        264 |
+| src\router (Files)                                                                                                                              |          3 |        159 |          5 |         18 |        182 |
+| src\router\routes                                                                                                                               |          5 |         62 |          7 |         13 |         82 |
+| src\socket.io                                                                                                                                   |          1 |         13 |          0 |          4 |         17 |
+| src\stores                                                                                                                                      |          2 |         54 |          0 |          3 |         57 |
+| src\views                                                                                                                                       |         15 |      1,227 |         35 |         95 |      1,357 |
+| src\views\app                                                                                                                                   |          7 |        707 |         32 |         58 |        797 |
+| src\views\app\chats                                                                                                                             |          2 |        272 |          1 |         23 |        296 |
+| src\views\app\users                                                                                                                             |          5 |        435 |         31 |         35 |        501 |
+| src\views\auth                                                                                                                                  |          3 |        337 |          2 |         20 |        359 |
+| src\views\company                                                                                                                               |          2 |        102 |          1 |          6 |        109 |
+| src\views\events                                                                                                                                |          1 |         13 |          0 |          4 |         17 |
+| src\views\home                                                                                                                                  |          1 |         23 |          0 |          3 |         26 |
+| src\views\marketplace                                                                                                                           |          1 |         45 |          0 |          4 |         49 |
++-------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                                                        | language   | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\README.md                                         | Markdown   |         18 |          0 |         12 |         30 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\index.html                                        | HTML       |         30 |          0 |          2 |         32 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\postcss.config.js                                 | JavaScript |          6 |          0 |          1 |          7 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\public\logo.svg                                   | XML        |          3 |          0 |          1 |          4 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\public\trendingIcon.svg                           | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\App.vue                                       | Vue        |          3 |          0 |          1 |          4 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\assets\_spinner.scss                          | SCSS       |         46 |          0 |          4 |         50 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\assets\icons\facebook.svg                     | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\assets\icons\linkedin-icon.svg                | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\assets\icons\twitter.svg                      | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\assets\icons\whatsapp.svg                     | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\assets\images\404Image.svg                    | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\assets\main.scss                              | SCSS       |         37 |          1 |          5 |         43 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\assets\tailwind.scss                          | SCSS       |          3 |          0 |          1 |          4 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\axios\index.js                                | JavaScript |         19 |          0 |          4 |         23 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\chats\AllChats.vue                 | Vue        |         71 |          1 |          7 |         79 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\chats\ChatHistoryComponent.vue     | Vue        |         86 |          0 |          5 |         91 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\chats\CommunityComponent.vue       | Vue        |         77 |          0 |          6 |         83 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\chats\MessageComponent.vue         | Vue        |        109 |          0 |         10 |        119 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\chats\SkeletonLoader.vue           | Vue        |         44 |          0 |          3 |         47 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\events\ActiveEvents.vue            | Vue        |          5 |          0 |          3 |          8 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\events\Spaces.vue                  | Vue        |          8 |          0 |          5 |         13 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\events\UserEvents.vue              | Vue        |          5 |          0 |          3 |          8 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\home\AnimatedImage.vue             | Vue        |          9 |          0 |          3 |         12 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\home\FeaturesComponent.vue         | Vue        |         30 |          0 |          4 |         34 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\home\FooterComponent.vue           | Vue        |         41 |          0 |          4 |         45 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\home\HeaderComponent.vue           | Vue        |         18 |          0 |          3 |         21 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\home\InfoPage.vue                  | Vue        |         19 |          0 |          3 |         22 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\icons\LogoIcon.vue                 | Vue        |         10 |          0 |          3 |         13 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\icons\ReplyIcon.vue                | Vue        |         27 |          0 |          3 |         30 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\icons\svgs\github-icon.svg         | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\icons\svgs\home-page.svg           | XML        |          1 |          0 |          0 |          1 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\icons\svgs\loading-icon.svg        | XML        |         26 |          1 |          0 |         27 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\icons\svgs\logo.svg                | XML        |          3 |          0 |          1 |          4 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\icons\svgs\reply-icon.svg          | XML        |         14 |          1 |          2 |         17 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\market-place\Checkout.vue          | Vue        |          5 |          0 |          3 |          8 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\market-place\Commodities.vue       | Vue        |          5 |          0 |          3 |          8 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\market-place\GadgetsAndDevices.vue | Vue        |          5 |          0 |          3 |          8 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\market-place\NFTMarketPlace.vue    | Vue        |          5 |          0 |          3 |          8 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\market-place\RealEstates.vue       | Vue        |          5 |          0 |          3 |          8 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\posts\CreatePost.vue               | Vue        |        100 |          0 |          9 |        109 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\posts\NewsfeedComponent.vue        | Vue        |        143 |         11 |         14 |        168 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\posts\SinglePost.vue               | Vue        |          7 |          0 |          3 |         10 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\reusables\ButtonComponent.vue      | Vue        |         55 |          1 |          3 |         59 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\components\reusables\HeaderComponent.vue      | Vue        |         34 |          0 |          3 |         37 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\data\newsfeed.json                            | JSON       |         51 |          0 |          1 |         52 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\layouts\GeneralLayout.vue                     | Vue        |         44 |          0 |          3 |         47 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\layouts\TrendingIcon.vue                      | Vue        |         24 |          0 |          3 |         27 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\main.js                                       | JavaScript |         23 |          0 |          6 |         29 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\plugins\index.js                              | JavaScript |         37 |          0 |          2 |         39 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\router\config.js                              | JavaScript |         40 |          0 |          6 |         46 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\router\router.js                              | JavaScript |         93 |          0 |          6 |         99 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\router\routes\app-route.js                    | JavaScript |         45 |          0 |          5 |         50 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\router\routes\events.js                       | JavaScript |          0 |          0 |          1 |          1 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\router\routes\marketplace.js                  | JavaScript |          9 |          0 |          3 |         12 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\router\routes\settings.js                     | JavaScript |          0 |          0 |          1 |          1 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\router\routes\trends.js                       | JavaScript |          8 |          7 |          3 |         18 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\router\views-imports.js                       | JavaScript |         26 |          5 |          6 |         37 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\socket.io\index.js                            | JavaScript |         13 |          0 |          4 |         17 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\stores\conversation-details.js                | JavaScript |         49 |          0 |          2 |         51 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\stores\state.js                               | JavaScript |          5 |          0 |          1 |          6 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\views\app\chats\ChatHistory.vue               | Vue        |        104 |          0 |          6 |        110 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\views\app\chats\ChatPage.vue                  | Vue        |        168 |          1 |         17 |        186 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\views\app\users\AllCommunities.vue            | Vue        |          1 |          0 |          0 |          1 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\views\app\users\AllUsers.vue                  | Vue        |        166 |          0 |          7 |        173 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\views\app\users\FeatureTest.vue               | Vue        |         31 |         29 |          5 |         65 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\views\app\users\OwnerProfile.vue              | Vue        |        158 |          2 |         14 |        174 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\views\app\users\UserProfile.vue               | Vue        |         79 |          0 |          9 |         88 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\views\auth\ForgotPasswod.vue                  | Vue        |          0 |          0 |          1 |          1 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\views\auth\LoginPage.vue                      | Vue        |        128 |          0 |          8 |        136 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\views\auth\registrationPage.vue               | Vue        |        209 |          2 |         11 |        222 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\views\company\PrivacyPolicy.vue               | Vue        |         49 |          0 |          3 |         52 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\views\company\Terms-And-Conditions.vue        | Vue        |         53 |          1 |          3 |         57 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\views\events\EventsView.vue                   | Vue        |         13 |          0 |          4 |         17 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\views\home\homePage.vue                       | Vue        |         23 |          0 |          3 |         26 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\src\views\marketplace\MarketPlace.vue             | Vue        |         45 |          0 |          4 |         49 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\tailwind.config.js                                | JavaScript |         14 |          1 |          1 |         16 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\test.js                                           | JavaScript |         23 |          1 |          2 |         26 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\vercel.json                                       | JSON       |          3 |          0 |          1 |          4 |
+| c:\Users\HP\Documents\Mobile Files\PROGRAMMING\MY DEVs\Learning Vue\chat-application-frontend\vite.config.js                                    | JavaScript |         11 |          1 |          3 |         15 |
+| Total                                                                                                                                           |            |      2,884 |         66 |        301 |      3,251 |
++-------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

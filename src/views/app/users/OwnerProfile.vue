@@ -65,7 +65,7 @@
 						:key="index"
 						:network="content.network"
 						:url="`https://buzz-chat-app.vercel.app/`"
-						title="Connect with me on Buzz Chat, enjoy fast and realtime messaging !"
+						title="Connect with me on Syntrix, enjoy fast and realtime messaging !"
 						hashtags="buzzchat,buzzchat,messaging,realtime,fast,vue,dev,vuejs">
 						<img
 							:src="content.icon"
