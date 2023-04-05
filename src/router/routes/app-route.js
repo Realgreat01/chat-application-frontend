@@ -17,12 +17,17 @@ const ChatsRoute = [
 		name: 'private-chat',
 		component: ChatPage,
 	},
+	{
+		path: 'users',
+		name: 'all-users',
+		component: AllUsers,
+	},
 ];
 
 const UsersRoute = [
 	{
 		path: '',
-		name: 'all-users',
+		name: 'users',
 		component: AllUsers,
 	},
 	{

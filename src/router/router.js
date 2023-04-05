@@ -10,6 +10,7 @@ import {
 } from './views-imports';
 
 import { AppRoute } from './routes/app-route';
+import { MarketRoute } from './routes/marketplace';
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -63,9 +64,8 @@ const router = createRouter({
 		{
 			path: '/market-place',
 			component: GeneralLayout,
-			name: 'market-place',
 			meta: { requiresAuth: true },
-			children: AppRoute.UsersRoute,
+			children: MarketRoute,
 		},
 		{
 			path: '/settings',

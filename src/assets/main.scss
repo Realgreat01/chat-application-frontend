@@ -15,7 +15,10 @@ body {
 	&::-webkit-scrollbar {
 		display: none;
 	}
-	background-color: #f1f1f1; /* replace with the color of your choice */
+}
+
+.view-height {
+	height: calc(100vh - var(--status-bar-height));
 }
 
 .scroll::-webkit-scrollbar {

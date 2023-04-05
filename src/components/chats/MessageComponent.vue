@@ -51,7 +51,7 @@ onMounted(() => {
 
 <style scoped>
 .sender {
-	@apply self-end rounded-tl-3xl rounded-br-3xl bg-gray-900 text-gray-50;
+	@apply self-end rounded-br-3xl rounded-tl-3xl bg-gray-900 text-gray-50;
 }
 
 .receiver {

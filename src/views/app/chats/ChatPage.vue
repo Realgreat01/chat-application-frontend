@@ -57,7 +57,7 @@
 		</div>
 
 		<div
-			class="scroll w-full flex-1 overflow-y-scroll px-2 pb-3"
+			class="scroll flex-grow w-full overflow-y-scroll px-2 pb-3"
 			id="chat-message-box">
 			<MessageComponent
 				:messages="messages"

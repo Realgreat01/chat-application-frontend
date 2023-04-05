@@ -7,6 +7,8 @@ import AllUsers from '../views/app/users/AllUsers.vue';
 import OwnerProfile from '../views/app/users/OwnerProfile.vue';
 import UserProfile from '../views/app/users/UserProfile.vue';
 
+import MarketPlace from '../views/marketplace/MarketPlace.vue';
+
 // auth
 import HomePage from '../views/home/homePage.vue';
 
@@ -29,4 +31,6 @@ export {
 	PrivacyPolicy,
 	// FeatureTest,
 	TermsAndConditions,
+	// Market Place
+	MarketPlace,
 };

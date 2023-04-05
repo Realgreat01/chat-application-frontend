@@ -1,5 +1,6 @@
 <template>
-	<div class="relative mx-auto flex h-screen flex-col bg-brand-dark md:w-1/3">
+	<div
+		class="scroll relative mx-auto flex h-screen flex-col overflow-y-scroll bg-brand-dark md:w-1/3">
 		<RouterView />
 		<div
 			class="fixed bottom-0 mx-auto flex w-full bg-slate-800 md:w-1/3"
@@ -39,7 +40,7 @@ const footerRoutes = shallowRef([
 </script>
 
 <style lang="scss">
-.router-link-exact-active {
+.router-link-active {
 	@apply -translate-y-3 rounded-2xl bg-brand duration-500;
 }
 </style>
