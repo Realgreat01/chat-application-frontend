@@ -1,61 +1,23 @@
 <template>
-	<div
-		class="scroll mx-auto flex h-screen w-full flex-col rounded-t-lg bg-brand-dark transition delay-150 ease-in-out">
+	<div class="scroll relative h-screen">
 		<div
-			class="fixed top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">
-			<div class="flex h-full flex-col items-start justify-center">
-				<RouterLink
-					:to="{ name: 'app' }"
-					class="material-icons block rotate-180 cursor-pointer text-gray-700"
-					style="font-size: 40px">
-					arrow_right_alt
-				</RouterLink>
-				<h2 class="mb-10 flex items-center gap-x-4 text-6xl font-black">
-					Users
-					<span
-						v-if="state.allUsers"
-						class="text-5xl font-medium"
-						>(
-						<span class="mx-2 text-4xl text-brand-dark">
-							{{ state.allUsers.length + 1 }}
-						</span>
-						)
-					</span>
-				</h2>
-			</div>
-			<RouterLink
-				class="cursor-pointer"
-				:to="{ name: 'user' }">
-				<img
-					:src="user.profile_picture"
-					class="block h-[4rem] w-[4rem] rounded-full bg-white"
-					alt=""
-					v-if="user.profile_picture" />
-				<p
-					class="material-icons"
-					style="font-size: 50px"
-					v-else>
-					account_circle
-				</p>
-			</RouterLink>
-		</div>
-
-		<div
-			class="scroll relative h-full overflow-y-scroll pt-[11rem] pb-[2rem]"
+			class="scroll h-full overflow-y-scroll pb-[2rem] pt-[14rem]"
 			v-if="state.allUsers">
 			<div
-				class="sticky top-1 z-50 flex w-full items-center justify-end gap-x-10 bg-brand-dark p-3">
+				class="sticky top-0 z-50 flex w-full items-center justify-end gap-x-10 bg-brand-dark p-1">
 				<input
 					type="text"
 					v-if="showSearch"
 					name=""
 					@input="checkUsers()"
-					class="block w-full appearance-none rounded-full border bg-transparent px-2 py-4 pl-5 text-[14px] ring-transparent transition-all duration-500 focus:border-brand focus:outline-none focus:ring-transparent"
+					class="block w-full appearance-none rounded-full border bg-transparent px-2 py-2 pl-5 text-[14px] ring-transparent transition-all duration-500 focus:border-brand focus:outline-none focus:ring-transparent"
 					v-model.trim="searchedUser"
 					id="" />
 				<p
 					class="material-icons cursor-pointer justify-self-end rounded-2xl p-2"
-					:class="showSearch ? 'bg-red-700' : 'bg-brand'"
+					:class="
+						showSearch ? 'relative bg-red-700' : 'top-1/5 absolute bg-brand'
+					"
 					@click="showSearch = !showSearch">
 					{{ showSearch ? 'search_off' : 'search' }}
 				</p>
@@ -72,7 +34,7 @@
 						:src="user.profile_picture"
 						class="block h-[4rem] w-[4rem] rounded-full bg-white"
 						alt="" />
-					<div class="relative top-0 right-5">
+					<div class="relative right-5 top-0">
 						<span
 							style="font-size: 20px"
 							v-if="user.is_online"
@@ -117,7 +79,7 @@
 				class="mx-auto flex h-3/4 w-full flex-col items-center justify-center"
 				v-if="noUserFound">
 				<h2
-					class="my-4 mx-auto w-2/3 text-center text-4xl font-semibold text-slate-400">
+					class="mx-auto my-4 w-2/3 text-center text-4xl font-semibold text-slate-400">
 					<span class="">No user with the username </span>
 					<span class="pb-2 italic text-brand underline">
 						{{ searchedUser }}</span

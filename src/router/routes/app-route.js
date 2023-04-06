@@ -1,15 +1,13 @@
-import {
-	AllUsers,
-	ChatHistory,
-	ChatPage,
-	OwnerProfile,
-	UserProfile,
-} from '../views-imports';
+import MainApp from '../../views/app/MainApp.vue';
+import ChatPage from '../../views/app/chats/ChatPage.vue';
+import Connect from '../../views/app/users/ConnectView.vue';
+import OwnerProfile from '../../views/app/users/OwnerProfile.vue';
+import UserProfile from '../../views/app/users/UserProfile.vue';
 
 const ChatsRoute = [
 	{
 		path: '',
-		component: ChatHistory,
+		component: MainApp,
 		name: 'app',
 	},
 	{
@@ -18,9 +16,9 @@ const ChatsRoute = [
 		component: ChatPage,
 	},
 	{
-		path: 'users',
-		name: 'all-users',
-		component: AllUsers,
+		path: 'connect',
+		name: 'connect',
+		component: Connect,
 	},
 ];
 
@@ -28,7 +26,7 @@ const UsersRoute = [
 	{
 		path: '',
 		name: 'users',
-		component: AllUsers,
+		component: Connect,
 	},
 	{
 		path: 'user',

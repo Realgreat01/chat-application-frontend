@@ -34,12 +34,13 @@
 							>
 						</h2>
 						<p
-							class="my-3 w-[90%] text-xl"
+							class="my-3 w-full text-xl"
 							v-html="convertToHTML(post.content)"></p>
+						<!-- <p class="">{{ convertToHTML(post.content) }}</p> -->
 					</div>
 				</div>
 
-				<div class="flex items-center justify-around">
+				<div class="mt-4 flex items-center justify-around">
 					<p
 						class="material-icons cursor-pointer"
 						style="font-size: 18px">
@@ -51,16 +52,23 @@
 						share
 					</p>
 					<p
-					
-						style="font-size: 18px"
-						@click="post.liked = !post.liked">
-						<span 	class="material-icons cursor-pointer" :class="post.liked ? 'text-red-600' : 'text-white'"
+						@click="(post.liked = !post.liked), post.liked_by.length + 1"
+						class="flex items-center gap-x-2">
+						<span
+							style="font-size: 16px"
+							class="material-icons cursor-pointer"
+							:class="post.liked ? 'text-red-600' : 'text-white'"
 							>favorite</span
-						> <span class="">{{post.liked}}</span>
+						>
+						<span class="text-xl text-gray-400">{{
+							post.liked
+								? post.liked_by.length + 1
+								: convertNumber(post.liked_by.length)
+						}}</span>
 					</p>
-					<div class="items-end justify-end">
+					<div class="flex items-end justify-end gap-x-2">
 						<div
-							class="mt-1 text-end text-base font-thin uppercase text-gray-300">
+							class="mt-1 text-end text-sm font-thin uppercase text-gray-300">
 							{{ formatDate(post.createdAt) }}
 						</div>
 						<div
@@ -100,9 +108,9 @@ import { ConversationStore } from '@/stores/conversation-details.js';
 const state = ConversationStore();
 
 const createNewPost = ref(false);
-
+const convertNumber = num => (num > 0 ? num : '');
 const convertToHTML = post => {
-	const words = post.split(/\n{1,}/).map(word => word.replace(/\n{2,}/g, '\n'));
+	const words = post.split(/\n{2,}/).map(word => word.replace(/\n{2,}/g, '\n'));
 	function formatString(str) {
 		const hashtag = str.match(/#\S+/);
 		const formattedStr = str.replace(
@@ -144,7 +152,7 @@ const getIcon = icon => {
 		case 'sports':
 			return 'sports_soccer';
 		default:
-			return 'forum';
+			return 'public';
 	}
 };
 

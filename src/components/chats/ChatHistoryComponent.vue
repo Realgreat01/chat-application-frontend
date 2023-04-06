@@ -70,8 +70,9 @@
 			</h2>
 		</div>
 		<router-link
-			:to="{ name: 'all-users' }"
+			:to="{ name: 'connect' }"
 			style="font-size: 20px"
+			@click="state.connectTab = 0"
 			class="fixed bottom-24 mx-auto flex h-fit w-full items-center md:w-1/3">
 			<span
 				class="material-icons absolute right-10 self-end rounded-full border p-4"

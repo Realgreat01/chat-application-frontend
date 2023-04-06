@@ -1,4 +1,4 @@
-import { MarketPlace } from '../views-imports';
+import MarketPlace from '../../views/marketplace/MarketPlace.vue';
 
 const MarketRoute = [
 	{
