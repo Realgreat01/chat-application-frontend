@@ -3,28 +3,27 @@
 		<div
 			class="scroll mx-auto flex h-screen w-full flex-col rounded-t-lg bg-brand-dark transition delay-150 ease-in-out">
 			<div
-				class="fixed top-0 z-50 mx-auto flex h-[14rem] w-full flex-col overflow-hidden rounded-lg bg-brand md:w-1/3">
-				<div
-					class="flex h-[9.5rem] w-full items-center justify-between p-4 pb-0">
+				class="fixed top-0 z-50 mx-auto flex h-[12rem] w-full flex-col overflow-hidden rounded-lg bg-brand pt-3 md:w-1/3">
+				<div class="flex h-[6.5rem] w-full items-center justify-between p-4">
 					<div class="flex flex-col items-start justify-center">
 						<RouterLink
 							:to="{ name: 'app' }"
-							class="material-icons block rotate-180 cursor-pointer text-gray-700"
-							style="font-size: 40px">
-							arrow_right_alt
+							class="mt-4">
+							<ArrowLeftCircleIcon
+								class="block h-12 w-12 cursor-pointer text-gray-700" />
 						</RouterLink>
-						<h2
-							class="mb-10 flex items-center gap-x-4 text-[2.5rem] font-black">
+						<h2 class="flex items-center gap-x-4 text-[2.5rem] font-black">
 							<div class="">
 								{{ activeComponent.title }}
 							</div>
 							<span
 								v-if="state.allUsers"
-								class="text-4xl font-medium"
+								class="text-3xl font-medium"
 								>(
-								<span class="mx-0 text-3xl text-brand-dark">
+								<span class="mx-0 text-2xl text-brand-dark">
 									{{ plugin.abbreviateNumber(activeComponent.count) }}
 								</span>
+
 								)
 							</span>
 						</h2>
@@ -47,7 +46,7 @@
 				</div>
 				<div class="grid w-full flex-1 grid-cols-2 gap-2 bg-slate-900 p-1">
 					<h2
-						class="material-icons m-1 flex cursor-pointer items-center justify-center rounded-xl text-center transition-all duration-700"
+						class="material-icons m-1 flex cursor-pointer items-center justify-center rounded-xl text-center transition-all duration-200"
 						v-for="(connect, index) in FindConnect"
 						:class="
 							activeComponent === connect ? ' bg-gray-700' : 'bg-slate-900'
@@ -68,11 +67,17 @@ import { ref, shallowRef } from 'vue';
 import { plugin } from '@/plugins';
 import { ConversationStore } from '@/stores/conversation-details.js';
 import Communities from './AllCommunities.vue';
-import Users from './AllUsers.vue';
+import AllUsers from './AllUsers.vue';
+import { ArrowLeftCircleIcon } from '@heroicons/vue/24/solid';
 const state = ConversationStore();
 
-const FindConnect = ref([
-	{ icon: 'people', component: Users, title: 'Users', count: 1689938 },
+const FindConnect = shallowRef([
+	{
+		icon: 'people',
+		component: AllUsers,
+		title: 'Users',
+		count: 1689938,
+	},
 	{
 		icon: 'groups',
 		component: Communities,
@@ -80,7 +85,7 @@ const FindConnect = ref([
 		count: 909090,
 	},
 ]);
-const activeComponent = ref(FindConnect.value[state.connectTab]);
+const activeComponent = shallowRef(FindConnect.value[state.connectTab]);
 </script>
 
 <style lang="scss" scoped></style>

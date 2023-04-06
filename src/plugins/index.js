@@ -17,6 +17,7 @@ const convertImageToBase64URI = async imagePath => {
 	}
 };
 function abbreviateNumber(value) {
+	if (value < 1) return '';
 	if (value < 1000) return value.toString();
 	else {
 		const suffixes = ['', 'K+', 'M+', 'B+', 'T+'];

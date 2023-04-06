@@ -109,9 +109,7 @@ import axios from '@/axios';
 import NotFoundImage from '@/assets/images/404Image.svg';
 import { format } from 'timeago.js';
 import { ConversationStore } from '@/stores/conversation-details.js';
-import { RouterLink } from 'vue-router';
 const state = ConversationStore();
-
 const searchedUser = ref('');
 const showSearch = ref(false);
 const noUserFound = ref(false);

@@ -2,26 +2,10 @@
 	<div
 		class="scroll mx-auto flex h-screen w-full flex-col rounded-t-lg border-y-transparent bg-brand-dark transition delay-150 ease-in-out">
 		<div
-			class="fixed top-0 z-50 mx-auto flex h-[11rem] w-full items-center justify-between rounded-lg bg-brand p-4 pb-0 md:w-1/3">
-			<h2 class="my-10 text-6xl font-black">{{ activeComponent.title }}</h2>
-			<RouterLink
-				class="flex cursor-pointer flex-col items-center"
-				:to="{ name: 'user' }">
-				<img
-					:src="state.user?.profile_picture"
-					class="block h-[4rem] w-[4rem] rounded-full bg-white"
-					alt=""
-					v-if="state.user?.profile_picture" />
-				<p
-					class="material-icons"
-					style="font-size: 50px"
-					v-else>
-					account_circle
-				</p>
-				<p class="font-semi-bold py-2 text-xl text-gray-900">My Profile</p>
-			</RouterLink>
+			class="fixed top-0 z-50 mx-auto flex h-[4rem] w-full items-center justify-between rounded-lg bg-brand px-4 md:w-1/3">
+			<h2 class="text-4xl font-semibold">{{ activeComponent.title }}</h2>
 		</div>
-		<div class="h-full overflow-y-scroll pt-[11rem]">
+		<div class="h-full overflow-y-scroll pt-[4rem]">
 			<div
 				class="sticky top-[0rem] z-40 flex w-full items-center justify-around bg-gray-900 py-3">
 				<div
@@ -65,7 +49,7 @@ const DashboardComponent = shallowRef([
 	{
 		component: NewsfeedComponent,
 		title: 'News Feed',
-		icon: NewspaperIcon,
+		icon: RiArticleLine,
 	},
 	{
 		component: ChatHistoryComponent,
@@ -74,7 +58,7 @@ const DashboardComponent = shallowRef([
 	},
 	{
 		component: CommunityComponent,
-		title: 'Community',
+		title: 'Communities',
 		icon: UserGroupIcon,
 	},
 ]);
@@ -107,3 +91,19 @@ const activeComponent = shallowRef(DashboardComponent.value[state.homeTab]);
 </script>
 
 <style lang="scss" scoped></style>
+<!-- <RouterLink
+				class="flex cursor-pointer flex-col items-center"
+				:to="{ name: 'user' }">
+				<img
+					:src="state.user?.profile_picture"
+					class="block h-[4rem] w-[4rem] rounded-full bg-white"
+					alt=""
+					v-if="state.user?.profile_picture" />
+				<p
+					class="material-icons"
+					style="font-size: 50px"
+					v-else>
+					account_circle
+				</p>
+				<p class="font-semi-bold py-2 text-xl text-gray-900">My Profile</p>
+			</RouterLink> -->

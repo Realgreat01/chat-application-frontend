@@ -2,7 +2,7 @@
 	<div class="mb-24">
 		<div>
 			<div
-				class="relative m-4 h-fit rounded-xl bg-slate-900 p-4 text-2xl"
+				class="relative m-4 my-6 h-fit rounded-xl bg-slate-900 p-4 text-2xl"
 				v-for="post in state.NewsFeed"
 				:key="post._id">
 				<div
@@ -40,20 +40,20 @@
 					</div>
 				</div>
 
-				<div class="mt-4 flex items-center justify-around">
+				<div class="mt-4 w-full grid grid-cols-[1fr,1fr,1fr,1.5fr] items-center justify-around">
 					<p
-						class="material-icons cursor-pointer"
+						class="material-icons text-center cursor-pointer"
 						style="font-size: 18px">
 						reply
 					</p>
 					<p
-						class="material-icons cursor-pointer"
+						class="material-icons text-center cursor-pointer"
 						style="font-size: 18px">
 						share
 					</p>
 					<p
 						@click="(post.liked = !post.liked), post.liked_by.length + 1"
-						class="flex items-center gap-x-2">
+						class="flex items-center justify-center gap-x-2">
 						<span
 							style="font-size: 16px"
 							class="material-icons cursor-pointer"
@@ -62,13 +62,13 @@
 						>
 						<span class="text-xl text-gray-400">{{
 							post.liked
-								? post.liked_by.length + 1
-								: convertNumber(post.liked_by.length)
+								? plugin.abbreviateNumber(post.liked_by.length + 1)
+								: plugin.abbreviateNumber(post.liked_by.length)
 						}}</span>
 					</p>
 					<div class="flex items-end justify-end gap-x-2">
 						<div
-							class="mt-1 text-end text-sm font-thin uppercase text-gray-300">
+							class="mt-1 text-center text-sm font-thin uppercase text-gray-300">
 							{{ formatDate(post.createdAt) }}
 						</div>
 						<div
@@ -102,6 +102,7 @@
 <script setup>
 import { PencilSquareIcon } from '@heroicons/vue/24/outline';
 import { onMounted, ref } from 'vue';
+import {plugin} from "@/plugins";
 import CreatePost from './CreatePost.vue';
 import { ConversationStore } from '@/stores/conversation-details.js';
 
@@ -110,7 +111,7 @@ const state = ConversationStore();
 const createNewPost = ref(false);
 const convertNumber = num => (num > 0 ? num : '');
 const convertToHTML = post => {
-	const words = post.split(/\n{2,}/).map(word => word.replace(/\n{2,}/g, '\n'));
+	const words = post.split(/\n{2,}/).map(word => word.replace('\n', '\n\n'));
 	function formatString(str) {
 		const hashtag = str.match(/#\S+/);
 		const formattedStr = str.replace(
@@ -147,10 +148,18 @@ const formatTime = time => {
 
 const getIcon = icon => {
 	switch (icon) {
-		case 'housing':
+		case 'real-estates':
+			return 'apartment';
+		case 'real estates':
 			return 'apartment';
 		case 'sports':
 			return 'sports_soccer';
+		case 'nature':
+			return 'spa';
+		case 'finance':
+			return 'account_balance';
+		case 'politics':
+			return 'gavel';
 		default:
 			return 'public';
 	}
