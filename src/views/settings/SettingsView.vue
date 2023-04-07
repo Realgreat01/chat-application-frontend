@@ -5,18 +5,24 @@
 			Settings
 		</h2>
 
-		<div class="m-6 mb-3 mt-4">
-			<div
-				class="setting m-2 mt-0 flex cursor-pointer items-center gap-x-4 rounded-xl p-2 hover:bg-brand"
-				v-for="(setting, index) in settings"
-				:class="setting.title === 'Log Out' ? 'bg-red-950 hover:bg-slate-800' : 'bg-brand-dark'"
-				@click="setting.action"
-				:key="index">
-				<component
-					:class="setting.title === 'Log Out' ? 'fill-red-400 ' : ''"
-					:is="setting.icon"
-					class="icon h-12 w-12 text-brand" />
-				<h2 class="text-xl">{{ setting.title }}</h2>
+		<div class="flex h-full w-full items-center justify-center">
+			<div class="w-full p-6">
+				<div
+					class="setting m-2 mt-0 flex w-full cursor-pointer items-center gap-x-4 rounded-xl p-2 hover:bg-brand"
+					v-for="(setting, index) in settings"
+					:class="
+						setting.title === 'Log Out'
+							? 'bg-red-950 hover:bg-slate-800'
+							: 'bg-brand-dark'
+					"
+					@click="setting.action"
+					:key="index">
+					<component
+						:class="setting.title === 'Log Out' ? 'fill-red-400 ' : ''"
+						:is="setting.icon"
+						class="icon h-12 w-12 text-brand" />
+					<h2 class="text-xl">{{ setting.title }}</h2>
+				</div>
 			</div>
 		</div>
 

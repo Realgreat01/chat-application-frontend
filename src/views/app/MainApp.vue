@@ -2,12 +2,12 @@
 	<div
 		class="scroll mx-auto flex h-screen w-full flex-col rounded-t-lg border-y-transparent bg-brand-dark transition delay-150 ease-in-out">
 		<div
-			class="fixed top-0 z-50 mx-auto flex h-[4rem] w-full items-center justify-between rounded-lg bg-brand px-4 md:w-1/3">
+			class="fixed top-0 z-50 mx-auto flex h-[6rem] w-full items-center justify-between rounded-lg bg-brand px-4 md:w-1/3">
 			<h2 class="text-4xl font-semibold">
 				{{ activeComponent.title }}
 			</h2>
 		</div>
-		<div class="h-full overflow-y-scroll pt-[4rem]">
+		<div class="h-full overflow-y-scroll pt-[6rem]">
 			<div
 				class="sticky top-[0rem] z-40 flex w-full items-center justify-around bg-gray-900 py-3">
 				<div

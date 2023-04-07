@@ -5,26 +5,29 @@
 			Events
 		</h2>
 
-		<h2 class="sticky top-0 z-50 mb-2 my-6 flex items-center justify-between px-5">
+		<h2
+			class="sticky top-0 z-50 my-6 mb-2 flex items-center justify-between px-5">
 			<h2 class="text-3xl font-black"></h2>
 			<button class="rounded-lg bg-brand px-4 py-2 text-brand-dark">
 				Create An Event
 			</button>
 		</h2>
-		<div
-			class="scroll my-20 flex w-full flex-wrap items-center justify-center gap-8">
+		<div class="flex h-full w-full items-center justify-center">
 			<div
-				class="event relative flex h-[140px] w-2/5 cursor-pointer flex-col items-center justify-center rounded-xl bg-brand-dark"
-				v-for="(event, index) in Events"
-				:key="index">
-				<!-- :src="`/images/market/${market.image}`" -->
-				<component
-					:is="event.icon"
-					class="event-icon mb-4 h-20 w-40 text-4xl font-thin text-brand">
-				</component>
+				class="scroll my-20 flex w-full flex-wrap items-center justify-center gap-8">
 				<div
-					class="event-title mx-auto w-2/3 text-center text-2xl font-medium text-gray-300">
-					{{ event.title }}
+					class="event relative flex h-[140px] w-2/5 cursor-pointer flex-col items-center justify-center rounded-xl bg-brand-dark"
+					v-for="(event, index) in Events"
+					:key="index">
+					<!-- :src="`/images/market/${market.image}`" -->
+					<component
+						:is="event.icon"
+						class="event-icon mb-4 h-20 w-40 text-4xl font-thin text-brand">
+					</component>
+					<div
+						class="event-title mx-auto w-2/3 text-center text-2xl font-medium text-gray-300">
+						{{ event.title }}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -48,11 +51,12 @@ const Events = shallowRef([
 </script>
 
 <style lang="scss" scoped>
-.event{
+.event {
 	&:hover {
 		@apply bg-gray-950;
 		.event-icon {
 			@apply text-gray-500;
 		}
 	}
-}</style>
+}
+</style>

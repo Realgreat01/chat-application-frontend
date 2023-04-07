@@ -10,20 +10,22 @@
 				Create A Store
 			</button>
 		</h2>
-		<div
-			class="scroll my-20 flex w-full flex-wrap items-center justify-center gap-8">
+		<div class="flex h-full w-full items-center justify-center">
 			<div
-				class="product relative flex h-[140px] w-2/5 cursor-pointer flex-col items-center justify-center rounded-xl bg-brand-dark"
-				v-for="(market, index) in MarketPlace"
-				:key="index">
-				<!-- :src="`/images/market/${market.image}`" -->
-				<component
-					:is="market.icon"
-					class="product-image mb-4 h-20 w-40 text-4xl font-thin text-brand">
-				</component>
+				class="scroll my-20 flex w-full flex-wrap items-center justify-center gap-8">
 				<div
-					class="product-title mx-auto w-2/3 text-center text-2xl font-medium text-gray-300">
-					{{ market.title }}
+					class="product relative flex h-[140px] w-2/5 cursor-pointer flex-col items-center justify-center rounded-xl bg-brand-dark"
+					v-for="(market, index) in MarketPlace"
+					:key="index">
+					<!-- :src="`/images/market/${market.image}`" -->
+					<component
+						:is="market.icon"
+						class="product-image mb-4 h-20 w-40 text-4xl font-thin text-brand">
+					</component>
+					<div
+						class="product-title mx-auto w-2/3 text-center text-2xl font-medium text-gray-300">
+						{{ market.title }}
+					</div>
 				</div>
 			</div>
 		</div>

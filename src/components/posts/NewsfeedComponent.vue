@@ -35,19 +35,20 @@
 						</h2>
 						<p
 							class="my-3 w-full text-xl"
-							v-html="convertToHTML(post.content)"></p>
-						<!-- <p class="">{{ convertToHTML(post.content) }}</p> -->
+							v-html="convertToHTML(post.content, post._id)"></p>
+						<p :id="post._id"></p>
 					</div>
 				</div>
 
-				<div class="mt-4 w-full grid grid-cols-[1fr,1fr,1fr,1.5fr] items-center justify-around">
+				<div
+					class="mt-4 grid w-full grid-cols-[1fr,1fr,1fr,1.5fr] items-center justify-around">
 					<p
-						class="material-icons text-center cursor-pointer"
+						class="material-icons cursor-pointer text-center"
 						style="font-size: 18px">
 						reply
 					</p>
 					<p
-						class="material-icons text-center cursor-pointer"
+						class="material-icons cursor-pointer text-center"
 						style="font-size: 18px">
 						share
 					</p>
@@ -102,16 +103,37 @@
 <script setup>
 import { PencilSquareIcon } from '@heroicons/vue/24/outline';
 import { onMounted, ref } from 'vue';
-import {plugin} from "@/plugins";
+import { plugin } from '@/plugins';
 import CreatePost from './CreatePost.vue';
 import { ConversationStore } from '@/stores/conversation-details.js';
 
 const state = ConversationStore();
 
 const createNewPost = ref(false);
-const convertNumber = num => (num > 0 ? num : '');
-const convertToHTML = post => {
-	const words = post.split(/\n{2,}/).map(word => word.replace('\n', '\n\n'));
+
+const convertToHTML = (post, id) => {
+	const pattern = /(\S+\.[^\s]+)/gi;
+
+	// function replaceUrlsWithLinks(text) {
+	// 	const replaceString = '<a href="$&">$&</a>';
+	// 	return text.replace(pattern, replaceString);
+	// }
+
+	// const myString = 'Visit https://www.example.com or foo.bar!';
+	// const replacedString = replaceUrlsWithLinks(myString);
+	// console.log(replacedString);
+
+	function replaceUrlsWithLinks(text) {
+		// const matched = text.match(pattern);
+		// const firstMatch = matched ? matched[0] : '';
+		// // showLinkPreview(firstMatch, id);
+		return text.replace(pattern, '<a href="$&" class="text-brand">$&</a>');
+	}
+	const parsedWords = replaceUrlsWithLinks(post);
+	const words = parsedWords
+		.split(/\n{2,}/)
+		.map(word => word.replace('\n', '\n\n'));
+
 	function formatString(str) {
 		const hashtag = str.match(/#\S+/);
 		const formattedStr = str.replace(
@@ -164,6 +186,28 @@ const getIcon = icon => {
 			return 'public';
 	}
 };
+
+// async function showLinkPreview(url, id) {
+// 	var linkPreviewDiv = document.getElementById(id);
+// 	linkPreviewDiv.innerHTML = '<p>Loading link preview...</p>';
+
+// 	try {
+// 		const response = await fetch('https://opengraph.io/api/1.1/site/' + url);
+// 		const data = await response.json();
+// 		const title = data.hybridGraph.title;
+// 		const description = data.hybridGraph.description;
+// 		const image = data.hybridGraph.image;
+
+// 		var linkPreviewHTML = '<h3>' + title + '</h3>';
+// 		linkPreviewHTML += '<p>' + description + '</p>';
+// 		linkPreviewHTML += '<img src="' + image + '">';
+
+// 		linkPreviewDiv.innerHTML = linkPreviewHTML;
+// 	} catch (error) {
+// 		linkPreviewDiv.innerHTML =
+// 			'<p>Error loading link preview: ' + error.message + '</p>';
+// 	}
+// }
 
 onMounted(async () => {
 	await state.getNewsFeed();
