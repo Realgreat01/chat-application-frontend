@@ -2,6 +2,7 @@ import GeneralLayout from '../layouts/GeneralLayout.vue';
 
 // auth
 import HomePage from '../views/home/homePage.vue';
+import FeatureTest from '../test/swipeComponent.vue';
 
 import LoginPage from '../views/auth/LoginPage.vue';
 import RegistrationPage from '../views/auth/registrationPage.vue';
@@ -15,5 +16,6 @@ export {
 	LoginPage,
 	RegistrationPage,
 	PrivacyPolicy,
+	FeatureTest,
 	TermsAndConditions,
 };

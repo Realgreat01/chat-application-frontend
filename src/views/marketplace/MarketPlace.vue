@@ -1,21 +1,28 @@
 <template>
 	<div
 		class="scroll mx-auto flex h-screen w-full flex-col rounded-t-lg border-y-transparent bg-gray-900 transition delay-150 ease-in-out">
-		<h2 class="sticky top-0 z-50 bg-brand p-8 text-6xl font-bold">
+		<h2 class="sticky top-0 z-50 rounded-xl bg-brand p-8 text-6xl font-bold">
 			Market Place
+		</h2>
+		<h2 class="sticky top-0 z-50 mt-6 flex items-center justify-between px-5">
+			<h2 class="text-3xl font-black"></h2>
+			<button class="rounded-lg bg-brand px-4 py-2 text-brand-dark">
+				Create A Store
+			</button>
 		</h2>
 		<div
 			class="scroll my-20 flex w-full flex-wrap items-center justify-center gap-8">
 			<div
-				class="product relative flex h-[140px] w-2/5 md:h-[200px] md:w-[45%]"
+				class="product relative flex h-[140px] w-2/5 cursor-pointer flex-col items-center justify-center rounded-xl bg-brand-dark"
 				v-for="(market, index) in MarketPlace"
 				:key="index">
-				<img
-					:src="`/images/market/${market.image}`"
-					class="product-image z-40 h-full w-full rounded-xl bg-brand-dark object-cover hover:z-10 hover:bg-gray-800"
-					alt="" />
+				<!-- :src="`/images/market/${market.image}`" -->
+				<component
+					:is="market.icon"
+					class="product-image mb-4 h-20 w-40 text-4xl font-thin text-brand">
+				</component>
 				<div
-					class="product-title absolute left-1/2 top-1/2 z-30 mx-auto w-2/3 -translate-x-1/2 -translate-y-1/2 transform text-center text-2xl font-bold text-white hover:z-50 md:text-4xl">
+					class="product-title mx-auto w-2/3 text-center text-2xl font-medium text-gray-300">
 					{{ market.title }}
 				</div>
 			</div>
@@ -26,22 +33,30 @@
 <script setup>
 import { ref } from 'vue';
 
+import {
+	BanknotesIcon,
+	BuildingOffice2Icon,
+	ComputerDesktopIcon,
+	BuildingStorefrontIcon,
+} from '@heroicons/vue/24/outline';
+
 const MarketPlace = ref([
-	{ title: 'Gadgets and Devices', route: 'gadgets', image: 'gadgets.png' },
-	{ title: 'Real Estates', route: 'estates', image: 'real-estates.png' },
-	{ title: 'NFT Market Place', route: 'nfts', image: 'nfts.png' },
-	{ title: 'Commodities', route: 'commodities', image: 'e-commerce.png' },
+	{ title: 'Gadgets and Devices', route: 'gadgets', icon: ComputerDesktopIcon },
+	{ title: 'Real Estates', route: 'estates', icon: BuildingOffice2Icon },
+	{ title: 'NFT Market Place', route: 'nfts', icon: BanknotesIcon },
+	{ title: 'Commodities', route: 'commodities', icon: BuildingStorefrontIcon },
 ]);
 </script>
 
 <style lang="scss" scoped>
-.product-title {
-	display: none;
-}
+// .product-title {
+// 	display: none;
+// }
 .product {
 	&:hover {
-		.product-title {
-			display: block;
+		@apply bg-gray-950;
+		.product-image {
+			@apply text-gray-500;
 		}
 	}
 }

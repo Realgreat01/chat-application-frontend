@@ -1,17 +1,11 @@
-// import {
-// 	AllUsers,
-// 	ChatHistory,
-// 	ChatPage,
-// 	OwnerProfile,
-// 	UserProfile,
-// } from '../views-imports';
+import TrendsView from '../../views/trends/TrendsView.vue';
 
 const TrendsRoute = [
 	{
 		path: '',
-		component: ChatHistory,
-		name: 'app',
+		component: TrendsView,
+		name: 'trends',
 	},
 ];
 
-export { AppRoute };
+export { TrendsRoute };

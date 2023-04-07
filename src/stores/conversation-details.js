@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import axios from '../axios';
 
-export const ConversationStore = defineStore('store', {
+const ConversationStore = defineStore('store', {
 	state: () => {
 		return {
 			receiver: {},
@@ -10,6 +10,7 @@ export const ConversationStore = defineStore('store', {
 			chatHistory: [],
 			showFooter: true,
 			homeTab: 0,
+			currentHomeTab: 0,
 			connectTab: 0,
 			user: {},
 		};
@@ -43,9 +44,14 @@ export const ConversationStore = defineStore('store', {
 				return this.NewsFeed;
 			} catch (error) {}
 		},
+
+		getHomeTab(value) {
+			this.homeTab = parseInt(value);
+		},
 	},
 	persist: {
 		storage: localStorage,
-		path: [!'showFooter'],
 	},
 });
+
+export { ConversationStore };

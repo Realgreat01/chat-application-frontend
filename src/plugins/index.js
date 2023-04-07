@@ -31,9 +31,27 @@ function abbreviateNumber(value) {
 	}
 }
 
+var startingX, startingY, movingX, movingY;
+function touchStart(evt) {
+	startingX = evt.touches[0].clientX;
+	startingY = evt.touches[0].clientY;
+	// console.log(evt);
+}
+function touchMove(evt) {
+	movingX = evt.touches[0].clientX;
+	movingY = evt.touches[0].clientY;
+}
+function touchEnd() {
+	if (startingX + 100 < movingX) return 1;
+	if (startingX - 100 > movingX) return -1;
+}
+
 const plugin = {
 	convertImageToBase64URI,
 	abbreviateNumber,
+	touchStart,
+	touchMove,
+	touchEnd,
 };
 export { convertImageToBase64URI, abbreviateNumber };
 export { plugin };

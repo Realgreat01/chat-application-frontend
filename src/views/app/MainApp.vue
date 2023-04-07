@@ -3,7 +3,9 @@
 		class="scroll mx-auto flex h-screen w-full flex-col rounded-t-lg border-y-transparent bg-brand-dark transition delay-150 ease-in-out">
 		<div
 			class="fixed top-0 z-50 mx-auto flex h-[4rem] w-full items-center justify-between rounded-lg bg-brand px-4 md:w-1/3">
-			<h2 class="text-4xl font-semibold">{{ activeComponent.title }}</h2>
+			<h2 class="text-4xl font-semibold">
+				{{ activeComponent.title }}
+			</h2>
 		</div>
 		<div class="h-full overflow-y-scroll pt-[4rem]">
 			<div
@@ -11,7 +13,11 @@
 				<div
 					class=""
 					v-for="(component, index) in DashboardComponent"
-					@click="(activeComponent = component), (state.homeTab = index)"
+					@click="
+						(activeComponent = component),
+							(currentTabIndex = index),
+							(state.homeTab = index)
+					"
 					:key="index">
 					<component
 						:is="component.icon"
@@ -23,7 +29,14 @@
 						" />
 				</div>
 			</div>
-			<component :is="activeComponent.component" />
+
+			<div ref="swipeContainer">
+				<component
+					:is="activeComponent.component"
+					@touchstart="e => plugin.touchStart(e)"
+					@touchmove="e => plugin.touchMove(e)"
+					@touchend="e => (scroll = plugin.touchEnd())" />
+			</div>
 		</div>
 	</div>
 </template>
@@ -33,7 +46,10 @@ import ChatHistoryComponent from '@/components/chats/ChatHistoryComponent.vue';
 import CommunityComponent from '@/components/chats/CommunityComponent.vue';
 import NewsfeedComponent from '@/components/posts/NewsfeedComponent.vue';
 import { ConversationStore } from '@/stores/conversation-details.js';
+import { storeToRefs } from 'pinia';
+
 import { useSwipe } from '@vueuse/core';
+import { plugin } from '@/plugins';
 import {
 	NewspaperIcon,
 	UserGroupIcon,
@@ -41,10 +57,14 @@ import {
 } from '@heroicons/vue/24/solid';
 
 import { RiArticleLine } from 'vue-remix-icons';
-import { shallowRef, ref } from 'vue';
+import { shallowRef, ref, watchEffect, watch } from 'vue';
 import { socket } from '@/socket.io';
 
+// const store = storeToRefs(ConversationStore());
 const state = ConversationStore();
+const scroll = ref(null);
+const currentTabIndex = ref(0);
+
 const DashboardComponent = shallowRef([
 	{
 		component: NewsfeedComponent,
@@ -62,7 +82,52 @@ const DashboardComponent = shallowRef([
 		icon: UserGroupIcon,
 	},
 ]);
-const activeComponent = shallowRef(DashboardComponent.value[state.homeTab]);
+let activeComponent = shallowRef(DashboardComponent.value[state.homeTab]);
+
+// const scrollTab = ref(0);
+
+// watch(scroll, (oldValue, newValue) => {
+// 	if (state.homeTab >= DashboardComponent.value.length - 1 && oldValue > 0) {
+// 		console.log('tab highest');
+// 		return false;
+// 	} else if (state.homeTab === 0 && oldValue < 0) {
+// 		console.log('tab 0');
+// 		return false;
+// 	} else {
+// 		console.log({
+// 			current: state.homeTab,
+// 			scroll: state.homeTab + parseInt(oldValue),
+// 		});
+
+// 		if (Boolean(parseInt(oldValue))) {
+// 			scrollTab.value = state.homeTab + parseInt(oldValue);
+// 			activeComponent = shallowRef(
+// 				DashboardComponent.value[state.homeTab + parseInt(oldValue)]
+// 			);
+// 		}
+// 	}
+// });
+
+const swipeContainer = ref(null);
+const onSwipe = event => {
+	// console.log('swiped', event.direction);
+	if (
+		event.direction === 'left' &&
+		state.homeTab < DashboardComponent.value.length - 1
+	) {
+		state.homeTab.value++;
+	} else if (event.direction === 'right' && state.homeTab.value > 0) {
+		state.homeTab.value--;
+	}
+};
+
+const { isSwiping, direction } = useSwipe(swipeContainer);
+// console.log(isSwiping, direction);
+
+watchEffect(() => {
+	state.getHomeTab(currentTabIndex.value);
+	state.currentHomeTab = currentTabIndex.value;
+});
 
 (async function () {
 	if (socket.connected) {

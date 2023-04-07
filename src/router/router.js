@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { isLoggedInGuard, protectedRoutes, routeAuthGuard } from './config';
 import {
+	FeatureTest,
 	GeneralLayout,
 	HomePage,
 	LoginPage,
@@ -10,7 +11,10 @@ import {
 } from './views-imports';
 
 import { AppRoute } from './routes/app-route';
+import { EventsRoute } from './routes/events';
 import { MarketRoute } from './routes/marketplace';
+import { SettingsRoute } from './routes/settings';
+import { TrendsRoute } from './routes/trends';
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +30,13 @@ const router = createRouter({
 			name: 'login',
 			component: LoginPage,
 			beforeEnter: isLoggedInGuard,
+		},
+		{
+			path: '/test',
+			name: 'test',
+			component: FeatureTest,
+			meta: { requiresAuth: true },
+			beforeEnter: protectedRoutes,
 		},
 
 		{
@@ -49,17 +60,15 @@ const router = createRouter({
 		},
 		{
 			path: '/trends',
-			name: 'trends',
 			component: GeneralLayout,
 			meta: { requiresAuth: true },
-			children: [],
+			children: TrendsRoute,
 		},
 		{
 			path: '/events',
-			name: 'events',
 			component: GeneralLayout,
 			meta: { requiresAuth: true },
-			children: [],
+			children: EventsRoute,
 		},
 		{
 			path: '/market-place',
@@ -69,10 +78,9 @@ const router = createRouter({
 		},
 		{
 			path: '/settings',
-			name: 'settings',
 			component: GeneralLayout,
 			meta: { requiresAuth: true },
-			children: [],
+			children: SettingsRoute,
 		},
 
 		{

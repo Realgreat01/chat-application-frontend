@@ -1,7 +1,9 @@
 <template>
 	<div
 		class="scroll relative mx-auto flex h-screen flex-col overflow-y-scroll bg-brand-dark md:w-1/3">
-		<RouterView />
+		<div class="flex-1">
+			<RouterView />
+		</div>
 		<div
 			class="fixed bottom-0 z-[100] mx-auto flex w-full bg-slate-800 md:w-1/3"
 			v-if="state.showFooter">
