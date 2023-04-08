@@ -24,24 +24,36 @@
 			</div>
 			<div>
 				<div
-					v-for="(group, index) in communities.filter(group =>
+					v-for="group in state.allCommunities.filter(group =>
 						group.group_name.toLowerCase().includes(searchedUser.toLowerCase())
 					)"
-					:key="index"
+					:key="group._id"
 					class="sticky top-0 mx-4 mt-4 flex cursor-pointer items-start justify-between rounded-lg border-2 border-transparent border-y-gray-900 bg-gray-900 p-4">
 					<div class="flex gap-x-4">
 						<img
+							v-if="group.group_icon"
 							:src="group.group_icon"
 							alt=""
-							class="block h-16 w-16 rounded-full bg-brand-dark" />
+							class="block h-20 w-20 rounded-full bg-brand-dark" />
+						<p
+							v-else
+							:src="group.group_icon"
+							alt=""
+							style="font-size: 30px"
+							class="material-icons flex h-20 w-20 flex-col items-center justify-center rounded-full bg-gray-500">
+							group
+						</p>
 						<h2 class="flex flex-col">
 							<h2 class="text-2xl font-bold">{{ group.group_name }}</h2>
 							<h2
 								class="flex gap-x-2 text-lg font-thin text-white text-opacity-60">
 								<span class="block text-brand">{{
-									plugin.abbreviateNumber(group.group_members)
+									plugin.abbreviateNumber(group.group_members.length)
 								}}</span>
-								<span class="block">Members</span>
+								<span class="block">
+									<span class="">Member</span>
+									<span v-if="group.group_members.length > 1">s</span>
+								</span>
 							</h2>
 						</h2>
 					</div>
@@ -51,8 +63,15 @@
 						Joined
 					</button>
 					<button
+						v-else-if="group.joining"
+						disabled
+						class="cursor-not-allowed rounded bg-orange-800 px-4 py-1 text-xl text-white shadow-brand drop-shadow">
+						Joining
+					</button>
+					<button
 						v-else
-						class="glowing-box glowing-text rounded bg-brand px-4 py-1 text-xl text-white shadow-brand drop-shadow">
+						@click="joinCommunity(group)"
+						class="glowing-box rounded bg-brand px-6 py-1 text-xl text-brand-dark shadow-brand drop-shadow">
 						Join
 					</button>
 				</div>
@@ -65,34 +84,29 @@
 import { ref, onMounted, onBeforeMount } from 'vue';
 import axios from '@/axios';
 import NotFoundImage from '@/assets/images/404Image.svg';
+import ButtonComponent from '@/components/reusables/ButtonComponent.vue';
 import { format } from 'timeago.js';
 import { plugin } from '@/plugins';
 import { ConversationStore } from '@/stores/conversation-details.js';
-import { RouterLink } from 'vue-router';
 const state = ConversationStore();
 
 const searchedUser = ref('');
 const showSearch = ref(false);
+
 const noUserFound = ref(false);
 
-const communities = ref([
-	{
-		group_name: 'Chat GPT Lovers',
-		group_members: 890292920,
-		joined: true,
-		group_icon: 'http://chat-application-8v6l.onrender.com/assets/female/1.png',
-	},
-	{
-		group_name: 'Kings Birth',
-		group_members: 578,
-		group_icon: 'http://chat-application-8v6l.onrender.com/assets/male/3.png',
-	},
-	{
-		group_name: 'Jesus Lovers',
-		group_members: 89990,
-		group_icon: 'http://chat-application-8v6l.onrender.com/assets/female/3.png',
-	},
-]);
+const joinCommunity = async group => {
+	try {
+		group.joining = true;
+		console.log(group);
+		await state.joinCommunity(group.group_id);
+	} catch (error) {
+	} finally {
+		group.joining = false;
+	}
+};
+
+onMounted(async () => await state.getAllCommunities());
 </script>
 
 <style lang="scss" scoped></style>

@@ -125,7 +125,6 @@ const { isSwiping, direction } = useSwipe(swipeContainer);
 // console.log(isSwiping, direction);
 
 watchEffect(() => {
-	state.getHomeTab(currentTabIndex.value);
 	state.currentHomeTab = currentTabIndex.value;
 });
 

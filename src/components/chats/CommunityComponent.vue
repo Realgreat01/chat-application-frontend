@@ -8,28 +8,40 @@
 		</h2>
 		<div
 			class="my-5 px-5"
-			v-if="UserChatRooms.length > 0">
+			v-if="state.UserCommunities.length > 0">
 			<div
 				class="mx-auto my-4 flex w-full gap-x-8 rounded-2xl bg-slate-900 p-3"
-				v-for="(group, index) in UserChatRooms"
+				v-for="(group, index) in state.UserCommunities"
 				:key="index">
 				<img
+					v-if="group.group_icon"
 					:src="group.group_icon"
 					alt=""
 					class="block h-20 w-20 rounded-full bg-brand-dark" />
+				<p
+					v-else
+					:src="group.group_icon"
+					alt=""
+					style="font-size: 30px"
+					class="material-icons flex h-20 w-20 flex-col items-center justify-center rounded-full bg-gray-500">
+					group
+				</p>
+
 				<h2 class="flex flex-col">
 					<h2 class="text-2xl font-bold">{{ group.group_name }}</h2>
 					<h2 class="flex gap-x-2 text-lg font-thin text-white text-opacity-60">
 						<span class="block text-brand">{{
-							plugin.abbreviateNumber(group.group_members)
+							plugin.abbreviateNumber(group.group_members.length)
 						}}</span>
-						<span class="block">Members</span>
+						<span class="block"
+							>Member <span v-if="group.group_members.length > 1">s</span>
+						</span>
 					</h2>
 					<h2 class="text-slate-500">
-						<span class="font-medium capitalize text-slate-400"
-							>{{ group.last_message.sender }} :
+						<span class="font-medium capitalize text-slate-400">
+							<!-- {{ group.last_message.sender }} : -->
 						</span>
-						{{ group.last_message.message }}
+						<!-- {{ group.last_message.message }} -->
 					</h2>
 				</h2>
 			</div>
@@ -60,38 +72,19 @@
 				>group_add</span
 			>
 		</router-link>
+		<!-- <CreateCommunity @post_created="(createNewPost = false), state.getNewsFeed()" /> -->
 	</div>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
 import { plugin } from '@/plugins';
+// import CreateCommunity from "./CreateCommunity.vue";
 import LogoIcon from '/logo.svg';
 import { ConversationStore } from '@/stores/conversation-details.js';
 const state = ConversationStore();
 
-const UserChatRooms = ref([
-	{
-		group_name: 'Chat GPT Users',
-		group_members: 890292920,
-		group_icon: 'http://chat-application-8v6l.onrender.com/assets/female/1.png',
-		last_message: { sender: 'olakunle', message: "hey I'm new here" },
-	},
-	{
-		group_name: 'Kings Birth',
-		group_members: 578,
-		group_icon: 'http://chat-application-8v6l.onrender.com/assets/male/3.png',
-		last_message: { sender: 'Elon Musk', message: 'hey, this is awesome man' },
-	},
-	{
-		group_name: 'Jesus Lovers',
-		group_members: 89990,
-		group_icon: 'http://chat-application-8v6l.onrender.com/assets/female/3.png',
-		last_message: { sender: 'Kingsley', message: 'We have a prayer by 8pm' },
-	},
-]);
-
-onMounted(async () => {});
+onMounted(async () => await state.getUserCommunities());
 </script>
 
 <style lang="scss" scoped></style>

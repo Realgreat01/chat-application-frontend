@@ -209,9 +209,7 @@ const getIcon = icon => {
 // 	}
 // }
 
-onMounted(async () => {
-	await state.getNewsFeed();
-});
+onMounted(async () => await state.getNewsFeed());
 </script>
 
 <style lang="scss" scoped></style>

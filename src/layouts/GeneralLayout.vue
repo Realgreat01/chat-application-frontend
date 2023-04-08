@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="scroll relative mx-auto flex h-screen flex-col overflow-y-scroll bg-brand-dark md:w-1/3">
-		<div class="flex-1">
+		<div>
 			<RouterView />
 		</div>
 		<div

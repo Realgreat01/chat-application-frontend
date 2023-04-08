@@ -8,6 +8,8 @@ const ConversationStore = defineStore('store', {
 			NewsFeed: [],
 			allUsers: [],
 			chatHistory: [],
+			allCommunities: [],
+			UserCommunities: [],
 			showFooter: true,
 			homeTab: 0,
 			currentHomeTab: 0,
@@ -44,9 +46,39 @@ const ConversationStore = defineStore('store', {
 				return this.NewsFeed;
 			} catch (error) {}
 		},
+		async getUserCommunities() {
+			try {
+				const { data } = await axios.get('/user/community');
+				console.log({ communities: data });
+				this.UserCommunities = data;
+				return this.UserCommunities;
+			} catch (error) {}
+		},
 
-		getHomeTab(value) {
-			this.homeTab = parseInt(value);
+		async getAllCommunities() {
+			try {
+				const { data } = await axios.get('/community');
+				for (const group of data) group.joining = false;
+				console.log(data);
+				this.allCommunities = data;
+				return this.allCommunities;
+			} catch (error) {}
+		},
+
+		async joinCommunity(id) {
+			try {
+				await axios.post('/join-community/' + id);
+				this.getAllCommunities();
+				this.getUserCommunities();
+			} catch (error) {}
+		},
+
+		async leaveCommunity(id) {
+			try {
+				await axios.post('/leave-community/' + id);
+				this.getAllCommunities();
+				this.getUserCommunities();
+			} catch (error) {}
 		},
 	},
 	persist: {
