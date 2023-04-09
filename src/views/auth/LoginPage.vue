@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="fixed top-0 left-0 z-50 flex h-screen w-screen flex-col items-center justify-center bg-gray-800 p-10">
+		class="fixed left-0 top-0 z-50 flex h-screen w-screen flex-col items-center justify-center bg-gray-800 p-10">
 		<div
 			class="mx-auto flex w-full flex-col items-center justify-center rounded-xl bg-brand-dark p-[2rem] md:w-1/3">
 			<div class="relative w-full">
@@ -41,7 +41,7 @@
 								class="relative block h-[4rem] w-full rounded border bg-transparent p-2 pl-4 text-3xl placeholder:lowercase focus:border-brand focus:outline-none focus:ring-transparent" />
 							<div
 								v-if="credential.value === 'password'"
-								class="absolute top-3 right-3 mr-10 flex cursor-pointer">
+								class="absolute right-3 top-3 mr-10 flex cursor-pointer">
 								<span
 									class="material-icons absolute top-1/2"
 									v-if="credential.type === 'password'"
@@ -92,7 +92,9 @@ import Message from 'vue-m-message';
 import axios from '@/axios';
 import { useRouter } from 'vue-router';
 import ButtonComponent from '@/components/reusables/ButtonComponent.vue';
+import { ConversationStore } from '@/stores/conversation-details.js';
 
+const state = ConversationStore()
 const router = useRouter();
 const loading = ref(false);
 const userDetails = ref({});
@@ -123,6 +125,7 @@ const signIn = async () => {
 			position: 'top-right',
 		});
 		localStorage.setItem('auth-token', token);
+		await state.getCurrentUser()
 		setTimeout(() => {
 			router.replace({ name: 'app' });
 		}, 1500);

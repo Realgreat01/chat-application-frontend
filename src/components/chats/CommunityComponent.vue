@@ -2,7 +2,7 @@
 	<div class="">
 		<h2 class="sticky top-0 z-50 my-6 flex items-center justify-between px-5">
 			<h2 class="text-3xl font-black">Your Communities</h2>
-			<button class="rounded-lg bg-brand px-4 py-2 text-brand-dark">
+			<button class="rounded-lg bg-brand px-4 py-2 text-brand-dark" @click="createNewCommunity = true">
 				Create Community
 			</button>
 		</h2>
@@ -33,8 +33,9 @@
 						<span class="block text-brand">{{
 							plugin.abbreviateNumber(group.group_members.length)
 						}}</span>
-						<span class="block"
-							>Member <span v-if="group.group_members.length > 1">s</span>
+						<span class="block">
+							<span class="">Member</span>
+							<span v-if="group.group_members.length > 1">s</span>
 						</span>
 					</h2>
 					<h2 class="text-slate-500">
@@ -44,6 +45,22 @@
 						<!-- {{ group.last_message.message }} -->
 					</h2>
 				</h2>
+				<button
+					class="ml-auto flex h-10 items-center justify-center justify-self-end rounded text-xl"
+					v-if="group.creator !== state.user._id">
+					<span
+						v-if="group.leaving"
+						disabled
+						class="h-full w-full cursor-not-allowed rounded bg-orange-800 px-4 py-1 text-white">
+						Leaving ...
+					</span>
+					<span
+						v-else
+						@click="leaveCommunity(group)"
+						class="rounded bg-gray-700 px-4 py-1 text-xl text-gray-100">
+						Leave Group
+					</span>
+				</button>
 			</div>
 		</div>
 		<div
@@ -58,7 +75,7 @@
 				No Communities yet! <br />
 				<br />
 				<span class="text-3xl"
-					>Join a community by create a one new with the button below</span
+					>Join a community or Create a one new with the button below</span
 				>
 			</h2>
 		</div>
@@ -72,18 +89,32 @@
 				>group_add</span
 			>
 		</router-link>
-		<!-- <CreateCommunity @post_created="(createNewPost = false), state.getNewsFeed()" /> -->
+		<div
+			class="fixed bottom-0 z-50 mx-auto w-full md:w-1/3"
+			v-if="createNewCommunity">
+			<CreateCommunity @community_created="(createNewCommunity = false), state.getUserCommunities()" />
+		</div>
 	</div>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
 import { plugin } from '@/plugins';
-// import CreateCommunity from "./CreateCommunity.vue";
+import CreateCommunity from "./CreateCommunity.vue";
 import LogoIcon from '/logo.svg';
 import { ConversationStore } from '@/stores/conversation-details.js';
 const state = ConversationStore();
-
+const createNewCommunity = ref(false);
+const leaveCommunity = async group => {
+	try {
+		group.leaving = true;
+		await state.leaveCommunity(group.group_id);
+	} catch (error) {
+		console.log(error);
+	} finally {
+		group.leaving = false;
+	}
+};
 onMounted(async () => await state.getUserCommunities());
 </script>
 

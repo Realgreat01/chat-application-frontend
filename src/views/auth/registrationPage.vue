@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="relative top-0 left-0 z-50 flex min-h-screen w-screen items-center justify-center overflow-y-scroll bg-gray-900 p-5 md:p-10">
+		class="relative left-0 top-0 z-50 flex min-h-screen w-screen items-center justify-center overflow-y-scroll bg-gray-900 p-5 md:p-10">
 		<div class="mx-auto flex h-fit w-full rounded-xl p-[0rem] md:w-1/3">
 			<div
 				class="relative h-fit w-full flex-col items-center justify-center bg-brand-dark shadow-xl">
@@ -15,7 +15,7 @@
 				</h1>
 				<form
 					@submit.prevent="RegisterUser"
-					class="mx-auto flex w-full flex-col justify-evenly rounded py-10 px-5 shadow-lg md:w-[40rem] md:px-20">
+					class="mx-auto flex w-full flex-col justify-evenly rounded px-5 py-10 shadow-lg md:w-[40rem] md:px-20">
 					<div
 						v-for="(field, index) in forms"
 						:key="index"
@@ -43,7 +43,7 @@
 						</div>
 						<div
 							v-if="field.title.includes('password')"
-							class="absolute top-[4rem] right-3 mr-10 flex cursor-pointer">
+							class="absolute right-3 top-[4rem] mr-10 flex cursor-pointer">
 							<span
 								v-if="field.type === 'password'"
 								@click="field.type = 'text'"
@@ -87,7 +87,7 @@
 					<div
 						class=""
 						v-if="showGender">
-						<div class="scroll mt-2 mb-2 h-fit pr-1 duration-1000">
+						<div class="scroll mb-2 mt-2 h-fit pr-1 duration-1000">
 							<div
 								v-for="(gender, index) in genders"
 								:key="index">
@@ -153,11 +153,13 @@ import { ref } from 'vue';
 import axios from '@/axios';
 import { useRouter } from 'vue-router';
 import Message from 'vue-m-message';
+import { ConversationStore } from '@/stores/conversation-details.js';
 import ButtonComponent from '@/components/reusables/ButtonComponent.vue';
 
 const router = useRouter();
 const loading = ref(false);
 const serverError = ref({});
+const state = ConversationStore();
 const UserCredentials = ref({ password: '', confirm_password: '' });
 
 const showGender = ref(false);
@@ -185,9 +187,10 @@ const RegisterUser = async () => {
 				loading.value = true;
 				const { data } = await axios.post('/register', UserCredentials.value);
 				localStorage.setItem('auth-token', data.token);
+				await state.getCurrentUser();
 				router.push({ name: 'app' });
 				serverError.value = {};
-				Message.success('Login Successful');
+				Message.success('Registration Successful');
 			} catch (error) {
 				if (error.name.includes('Axios')) {
 					serverError.value = error.response.data;

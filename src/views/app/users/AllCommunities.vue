@@ -58,7 +58,12 @@
 						</h2>
 					</div>
 					<button
-						v-if="group.joined"
+						v-if="group.creator === state.user._id"
+						class="rounded bg-gray-700 px-4 py-1 text-xl text-gray-100">
+						Creator
+					</button>
+					<button
+						v-else-if="group.joined"
 						class="rounded bg-gray-700 px-4 py-1 text-xl text-gray-100">
 						Joined
 					</button>
@@ -77,6 +82,15 @@
 				</div>
 			</div>
 		</div>
+		<router-link
+			:to="{ name: 'app' }"
+			style="font-size: 20px"
+			class="material-icons fixed bottom-24 mx-auto flex h-fit w-full items-center md:w-1/3">
+			<span
+				class="material-icons absolute right-10 self-end rounded-full border p-4"
+				>groups</span
+			>
+		</router-link>
 	</div>
 </template>
 
@@ -98,11 +112,10 @@ const noUserFound = ref(false);
 const joinCommunity = async group => {
 	try {
 		group.joining = true;
-		console.log(group);
 		await state.joinCommunity(group.group_id);
 	} catch (error) {
 	} finally {
-		group.joining = false;
+		setTimeout(() => (group.joining = false), 500);
 	}
 };
 

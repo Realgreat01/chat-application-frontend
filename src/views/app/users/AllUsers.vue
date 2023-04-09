@@ -94,11 +94,11 @@
 		<router-link
 			:to="{ name: 'app' }"
 			style="font-size: 20px"
-			class="material-icons fixed bottom-20 mx-auto flex h-fit w-full items-center md:w-1/3">
+			class="material-icons fixed bottom-24 mx-auto flex h-fit w-full items-center md:w-1/3">
 			<span
-				class="material-icons absolute right-10 self-end rounded-full border p-4"
-				>message</span
-			>
+				class="material-icons absolute right-10 self-end rounded-full border p-4">
+				message
+			</span>
 		</router-link>
 	</div>
 </template>

@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import Message from 'vue-m-message';
 import axios from '../axios';
 
 const ConversationStore = defineStore('store', {
@@ -36,6 +37,7 @@ const ConversationStore = defineStore('store', {
 			try {
 				const { data } = await axios.get('/user');
 				this.user = data;
+				console.log(data);
 				return this.user;
 			} catch (error) {}
 		},
@@ -49,8 +51,9 @@ const ConversationStore = defineStore('store', {
 		async getUserCommunities() {
 			try {
 				const { data } = await axios.get('/user/community');
-				console.log({ communities: data });
+				for (const group of data) group.leaving = false;
 				this.UserCommunities = data;
+				console.log({ usercommunititees: data });
 				return this.UserCommunities;
 			} catch (error) {}
 		},
@@ -68,17 +71,23 @@ const ConversationStore = defineStore('store', {
 		async joinCommunity(id) {
 			try {
 				await axios.post('/join-community/' + id);
-				this.getAllCommunities();
-				this.getUserCommunities();
-			} catch (error) {}
+				await this.getAllCommunities();
+				Message.success('Successfully joined group');
+			} catch (error) {
+				console.log(error);
+				Message.error('Unable to group');
+			}
 		},
 
 		async leaveCommunity(id) {
 			try {
 				await axios.post('/leave-community/' + id);
-				this.getAllCommunities();
-				this.getUserCommunities();
-			} catch (error) {}
+				await this.getUserCommunities();
+				Message.success('Successfully left group');
+			} catch (error) {
+				console.log(error);
+				Message.error('Unable to leave group');
+			}
 		},
 	},
 	persist: {
