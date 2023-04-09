@@ -13,3 +13,7 @@ export const socket = io(import.meta.env.VITE_SOCKET_URL, {
 
 socket.on('get-online-users', users => (state.allUsers = users));
 socket.on('get-chat-history', chatHistory => (state.chatHistory = chatHistory));
+
+socket.on('disconnect', () => {
+	socket.emit('user-is-disconnected', state.user._id);
+});
